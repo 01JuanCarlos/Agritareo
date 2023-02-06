@@ -1,0 +1,62 @@
+id          = "CC5FC137-F262-EA11-A2C0-AC1F6B804959" # Identficador de corporación único.
+title       = "Nisira ERP" # Nombre de la aplicación
+
+[api]
+version         = "v1" # Version actual del api.
+temp_prefix     = "nisiraerp" # Prefijo de la carpeta de almacenamiento temporal de la app.
+temp_pdf        = "./pdf" # Carpeta de almacenamiento temporal para guardar los archivos pdf generados.
+python_bin      = "C:\\Python3\\python.exe" # Directorio bin de python
+report_file     = "GenerateReport.py" # Ruta del archivo para generar archivos pdf.
+expire_session  = 12 # Duración de la sesión de usuario en horas.
+
+# Servidor remoto de actualizaciones automaticas.
+[fetch_server]
+host = "68.168.102.226"   # Dominio/IP del servidor
+port = 8050 # Puerto del servidor
+
+[http_server]
+host = ""   # Dominio/IP del servidor
+port = 8000 # Puerto del servidor
+
+# Dominio / IP de aplicaciones web permitidas por la aplicación
+origins = [
+    "http://localhost:4200",
+    "http://localhost:9080",
+    "http://erp.nisira.com.pe",
+    "https://gesagricola.nisiracloud.com.pe",
+    "https://mosqueta.nisiracloud.com.pe",
+    "https://greenfruits.nisiracloud.com.pe",
+    "https://api.gesagricola.nisiracloud.com.pe",
+    "https://sunfruits.nisiracloud.com.pe"
+
+]
+
+# Configuración extra de base de datos.
+[database]
+    # Servidor de base de datos relacional
+    [database.sql]
+    prefix  = "NS" # Prefijo de tablas y procedimentos por defecto es [NS]
+    schema  = "dbo" # Esquema de la base de datos por defecto es [dbo]
+    enabled = false # Si se habilita se tene que especificar los datos en [database.sql.connection]
+
+    [database.sql.connection]
+        host        = "" # Dominio / IP del servidor de base de datos
+        port        = 0 # Puerto del servidor de base de datos
+        user        = "" # Usuario de base de datos
+        password    = "" # Clave de usuario de base de datos
+        instance    = "" # Instancia de base de datos
+
+    # Las empresas de la corporación
+    #[[database.sql.companies]]
+    #id     = 0 # Id de la empresa
+    #name   = "" # Nombre de la empresa
+
+    # Servidor de base de datos no relacional
+    [database.nosql]
+    enabled = false # Si se habilita se tene que especificar los datos en [database.nosql.connection]
+
+    [database.nosql.connection]
+        host = "" # Dominio / IP del servidor de base de datos
+        port = 0 # Puerto del servidor de base de datos
+        user        = "" # Usuario de base de datos
+        password    = "" # Clave de usuario de base de datos

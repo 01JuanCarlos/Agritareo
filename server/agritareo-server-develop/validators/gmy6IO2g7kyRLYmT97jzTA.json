@@ -1,0 +1,8 @@
+{
+  "codigo": "required,max=15,min=2,notBlank",
+  "nombre": "required,max=250,notBlank",
+  "es_de_mantenimiento": "notBlank",
+  "es_para_produccion": "notBlank",
+  "es_para_activo": "notBlank",
+  "es_para_vehiculos": "notBlank"
+}

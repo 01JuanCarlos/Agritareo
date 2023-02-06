@@ -1,0 +1,8 @@
+*.log
+*.exe
+.vscode
+.idea
+src/sessions/
+file/
+images/
+test/

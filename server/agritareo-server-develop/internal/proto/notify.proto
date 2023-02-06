@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package proto;
+
+message NotifyRequest {
+    string appId = 1;
+    bool receiveNotify = 2;
+}
+
+enum NotifyType {
+    ERROR = 0;
+    SUCCESS = 1;
+    WARNING = 2;
+    INFO = 3;
+}
+
+message Notify {
+    NotifyType type = 1;
+    bytes message = 2;
+    int64 time = 3;
+    int32 userId = 4;
+    string test = 5;
+}

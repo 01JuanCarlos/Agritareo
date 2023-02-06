@@ -1,0 +1,6 @@
+{
+  "codigo": "required,min=3,max=20,notBlank",
+  "idproducto": "required,notBlank",
+  "grupo": "required,notBlank",
+  "idsubgrupo": "required,notBlank"
+}

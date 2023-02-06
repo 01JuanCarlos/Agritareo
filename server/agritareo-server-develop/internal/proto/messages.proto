@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package proto;
+
+message MessagesRequest {
+}
+
+message Message {
+    int32 code = 1;
+    int32 severity = 2;
+    string message = 3;
+    int32 languageId = 4;
+    string language = 5;
+    string cause = 6;
+    string correctiveAction = 7;
+}
+
+message MessagesResponse {
+    repeated Message messages = 1;
+}

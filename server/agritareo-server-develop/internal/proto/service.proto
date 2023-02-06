@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package proto;
+
+
+service AddService {
+    rpc GetSunat (Empty) returns (Response);
+    rpc GetApp (Request) returns (Response);
+    rpc GetSbs (Request) returns (Response);
+}
+
+message Request {
+    string corporacion = 1;
+    string inicio = 2;
+    string fin = 3;
+    string moneda = 4;
+}
+
+message Response {
+    string result = 1;
+}
+
+message Empty {
+
+}
+

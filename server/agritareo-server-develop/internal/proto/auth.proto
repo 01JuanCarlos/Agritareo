@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package proto;
+
+message RegisterRequest {
+    string appId = 1;
+    string corporationId = 2;
+    string ipAddress = 3;
+}
+
+message RegisterResponse {
+    bool isAuth = 1;
+    string appId = 2;
+    int32 authType = 4;
+
+    message Corporation {
+        string id = 1;
+        string uuid = 2;
+        string appId = 7;
+        string name = 3;
+        string sub_domain = 4;
+        message Company {
+            int32 id = 1;
+            string uuid = 2;
+            string name = 3;
+        }
+
+        repeated Company companies = 5;
+
+        message Connection {
+            string ip = 1;
+            string port = 2;
+            string instance = 3;
+            string database = 4;
+            string username = 5;
+            string password = 6;
+            string driver = 7;
+            string string_connection = 8;
+        }
+
+        repeated Connection connections = 6;
+    }
+
+    repeated Corporation corporations = 3;
+
+    message Language {
+        int32 id = 1;
+        string name = 2;
+        string alias = 3;
+        string acronym = 4;
+    }
+
+    repeated Language languages = 5;
+}

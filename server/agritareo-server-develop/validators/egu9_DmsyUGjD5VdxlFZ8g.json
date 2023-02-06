@@ -1,0 +1,9 @@
+{
+	"habilitado": "",
+	"nombre": "max=250,min=5",
+	"nombre_corto": "max=15,min=2",
+	"color": "hexcolor",
+	"pickercolor": "hexcolor",
+	"transaction_uid": "-",
+	"id": "-"
+}

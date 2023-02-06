@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package proto;
+
+message ExchangeRequest {
+
+}
+
+
+message Exchange {
+    double buy = 1;
+    double sale = 2;
+    string date = 3;
+}
+
+message ExchangeResponse {
+    repeated Exchange sunat = 1;
+    repeated Exchange sbs = 2;
+}

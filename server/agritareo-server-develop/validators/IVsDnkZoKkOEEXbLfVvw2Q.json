@@ -1,0 +1,4 @@
+{
+  "codigo": "required,max=15,min=2,notBlank",
+  "nombre": "required,min=3,max=250,notBlank"
+}

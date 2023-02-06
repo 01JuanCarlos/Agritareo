@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package proto;
+
+enum UpdateType {
+    MESSAGES = 0;
+    UPGRADE = 1;
+}
+
+message UpdaterRequest {
+    string appId = 1;
+}
+
+message Updater {
+    UpdateType type = 1;
+}

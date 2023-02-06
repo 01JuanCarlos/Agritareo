@@ -1,0 +1,21 @@
+{
+  "name": "agritareo-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/ns-desarrollo-web/agritareo/agritareo-server.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/ns-desarrollo-web/agritareo/agritareo-server/issues"
+  },
+  "homepage": "https://gitlab.com/ns-desarrollo-web/agritareo/agritareo-server#readme"
+}

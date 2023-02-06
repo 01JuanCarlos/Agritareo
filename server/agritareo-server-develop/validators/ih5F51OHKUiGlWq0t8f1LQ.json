@@ -1,0 +1,9 @@
+{
+  "codigo": "required,notBlank",
+  "codigo_sunat": "notBlank",
+  "nombre": "required,notBlank",
+  "nombre_corto": "notBlank",
+  "tipo": "notBlank",
+  "orden_afectacion": "notBlank",
+  "igv_no_domiciliado": "notBlank"
+}

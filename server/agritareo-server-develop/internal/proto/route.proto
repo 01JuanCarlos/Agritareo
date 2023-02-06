@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package proto;
+
+import "internal/proto/messages.proto";
+import "internal/proto/updater.proto";
+import "internal/proto/notify.proto";
+import "internal/proto/auth.proto";
+import "internal/proto/exchange-rate.proto";
+
+service Route {
+    rpc Register (RegisterRequest) returns (RegisterResponse);
+
+    // deprecated
+    rpc InitApp (RegisterRequest) returns (RegisterResponse);
+    rpc GetMessages (MessagesRequest) returns (MessagesResponse);
+    rpc Exchange (ExchangeRequest) returns (ExchangeResponse);
+
+    rpc NotifyStream (NotifyRequest) returns (stream Notify);
+    rpc UpdaterStream (stream UpdaterRequest) returns (stream Updater);
+}
