@@ -1,0 +1,41 @@
+:host {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+[hidden] {
+  display: none;
+}
+
+::ng-deep {
+  .fertilizacion-wrapper {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px dashed rgb(160, 105, 23);
+    // border: 2px dashed transparent;
+    font-weight: bold;
+    font-size: 14px;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    display: block;
+    position: fixed;
+    text-align: center;
+    padding: 5px 10px;
+    border-radius: 7.5px;
+    color: #ddd;
+  }
+    .label-first {
+      color: yellow;
+      font-size: 16px;
+    }
+
+    .label-second {
+      color: white;
+    }
+    .label-sub{
+      color: #116FBF;
+    }
+  
+}

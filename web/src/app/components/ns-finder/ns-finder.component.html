@@ -1,0 +1,68 @@
+<div
+  (keydown.arrowdown)="keyfn(1)"
+  (keydown.arrowup)="keyfn(-1)"
+  (keydown.enter)="onSelect()"
+  class="input-group input-group-sm ns-finder"
+  #finder>
+  <span class="input-group-prepend">
+    <div class="input-group input-group-sm">
+        <!-- (click)="advancedSearch && (!loading && !disabled && !readonly && onAdvancedSearch())" -->
+      <input
+        *ngIf="showInputCode"
+        autocomplete="off"
+        (focus)="onInputCodeFocus()"
+        (blur)="onInputCodeBlur()"
+        (input)="onSearchCode($event.target.value)"
+        [(ngModel)]="codeValue"
+        [disabled]="disabled"
+        [readonly]="readonly"
+        type="text"
+        class="form-control input-code"
+        placeholder="Código">
+    </div>
+  </span>
+  <input
+    [(ngModel)]="labelValue"
+    (focus)="onInputLabelFocus()"
+    (blur)="onInputLabelBlur()"
+    (input)="onSearchLabel($event.target.value)"
+    [disabled]="disabled"
+    [readonly]="readonly"
+    type="text" class="form-control input-description"
+    placeholder="Descripción"
+    #labelInput>
+</div>
+
+<!-- <ns-modal title="Búsqueda avanzada" size="lg" (hide)="destroyAdvanced()" #modal>
+  <ng-template #advanced></ng-template>
+</ns-modal> -->
+
+<div [hidden]="!showResult" class="results list-group" #resultbox>
+  <ng-container *ngFor="let item of result; trackBy: trackByFn; let last = last; let first = first; let i = index">
+    <a href="#"
+      tabindex="-1"
+      class="list-group-item list-group-item-action"
+      [ngClass]="{'list-group-item-active': selectedIndex === i}"
+      (click)=" $event.preventDefault();onSelect(item, $event.target)">
+      <div class="flex-fill">
+        <div class="d-flex justify-content-between">
+          <div class="d-flex">
+            <div class="d-flex justify-content-center flex-column">
+              <span class="font-weight-semibold">
+                <i *ngIf="item.icon" [ngClass]="item.icon" class="mr-1"></i>
+              </span>
+            </div>
+            <div class="d-flex flex-column ml-1">
+              <span class="label">{{item.label}}</span>
+              <small class="text-muted description">{{item?.description}}</small>
+            </div>
+          </div>
+          <div class="d-flex justify-content-center flex-column">
+            <span class="text-muted text-muted-label">{{item.badge}}</span>
+          </div>
+        </div>
+      </div>
+    </a>
+    <div *ngIf="!last" class="list-group-item list-group-divider"></div>
+  </ng-container>
+</div>

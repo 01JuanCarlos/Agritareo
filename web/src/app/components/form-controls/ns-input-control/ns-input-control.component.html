@@ -1,0 +1,53 @@
+<ng-container [ngTemplateOutlet]="addonInputControl" [ngTemplateOutletContext]="{ type: 'prepend', $implicit: addons[ADDON_PREPEND] }"></ng-container>
+
+<input
+  #input
+  [id]="id"
+  [value]="value"
+  [disabled]="disabled"
+  (input)="onChangeValue($event.target.value)"
+  class="form-control"
+  [name]="name || formControlName"
+  [ngClass]="__controlClass"
+  [attr.maxlength]="maxlength"
+  autocomplete="off"
+  [type]="type"
+  [placeholder]="placeholder || ''"
+  [required]="required"
+  [readonly]="readonly"
+  [attr.min]="min"
+  [attr.max]="max"
+  [attr.step]="step"
+  (focus)="focus.emit($event);"
+  (blur)="blur.emit($event);onTouched($event)"
+  (keydown.arrowdown)="keyArrowDown.emit()"
+  (keydown.arrowup)="keyArrowUp.emit()"
+  (keydown.tab)="keyTab.emit()"
+  (keydown.enter)="keyEnter.emit()">
+
+<div class="w-100" *ngIf="hasError && (touched || dirty)">
+  <small class="text-danger" translate>{{_getError}}</small>
+</div>
+
+<ng-container [ngTemplateOutlet]="addonInputControl" [ngTemplateOutletContext]="{ type: 'append', $implicit: addons[ADDON_APPEND] }"></ng-container>
+<div *ngIf="_isFeedback" [ngClass]="_feedBackContainerClass">
+  <i [ngClass]="iconFeedbackLeft || iconFeedbackRight"></i>
+</div>
+
+<ng-template #addonInputControl let-type="type" let-items>
+  <span *ngIf="items.length" [ngClass]="'input-group-'+type">
+    <ng-container *ngFor="let it of items">
+      <span *ngIf="!it.isBtn && !it.callback && !it.template" class="input-group-text" [ngClass]="it.class">
+        <i *ngIf="it.icon" [class]="it.icon"></i>&nbsp;{{it.text || ''}}
+      </span>
+      <button *ngIf="it.isBtn || it.callback" (click)="it.callback && it.callback(it)" class="btn" type="button" [ngClass]="it.class">
+        <i *ngIf="it.icon" [class]="it.icon"></i>&nbsp;{{it.text || ''}}
+      </button>
+      <span class="input-group-text" *ngIf="it.template">
+        <ng-container *ngTemplateOutlet="it.template.template"></ng-container>
+      </span>
+    </ng-container>
+  </span>
+</ng-template>
+<span *ngIf="showClear && value.length" class="clearbtn" (click)="clearInput()"> <i class="icon-cross3"></i> </span>
+<ng-content></ng-content>

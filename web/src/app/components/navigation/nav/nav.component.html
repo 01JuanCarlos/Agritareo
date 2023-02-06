@@ -1,0 +1,30 @@
+<ul class="nav nav-sidebar" [ngClass]="__rootClass" [attr.data-nav-type]="type">
+  <ng-template #recursiveItems let-items>
+    <!-- TODO: Setear una barrita roja al item seleccionado por defecto-->
+    <li [ngClass]="{
+      'nav-item': !it.header,
+      'nav-item-header': it.header,
+      'nav-item-submenu': hasChildren(it),
+      'nav-item-open': it.expanded,
+      'nav-item-divider': it.divider,
+      'nav-item-loading': it.loading
+    }" *ngFor="let it of items; let i = index; trackBy: trackByFn">
+      <ng-container *ngIf="!it.header && !it.divider">
+        <a [routerLink]="it.path || ''" [routerLinkActive]="it.isFirstLevel ? 'active': 'active-fragment'" [fragment]="it.fragment" class="nav-link"
+          [ngClass]="{ disabled: it.disabled, active: it.active || isFragmentActive(it.fragment) }" (click)="onItemClick(it, items, targetList, $event)" #targetList>
+          <i *ngIf="it.icon" [ngClass]="it.icon"></i>
+          <span *ngIf="hasChildren(it)">{{it.title | translate}}</span>
+          <ng-container *ngIf="!hasChildren(it)">
+            {{it.title | translate}}
+          </ng-container>
+          <span *ngIf="it.badge" class="badge ml-auto" [ngClass]="it.badgeClass">{{it.badge | translate}}</span>
+        </a>
+        <ul class="nav nav-group-sub" *ngIf="hasChildren(it)" [attr.data-submenu-title]="it.title | translate">
+          <ng-container *ngTemplateOutlet="recursiveItems; context: { $implicit: it.children }"></ng-container>
+        </ul>
+      </ng-container>
+      <div *ngIf="it.header" class="text-uppercase font-size-sm line-height-sm">{{it.title | translate}}</div>
+    </li>
+  </ng-template>
+  <ng-container *ngTemplateOutlet="recursiveItems; context: { $implicit: items }"></ng-container>
+</ul>

@@ -1,0 +1,81 @@
+// .card.card-table {
+//     border: none !important;
+// }
+
+// .table {
+//     font-size: 12px;
+//     table-layout: fixed;
+//     th,
+//     td {
+//         white-space: nowrap;
+//         overflow: hidden;
+//         text-overflow: ellipsis;
+//         padding: 0 5px !important;
+//     }
+//     th {
+//         padding: 2px 5px !important;
+//     }
+//     .is-checkbox {
+//         text-align: center;
+//         line-height: 10px;
+//     }
+// }
+
+ table  { 
+   border-collapse: collapse;
+   width: 100%;
+   overflow-x: hidden;
+   table-layout: fixed;
+  }
+
+td,th  { 
+  padding: 3px 3px;
+  overflow: hidden;
+  white-space:nowrap;
+  text-overflow: ellipsis;
+ }
+th { 
+    background:rgb(250, 248, 248);
+    //  position: sticky;
+    // top: 0px;
+}
+
+.vs {
+  height: 300px;
+}
+.vsClean {
+  height: 90px;
+  overflow: hidden !important;
+
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.mrg {
+  text-align: center;
+  font-style: italic;
+}
+
+.thlg {
+  width: 400px;
+}
+
+.thnormal {
+  width: 120px;
+}
+
+.divfloat {
+  text-align: center;
+}
+
+.registrosInfo {
+  font-style: italic;
+  }
+
+  .mmr {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }

@@ -1,0 +1,77 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="false" class="w-100" [ngClass]="{'form-loading': this.isLoading}">
+  <div class="container-fluid py-2">
+    <div class="row">
+      <div class="col-md-4">
+        <ns-group-control>
+          <ns-label-control>{{ 'Nombre' | translate }}</ns-label-control>
+          <ns-input-control formControlName="nombre" name="nombre">
+          </ns-input-control>
+        </ns-group-control>
+      </div>
+      <div class="col-md-4">
+        <ns-group-control>
+          <ns-label-control>{{ 'Teléfono' | translate }}</ns-label-control>
+          <ns-input-control formControlName="telefono" name="telefono">
+          </ns-input-control>
+        </ns-group-control>
+      </div>
+      <div class="col-md-4">
+        <ns-group-control>
+          <ns-label-control>{{ 'Correo' | translate }}</ns-label-control>
+          <ns-input-control formControlName="correo" name="correo">
+          </ns-input-control>
+        </ns-group-control>
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <ns-group-control>
+          <ns-label-control>{{ 'Predeterminado' | translate }}</ns-label-control>
+          <ns-input-control type="checkbox" formControlName="predeterminado" name="predeterminado">
+          </ns-input-control>
+        </ns-group-control>
+
+      </div>
+      <div class="col-md-4">
+        <ns-group-control>
+          <ns-label-control>{{ 'Para cobrar' | translate }}</ns-label-control>
+          <ns-input-control type="checkbox" formControlName="para_cobranza" name="para_cobranza">
+          </ns-input-control>
+        </ns-group-control>
+      </div>
+      <div class="col-md-4">
+        <ns-group-control>
+          <ns-label-control>{{ 'Enviar email' | translate }}</ns-label-control>
+          <ns-input-control type="checkbox" formControlName="enviar_email" name="enviar_email">
+          </ns-input-control>
+        </ns-group-control>
+      </div>
+    </div>
+    <!-- <div class="row pt-2">
+      <div class="col-md-12 p-0">
+        <legend class="font-weight-semibold text-uppercase font-size-sm mb-1 pt-0">
+          <i class="icon-list-numbered mr-2"></i>
+          {{ 'Lista de contactos para: ' | translate }} {{ fullName }}
+          <button (click)="$event.preventDefault(); datagridContactos.openModal()"
+            class="btn btn-sm btn-primary btn-save float-right pt-0 pb-0"
+            [disabled]="isViewMode">
+            <i class="fa fa-plus"></i> {{ 'Nueva línea' | translate }}
+          </button>
+        </legend>
+      </div>
+      <div class="col-md-12 pr-0 pl-0 pt-2">
+        <ns-datagrid
+          [header]="displayedColumnsContactC"
+          [disabled]="!isViewMode"
+          formArrayName="tmclieprov_contacto_comunicacion"
+          [autoload]="true"
+          #datagridContactos>
+        </ns-datagrid>
+      </div>
+
+    </div> -->
+
+  </div>
+</form>
+

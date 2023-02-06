@@ -1,0 +1,147 @@
+<div class="container-fluid mt-2" *ngIf="isNotFoundDocument">
+  <div class="row">
+    <div class="col-md-12">
+      <h3>Lo sentimos, no se encontró un estado fenológico con ese código</h3>
+    </div>
+  </div>
+</div>
+
+<ng-container *ngIf="!isNotFoundDocument">
+  <div class="header-content">
+    <a href="#" class="mr-2" (click)="$event.preventDefault(); backClicked()">
+      <i class="icon-arrow-left7" style="font-size: 0.8rem"></i>
+      Regresar
+    </a>
+    <h1>
+      <!-- {{ !isNewDocument ? "Estado fenológico " + form.value.nombre : "Nuevo estado fenológico" }} -->
+      Estado fenológico
+    </h1>
+    <div class="d-inline-flex justify-content-center flex-column">
+      <div class="ml-3 button-wrapper d-inline-block">
+        <ns-button *ngIf="isNewDocument" (btClick)="saveDocument(parsedForm)" label="Guardar" icon="icon-floppy-disk">
+        </ns-button>
+        <ns-button *ngIf="!isNewDocument" (btClick)="updateDocument(parsedForm)" label="Actualizar"
+          icon="icon-floppy-disk" type="warning">
+        </ns-button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid mt-2">
+    <div class="row" [formGroup]="form">
+      <div class="col-md-12">
+
+        <h3>{{isNewDocument ?  'Nuevo' : 'Editar'}} estado fenológico {{form.value.nombre}}</h3>
+        <div class="row section">
+          <div class="col-md-12">
+            <!-- <div class="row">
+              <div class="col-md-2">
+                <ns-group-control>
+                  <ns-label-control>Código</ns-label-control>
+                  <ns-input-control formControlName="codigo"></ns-input-control>
+                </ns-group-control>
+              </div>
+              <div class="col-md-4">
+                <ns-group-control>
+                  <ns-label-control>Nombre</ns-label-control>
+                  <ns-input-control formControlName="nombre"></ns-input-control>
+                </ns-group-control>
+              </div>
+            </div> -->
+            <div class="row">
+              <div class="col-md-2">
+                <ns-group-control required>
+                  <ns-label-control>Zona</ns-label-control>
+                  <ns-finder formControlName="idzona_geografica" [componentId]="SuggestZonaGeografica"></ns-finder>
+                </ns-group-control>
+              </div>
+              <div class="col-md-2">
+                <ns-group-control required>
+                  <ns-label-control>Cultivo</ns-label-control>
+                  <ns-finder formControlName="idcultivo" [componentId]="SuggestCultivo" #cSuggestCultivo></ns-finder>
+                </ns-group-control>
+              </div>
+              <div class="col-md-2">
+                <ns-group-control required>
+                  <ns-label-control>Variedad</ns-label-control>
+                  <ns-finder (selected)="onSelectedVariedad($event.id)" formControlName="idcultivo_variedad"
+                    [componentId]="SuggestVariedad" [correlated]="cSuggestCultivo" #cSuggestVariedad>
+                  </ns-finder>
+                </ns-group-control>
+              </div>
+              <div class="col-md-2">
+                <!-- {{form.value.fecha_inicio | json}} -->
+                <ns-group-control>
+                  <ns-label-control>Fecha de Inicio</ns-label-control>
+                  <!-- <ns-input-control type="date" formControlName="fecha_inicio"></ns-input-control> -->
+                  <ns-date-control formControlName="fecha_inicio" format="DD/MM"></ns-date-control>
+                </ns-group-control>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <h3 class="mt-3">
+          Fenologias
+
+          <div class="d-inline-flex custom-buttons">
+            <!-- <ns-button (btClick)="selectedFenologia = null; fenologiaForm.reset(); fenologiaModal.open();"
+              label="Nueva variedad" icon="mi-add">
+            </ns-button> -->
+            <!-- <ns-button (btClick)="fenologiaModal.open();" label="Nueva variedad" icon="mi-mode-edit"
+              [disabled]="!selectedFenologia" mini>
+            </ns-button> -->
+            <!-- <ns-button [disabled]="!selectedFenologia"
+              (btClick)="deleteTab('fenologias', fenologiaTable.selectedIndex[0])" icon="mi-delete" mini>
+            </ns-button> -->
+          </div>
+        </h3>
+        <div class="row">
+          <div class="col-md-12">
+            <ns-table-simple [header]="headerFenologias" [data]="dataFenologias" orderKey="orden"
+              (tsSelect)="selectedFenologia = $event; fenologiaForm.reset(); fenologiaForm.patchValue($event || {})"
+              #fenologiaTable></ns-table-simple>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <ns-modal size="sm" [title]="(!selectedFenologia ? 'Nueva' : 'Editar') + ' Fenologia'" #fenologiaModal>
+    <div class="mx-0 row w-100 px-2 no-gutters mb-2" [formGroup]="fenologiaForm">
+      <div class="col-md-12 mb-2">
+        <ns-group-control>
+          <ns-label-control>Fenologia</ns-label-control>
+          <ns-finder [componentId]="SuggestFenologia"
+            (selectedLabel)="fenologiaForm.patchValue({fenologia_variedad: $event})"
+            formControlName="idfenologia_variedad" [correlated]="cSuggestVariedad"></ns-finder>
+        </ns-group-control>
+      </div>
+      <div class=" col-md-12 mb-2">
+        <ns-group-control>
+          <ns-label-control>Día Inicio</ns-label-control>
+          <ns-input-control type="number" formControlName="dia_inicio"></ns-input-control>
+        </ns-group-control>
+      </div>
+      <div class="col-md-12 mb-2">
+        <ns-group-control>
+          <ns-label-control>Día Fin</ns-label-control>
+          <ns-input-control type="number" formControlName="dia_fin"></ns-input-control>
+        </ns-group-control>
+      </div>
+    </div>
+    <ng-template nsTemplate="footer">
+      <button [disabled]="fenologiaForm.invalid" *ngIf="!selectedFenologia" type="button"
+        (click)="addFormArrayItem('fenologias', fenologiaForm); fenologiaModal.close()" class="btn bg-primary btn-sm">
+        Añadir
+      </button>
+      <button [disabled]="fenologiaForm.invalid" *ngIf="selectedFenologia" type="button"
+        (click)="addFormArrayItem('fenologias', fenologiaForm, fenologiaTable.selectedIndex[0]);fenologiaModal.close()"
+        class="btn bg-primary btn-sm">
+        Guardar
+      </button>
+    </ng-template>
+  </ns-modal> -->
+
+</ng-container>

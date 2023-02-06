@@ -1,0 +1,35 @@
+<div class="container-fluid">
+  <div class="tree-layout-content d-md-flex align-items-md-start">
+    <div class="sidebar sidebar-light sidebar-main sidebar-secondary sidebar-expand-md">
+      <div class="sidebar-content">
+        <app-nav (itemSelect)="onSelectItem($event)" [items]="items" [bordered]="true"></app-nav>
+      </div>
+    </div>
+
+    <div class="right-content">
+      <nav class="navbar sticky-top navbar-light py-1">
+        <div class="float-left d-flex justify-content-center flex-column">
+          <p class="title">
+            <i *ngIf="icon" [ngClass]="icon"></i>
+            {{ this.title | translate }}
+          </p>
+        </div>
+        <div *ngIf="showGlobalSaveBtn" class="float-right">
+          <button class="btn btn-light mr-2"><i class="fas fa-redo-alt mr-1"></i> {{ 'Descartar' | translate }}
+          </button>
+          <!-- TODO: EMITIR EVENTO PA QUE GUARDE -->
+          <button class="btn btn-success" (click)="submitForm()" type="submit" form="ngForm">
+            <i class="far fa-save mr-1"></i>
+            {{ 'Guardar' | translate }}
+          </button>
+        </div>
+      </nav>
+      <div class="right-content-scroll">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- <ns-nav (itemSelect)="onSelectItem($event)" [items]="items" [bordered]="true"></ns-nav> -->

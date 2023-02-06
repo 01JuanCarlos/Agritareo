@@ -1,0 +1,234 @@
+<div class="container-fluid mt-2" *ngIf="isNotFoundDocument">
+  <div class="row">
+    <div class="col-md-12">
+      <h3>Lo sentimos, no se encontró un metodo de evaluación con ese código</h3>
+    </div>
+  </div>
+</div>
+
+<ng-container *ngIf="!isNotFoundDocument">
+  <div class="header-content">
+    <a href="#" class="mr-2" (click)="$event.preventDefault(); backClicked()">
+      <i class="icon-arrow-left7" style="font-size: 0.8rem"></i>
+      Regresar
+    </a>
+    <h1>
+      {{ !isNewDocument ? "Método de evaluación " + form.value.nombre : "Nuevo método de evaluación" }}
+    </h1>
+    <div class="d-inline-flex justify-content-center flex-column">
+      <div class="ml-3 button-wrapper d-inline-block">
+        <ns-button [disabled]="form.invalid" *ngIf="isNewDocument" (btClick)="saveDocument(form.getRawValue())"
+          label="Guardar" icon="icon-floppy-disk">
+        </ns-button>
+        <ns-button [disabled]="form.invalid" *ngIf="!isNewDocument" (btClick)="updateDocument(form.getRawValue())"
+          label="Actualizar" icon="icon-floppy-disk" type="warning">
+        </ns-button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid mt-2">
+    <div class="row" [formGroup]="form">
+      <div class="col-md-12">
+        <h3>Datos del método de evaluación</h3>
+
+        <div class="row section">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-4 col-xl-2">
+                <ns-group-control required>
+                  <ns-label-control>Código</ns-label-control>
+                  <ns-input-control formControlName="codigo"></ns-input-control>
+                </ns-group-control>
+              </div>
+              <div class="col-md-4 col-xl-4">
+                <ns-group-control required>
+                  <ns-label-control>Nombre</ns-label-control>
+                  <ns-input-control formControlName="nombre"></ns-input-control>
+                </ns-group-control>
+              </div>
+            </div>
+
+            <div class="row mt-2">
+              <div class="col-md-4 col-xl-2">
+                <ns-group-control required>
+                  <ns-label-control>Unidad de medida</ns-label-control>
+                  <ns-finder [componentId]="SuggestUnidadMedida" formControlName="idmedida"></ns-finder>
+                </ns-group-control>
+              </div>
+              <div class="col-md-4 col-xl-2">
+                <ns-group-control required>
+                  <ns-label-control>Tipo de entrada</ns-label-control>
+                  <ns-select-control [readonly]="checkUmbrales() && !!form.value.idtipo_entrada"
+                    (selectValue)="form.patchValue({idtipo_entrada: +$event})"
+                    (selectIndex)="selectedTipoEntradaIndex = $event" formControlName="idtipo_entrada">
+                    <ns-select-option [value]="+item.id" *ngFor="let item of tipoDeEntrada">
+                      {{item.label}}
+                    </ns-select-option>
+                  </ns-select-control>
+                </ns-group-control>
+              </div>
+              <div class="col-md-4 col-xl-2" *ngIf="tipoDeEntrada[selectedTipoEntradaIndex]?.permite_detalle">
+                <ns-group-control>
+                  <ns-label-control>Número de entradas</ns-label-control>
+                  <ns-input-control formControlName="numero_entrada"></ns-input-control>
+                </ns-group-control>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row no-gutters mt-3">
+          <div class="col-md-12 col-xl-4 pr-2">
+            <h3>
+              <span>
+                Variedades asociadas
+              </span>
+
+              <div class="d-flex d-md-inline-flex ml-auto custom-buttons">
+                <ns-button (btClick)="selectedVariedad = null; variedadForm.reset(); variedadModal.open();"
+                  label="Nueva variedad" icon="mi-add">
+                </ns-button>
+                <ns-button (btClick)="variedadModal.open();" label="Nueva variedad" icon="mi-mode-edit"
+                  [disabled]="!selectedVariedad" mini>
+                </ns-button>
+                <ns-button [disabled]="!selectedVariedad"
+                  (btClick)="deleteTab('cultivos_variedad', variedadTable.selectedIndex[0])" icon="mi-delete" mini>
+                </ns-button>
+              </div>
+            </h3>
+            <ns-table-simple
+              #variedadTable
+              (tsSelect)="onSelectedVariedad($event)"
+              [header]="headerCultivosVariedad"
+              [data]="cultivosVariedad">
+            </ns-table-simple>
+          </div>
+          <div class="col-md-12 col-xl-8">
+            <div *ngIf="!selectedVariedad; else tblUmbralesFenologia">
+              <h3 class="text-warning font-weight-bold">Por favor, elige una variedad para mostrar datos</h3>
+            </div>
+            <ng-template #tblUmbralesFenologia>
+              <!-- <div class="col-md-8 pl-2 custom-table-header"> -->
+              <h3 class="mb-1">
+                Definición de umbrales
+                {{ selectedVariedad ? variedadForm.value.cultivo + ' - '+ variedadForm.value.variedad : ''}}
+
+                <div class="ml-auto d-inline-flex custom-buttons">
+                  <!-- <ns-button (btClick)="selectedUmbral = null; umbralForm.reset(); umbralModal.open();"
+                    label="Nuevo umbral" icon="mi-add" [disabled]="!selectedVariedad">
+                  </ns-button> -->
+                  <ns-button (btClick)="umbralModal.open();" icon="mi-mode-edit" [disabled]="!selectedUmbral" mini>
+                  </ns-button>
+                  <ns-button [disabled]="!selectedUmbral"
+                    (btClick)="deleteTab(['cultivos_variedad', variedadTable.selectedIndex[0], 'fenologias'], umbralTable.selectedIndex[0])"
+                    icon="mi-delete" mini>
+                  </ns-button>
+                  <ns-button (btClick)="clearUmbrales()" icon="mi-info-outline" mini>
+                  </ns-button>
+                </div>
+              </h3>
+
+              <div class="row">
+                <div class="col-md-12 custom-table-header">
+
+                  <ns-table-simple [header]="headerUmbrales" [data]="umbralesVariedad"
+                    (tsSelect)="patchUmbralForm($event || {})" #umbralTable>
+                    <thead #headerContent>
+                      <tr>
+                        <th rowspan="2">Fenología</th>
+                        <th colspan="2" class="font-weight-bold text-center text-success">Bajo</th>
+                        <th colspan="2" class="font-weight-bold text-center text-warning">Medio</th>
+                        <th colspan="2" class="font-weight-bold text-center text-danger">Alto</th>
+                      </tr>
+                      <tr>
+                        <th style="background-color: #317f43">D</th>
+                        <th style="background-color: #317f43">A</th>
+                        <th class="ambar">D</th>
+                        <th class="ambar">A</th>
+                        <th style="background-color: #FF0000">D</th>
+                        <th style="background-color: #FF0000">A</th>
+                      </tr>
+                    </thead>
+                  </ns-table-simple>
+                </div>
+              </div>
+
+              <!-- </div> -->
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <ns-modal size="sm" [title]="(!selectedVariedad ? 'Nueva' : 'Editar') + ' variedad'" #variedadModal>
+    <div class="mx-0 row w-100 px-2 no-gutters mt-2" [formGroup]="variedadForm">
+      <div class="col-md-12 mb-2">
+        <ns-group-control>
+          <ns-label-control>Cultivo</ns-label-control>
+          <ns-finder [componentId]="SuggestCultivo" (selectedLabel)="variedadForm.patchValue({cultivo: $event})"
+            formControlName="idcultivo" #suggestCultivo></ns-finder>
+        </ns-group-control>
+      </div>
+      <div class="col-md-12 mb-2">
+        <ns-group-control>
+          <ns-label-control>Variedad</ns-label-control>
+          <ns-finder (selected)="beforeAddVariedad($event.id)"
+            (selectedLabel)="variedadForm.patchValue({variedad: $event})" [componentId]="SuggestVariedad"
+            formControlName="idcultivo_variedad" [correlated]="suggestCultivo">
+          </ns-finder>
+        </ns-group-control>
+      </div>
+    </div>
+    <ng-template nsTemplate="footer">
+      <button [disabled]="variedadForm.invalid" *ngIf="!selectedVariedad" type="button"
+        (click)="addFormArrayItem('cultivos_variedad', variedadForm); variedadModal.close()"
+        class="btn bg-primary btn-sm">
+        Añadir
+      </button>
+      <button [disabled]="variedadForm.invalid" *ngIf="selectedVariedad" type="button"
+        (click)="addFormArrayItem('cultivos_variedad', variedadForm, variedadTable.selectedIndex[0]);variedadModal.close()"
+        class="btn bg-primary btn-sm">
+        Guardar
+      </button>
+    </ng-template>
+  </ns-modal>
+
+  <ns-modal size="sm" [title]="(!selectedUmbral ? 'Nuevo' : 'Editar') + ' umbral'" #umbralModal>
+    <div class="mx-0 row w-100 px-2 no-gutters mb-2" [formGroup]="umbralForm">
+      <div class="col-md-12 mt-2">
+        <div class="h6 font-weight-semibold">
+          {{umbralForm.value.fenologia_variedad }}
+        </div>
+      </div>
+      <ng-container formArrayName="umbrales_rangos">
+        <div *ngFor="let item of umbralFormArrayControl" class="col-md-12 mb-2">
+          <ng-container [formGroup]="item">
+            <ns-group-control>
+              <ns-label-control>Umbral {{item.value.nombre_nivel}}</ns-label-control>
+              <div class="row no-gutters">
+                <ns-input-control class="col mr-1" formControlName="rango_inicio"></ns-input-control>
+                <ns-input-control class="col ml-1" formControlName="rango_fin"></ns-input-control>
+              </div>
+            </ns-group-control>
+          </ng-container>
+        </div>
+      </ng-container>
+    </div>
+    <ng-template nsTemplate="footer">
+      <!-- <button [disabled]="umbralForm.invalid" *ngIf="!selectedUmbral" type="button"
+        (click)="addFormArrayItem(['cultivos_variedad', variedadTable.selectedIndex[0], 'umbrales_fenologia'], umbralForm);umbralModal.close()"
+        class="btn bg-primary btn-sm">
+        Añadir
+      </button>
+    -->
+      <button [disabled]="umbralForm.invalid" *ngIf="selectedUmbral" type="button"
+        (click)="saveUmbral(); umbralModal.close()"
+        class="btn bg-primary btn-sm">
+        Guardar
+      </button>
+    </ng-template>
+  </ns-modal>
+</ng-container>

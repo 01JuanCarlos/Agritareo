@@ -1,0 +1,38 @@
+.centro-de-costo {
+  padding-bottom: 2rem;
+
+  .mapa {
+    min-height: 350px;
+  }
+}
+.floating-status {
+  background: red;
+}
+
+.boton{
+  width: 30px ;
+height: 35px ;
+border:#ccc 3px solid;
+cursor: initial;
+}
+.divDeComponente{
+height: 100px; 
+width: 400px; 
+display: flex;
+}
+.iDeboton{
+color: #ccc;
+font-size: 12px;
+}
+
+.table-responsive{
+height: 400px;
+overflow: scroll;
+width: 490px;
+margin-left: 7px;
+}
+
+.jaja{
+  margin-right: 70px;
+}
+

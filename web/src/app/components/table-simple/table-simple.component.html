@@ -1,0 +1,68 @@
+<div class="table-responsive">
+  <table class="table ag-table table-bordered table-sm" [ngClass]="{'loading': tableLoading}">
+    <ng-content></ng-content>
+    <thead *ngIf="!headerContent.length">
+      <tr>
+        <ng-container #tableHeader *ngFor=" let head of header">
+          <th class="" *ngIf="head.visible !== false">{{ head.label }}</th>
+        </ng-container>
+        <th class="" *ngIf="isEditEnable || isDeleteEnable || controls.length" style="width: 1px;" class="text-center">
+          <i class="fas fa-cog"></i>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let col of tableData; trackBy: trackByFn; let index = index"
+        [ngClass]="{active: selectedIndex.includes(index)}"
+        (dblclick)="onDblClick(index, col)"
+        (click)="onSelectedRow(index, col)">
+        <ng-container #tableBody *ngFor="let value of header">
+          <td *ngIf="value.visible !== false" [ngClass]="{'blocked': col.estado !== undefined && !!col.estado === false}">
+            <ng-container *ngIf="!value.isBoolean">
+              {{ parseData(value, col[value.field]) }}
+            </ng-container>
+            <ng-container *ngIf="value.isBoolean">
+              <input type="checkbox" [checked]="col[value.field]" readonly>
+            </ng-container>
+          </td>
+        </ng-container>
+        <td *ngIf="isEditEnable || isDeleteEnable || controls.length">
+          <div class="d-flex">
+            <!-- (click)="" -->
+            <button *ngIf="isEditEnable" (click)="$event.stopPropagation(); $event.preventDefault(); tsEdit.emit(col)"
+              class="btn  btn-sm btn-warning px-2 py-0 mr-1">
+              <i class="far fa-edit"></i>
+            </button>
+            <button *ngIf="isDeleteEnable"
+              (click)="$event.stopPropagation(); $event.preventDefault(); tsDelete.emit(col)"
+              class="btn  btn-sm btn-danger px-2 py-0">
+              <i class="far fa-trash-alt"></i>
+            </button>
+
+            <button *ngFor="let control of controls"
+              (click)="$event.stopPropagation(); $event.preventDefault(); control.btnFunction(col)"
+              class="btn  btn-sm btn-default px-2 ml-1 py-0" [ngClass]="control.style || ''">
+              <i [class]="control.btnIcon"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+      <tr *ngIf="!tableData?.length">
+        <td [attr.colspan]="(header || []).length + 1" class="text-center">
+          No existen datos
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+    </tfoot>
+  </table>
+
+</div>
+<div class="pagination d-flex justify-content-end mt-2" *ngIf="controller">
+  <div>
+    <p-paginator (onPageChange)="onPageChange($event.page)" [rows]="service.items"
+      [totalRecords]="meta?.recordsFiltered || meta?.recordsTotal">
+    </p-paginator>
+  </div>
+</div>

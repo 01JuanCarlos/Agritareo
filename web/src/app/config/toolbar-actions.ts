@@ -1,0 +1,27 @@
+export enum ToolAction {
+  SEARCH,
+  NEW,
+  EDIT,
+  SAVE,
+  VIEW,
+  DELETE,
+  DISABLE,
+  ENABLE,
+  PREVIEW,
+  PRINT,
+  COPY,
+  CUT,
+  DOWNLOAD,
+  UPDATE,
+  CANCEL,
+  EXPAND,
+  COLLAPSE,
+
+  FRM_NOTES,
+  FRM_EMAIL,
+
+  DOWNLOAD_PDF,
+  DOWNLOAD_EXCEL,
+  DOWNLOAD_CSV,
+  DOWNLOAD_COPY
+}

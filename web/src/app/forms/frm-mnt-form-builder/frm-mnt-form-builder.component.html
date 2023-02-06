@@ -1,0 +1,116 @@
+<div class="card full-height">
+  <div class="card-header header-elements-inline">
+    <h6 class="card-title">Datos del componente</h6>
+    <!-- <div class="header-elements">
+      <div class="list-icons">
+        <a class="list-icons-item" data-action="collapse"></a>
+        <a class="list-icons-item" data-action="reload"></a>
+        <a class="list-icons-item" data-action="remove"></a>
+      </div>
+    </div> -->
+  </div>
+  <div class="card-body">
+    <form [formGroup]="form" action="#" [disableForm]="!isEditMode">
+      <div class="form-group mb-1">
+        <div class="row">
+          <div class="col-md-12">
+            <ns-group-control required>
+              <ns-label-control>{{ 'Nombre' | translate }}</ns-label-control>
+              <ns-input-control name="label" formControlName="label"></ns-input-control>
+            </ns-group-control>
+          </div>
+        </div>
+      </div>
+      <div class="form-group mb-1">
+        <div class="row">
+          <div class="col-md-12">
+            <ns-group-control>
+              <ns-label-control>{{ 'Descripción' | translate }}</ns-label-control>
+              <ns-input-control name="descripcion" formControlName="descripcion"></ns-input-control>
+            </ns-group-control>
+          </div>
+        </div>
+      </div>
+      <div class="form-group mb-1">
+        <div class="row">
+          <div class="col-md-6">
+            <ns-group-control>
+              <ns-label-control>{{ 'Código de acceso' | translate }}</ns-label-control>
+              <ns-input-control name="codigo_acceso" formControlName="codigo_acceso"></ns-input-control>
+            </ns-group-control>
+          </div>
+          <div class="col-md-6">
+            <ns-group-control>
+              <ns-label-control>{{ 'Atajo por teclado' | translate }}</ns-label-control>
+              <ns-input-control name="atajo_teclado" formControlName="atajo_teclado"></ns-input-control>
+            </ns-group-control>
+          </div>
+        </div>
+      </div>
+      <div class="form-group mb-1">
+        <div class="row">
+          <div class="col-md-6">
+            <ns-group-control required>
+              <ns-label-control>{{ 'Tipo' | translate }}</ns-label-control>
+              <ns-select-control formControlName="tipo" [items]="componentType"></ns-select-control>
+            </ns-group-control>
+          </div>
+        </div>
+      </div>
+      <div class="form-group mb-1 pt-2" formGroupName="metadata">
+        <div class="row">
+          <div class="col-md-12">
+            <h6>Metadata:</h6>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6" [hidden]="!showProc">
+            <ns-group-control>
+              <ns-label-control [hidden]="cType !== 'tabla'">{{ 'Procedimiento para obtener data' | translate }}</ns-label-control>
+              <ns-label-control [hidden]="cType !== 'formulario'">{{ 'Procedimiento para CRUD del formulario' | translate }}</ns-label-control>
+              <ns-input-control name="proc" formControlName="proc"></ns-input-control>
+            </ns-group-control>
+          </div>
+          <div class="col-md-6">
+            <ns-group-control>
+              <ns-label-control>{{ 'Ruta' | translate }}</ns-label-control>
+              <ns-input-control name="path" formControlName="path"></ns-input-control>
+            </ns-group-control>
+          </div>
+        </div>
+        <div [hidden]="cType !== 'formulario'" class="row">
+          <!-- <ns-group-control inline>
+            <ns-label-control class="col-md-4 text-left text-md-right">{{ 'Es mantenedor dinámico' | translate }}</ns-label-control>
+          </ns-group-control> -->
+          <div class="col-md-4 p-1">
+            <div class="form-check form-check-right form-check-switchery">
+              <label class="form-check-label">
+                Es mantenedor dinámico
+                <input type="checkbox" class="form-check-input-switchery-primary" checked="" data-fouc="" data-switchery="true" style="display: none;"><span class="switchery switchery-default" style="background-color: rgb(100, 189, 99); border-color: rgb(100, 189, 99); box-shadow: rgb(100, 189, 99) 0px 0px 0px 10px inset; transition: border 0.4s ease 0s, box-shadow 0.4s ease 0s, background-color 1.2s ease 0s;"><small style="left: 18px; background-color: rgb(255, 255, 255); transition: background-color 0.4s ease 0s, left 0.2s ease 0s;"></small></span>
+              </label>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <ns-group-control>
+              <ns-input-control name="ruc">
+                <ns-addon-control text="Cabecera" prepend></ns-addon-control>
+              </ns-input-control>
+            </ns-group-control>
+            <ns-group-control>
+              <ns-input-control name="ruc">
+                <ns-addon-control text="Detalle" prepend></ns-addon-control>
+              </ns-input-control>
+            </ns-group-control>
+          </div>
+        </div>
+      </div>
+
+    </form>
+  </div>
+  <div class="card-footer">
+    <div class="d-flex justify-content-between align-items-center">
+      <button type="submit" (click)="reset()" class="btn btn-light">Cancelar <i class="fas fa-ban ml-2"></i></button>
+      <button type="submit" (click)="submitForm()" [disabled]="!validateForm()" class="btn bg-blue ml-3">Guardar <i class="far fa-save ml-2"></i></button>
+    </div>
+  </div>
+</div>

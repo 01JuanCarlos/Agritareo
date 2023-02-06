@@ -1,0 +1,51 @@
+/* ------------------------------------------------------------------------------
+ *
+ *  # Bootstrap v4.1.1 (https://getbootstrap.com)
+ *
+ *  Copyright 2011-2018 The Bootstrap Authors
+ *  Copyright 2011-2018 Twitter, Inc.
+ *  Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ *
+ * ---------------------------------------------------------------------------- */
+
+// Import custom template config
+@import "../../../config";
+@import "../../../shared/utils/ll-functions";
+@import "../../../shared/utils/ll-mixins";
+@import "../../../themes/default/colors/palette";
+// Core variables and mixins
+@import "../../../_bootstrap/functions";
+@import "../../../_bootstrap/variables";
+@import "../../../_bootstrap/mixins";
+
+// Import template's variables
+@import "../variables/variables-core";
+@import "../variables/variables-custom";
+@import "../../../themes/default/bootstrap_nisira/mixins";
+
+// Import default files
+@import "../../../themes/default/bootstrap_nisira/reboot";
+@import "../../../themes/default/bootstrap_nisira/type";
+@import "../../../themes/default/bootstrap_nisira/code";
+@import "../../../themes/default/bootstrap_nisira/tables";
+@import "../../../themes/default/bootstrap_nisira/forms";
+@import "../../../themes/default/bootstrap_nisira/buttons";
+@import "../../../themes/default/bootstrap_nisira/dropdown";
+@import "../../../themes/default/bootstrap_nisira/button-group";
+@import "../../../themes/default/bootstrap_nisira/input-group";
+@import "../../../themes/default/bootstrap_nisira/custom-forms";
+@import "../../../themes/default/bootstrap_nisira/nav";
+@import "../../../themes/default/bootstrap_nisira/navbar";
+@import "../../../themes/default/bootstrap_nisira/card";
+@import "../../../themes/default/bootstrap_nisira/breadcrumb";
+@import "../../../themes/default/bootstrap_nisira/pagination";
+@import "../../../themes/default/bootstrap_nisira/badge";
+@import "../../../themes/default/bootstrap_nisira/alert";
+@import "../../../themes/default/bootstrap_nisira/progress";
+@import "../../../themes/default/bootstrap_nisira/media";
+@import "../../../themes/default/bootstrap_nisira/list-group";
+@import "../../../themes/default/bootstrap_nisira/close";
+@import "../../../themes/default/bootstrap_nisira/modal";
+@import "../../../themes/default/bootstrap_nisira/tooltip";
+@import "../../../themes/default/bootstrap_nisira/popover";
+@import "../../../themes/default/bootstrap_nisira/utilities";

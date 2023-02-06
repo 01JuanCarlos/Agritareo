@@ -1,0 +1,84 @@
+:host {
+  width: 100%;
+  position: absolute;
+  height: 100%;
+}
+
+.control-wrapper {
+  display: flex;
+
+  .input-wrapper {
+    position: relative;
+
+    .icon-wrapper {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-content: center;
+
+      i {
+        font-size: 14px;
+        padding-top: 1px;
+      }
+    }
+
+    input,
+    select {
+      border-radius: 4px !important;
+      padding-left: 30px;
+      max-width: 220px;
+      width: 100%;
+      padding-right: 5px;
+      height: 100% !important;
+    }
+  }
+
+  .btn-wrapper {
+    margin-left: 10px;
+    display: flex;
+    overflow: hidden;
+
+    button {
+      cursor: pointer;
+      background: #EEEDE9;
+      width: 30px;
+      outline: none;
+      border: none;
+      border: 1px solid #ddd;
+      border-left: none;
+      flex: 1;
+
+      i {
+        font-size: 12px;
+      }
+
+      &:first-child {
+        border-left: 1px solid #ddd;
+        border-radius: 4px 0 0 4px;
+      }
+
+
+      &.active {
+        background: rgba(#449F4A, 0.3);
+        color: #449F4A;
+        border-color: rgba(#449F4A, 0.4);
+        border: 1px solid #449F4A;
+
+      }
+
+      &:last-child {
+        border-radius: 0 4px 4px 0;
+      }
+    }
+  }
+}
+
+
+.chart-wrapper {
+  height: 400px;
+}

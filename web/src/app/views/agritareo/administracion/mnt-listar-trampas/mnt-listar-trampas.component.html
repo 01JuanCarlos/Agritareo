@@ -1,0 +1,68 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <p class="emphasis d-inline-block mb-0">Lista de Trampas</p>
+      <div class="ml-3 button-wrapper d-inline-block">
+        <button (click)="trampaIsOnEdit = false; openModal(trampaForm,trampaModal)">Nuevo</button>
+      </div>
+    </div>
+    <div class="col-md-12 mt-2 content">
+      <ns-table-simple
+        [header]="trampasHeader"
+        (tsDelete)="deleteTrampa($event)"
+        (tsEdit)="trampaIsOnEdit = true; openModal(trampaForm,trampaModal,$event)"
+        [data]="listaTrampas">
+      </ns-table-simple>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL TRAMPA -->
+<ns-modal size="sm" title="Fenologias" #trampaModal>
+  <div class="row" [formGroup]="trampaForm">
+    <div class="col-md-4">
+      <ns-group-control>
+        <ns-label-control>Código</ns-label-control>
+        <ns-input-control [disabled]="trampaIsOnEdit" formControlName="codigo">
+        </ns-input-control>
+      </ns-group-control>
+    </div>
+    <div class="col-md-8">
+      <ns-group-control required>
+        <ns-label-control>Categoría</ns-label-control>
+        <ns-finder [componentId]="SuggestCategoriaTrampa" formControlName="idcategoria"></ns-finder>
+      </ns-group-control>
+    </div>
+    <div class="col-md-12 mt-2">
+      <ns-group-control required>
+        <ns-label-control>Nombre</ns-label-control>
+        <ns-input-control formControlName="nombre">
+        </ns-input-control>
+      </ns-group-control>
+    </div>
+    <div class="col-md-12 mt-2">
+      <ns-group-control required>
+        <ns-label-control>Número</ns-label-control>
+        <ns-input-control formControlName="numero">
+        </ns-input-control>
+      </ns-group-control>
+    </div>
+    <div class="col-md-12">
+      <small>Los * son campos obligatorios</small>
+    </div>
+  </div>
+  <ng-template nsTemplate="footer">
+    <div class="row pt-2">
+      <div class="col-md-12">
+        <div class="float-right">
+          <button class="btn btn-warning btn-sm" *ngIf="trampaIsOnEdit" (click)="editTrampa()" [disabled]="!trampaForm.valid">
+            Actualizar Trampa
+          </button>
+          <button class="btn btn-primary btn-sm" *ngIf="!trampaIsOnEdit" (click)="addTrampa()" [disabled]="!trampaForm.valid">
+            Añadir Trampa
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</ns-modal>

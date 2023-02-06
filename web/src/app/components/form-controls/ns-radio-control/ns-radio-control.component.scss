@@ -1,0 +1,12 @@
+:host {
+
+  // Container
+  &.form-check {
+
+    // In horizontal form group
+    .form-group.row &:not(.dropdown-item) {
+      margin-top: 0 !important;
+    }
+
+  }
+}

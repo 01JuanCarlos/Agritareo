@@ -1,0 +1,15 @@
+.color-picker {
+  display: flex;
+
+  .color {
+    border-top-right-radius: none;
+    min-width: 40px;
+    border-bottom-right-radius: none;
+  }
+
+  .text {
+    border-left: 0 !important;
+    border-top-right-radius: none;
+    border-bottom-right-radius: none;
+  }
+}

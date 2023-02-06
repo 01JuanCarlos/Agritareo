@@ -1,0 +1,22 @@
+.list-feed {
+  overflow-y: auto;
+}
+
+.time {
+  text-transform: capitalize;
+}
+
+.loading {
+  background: rgba(255, 255, 255, 0.8);
+  filter: blur(5px);
+  -webkit-filter: blur(5px);
+  pointer-events: none;
+  user-select: none;
+}
+
+.text-description {
+  transition: 1s;
+  color: grey;
+  font-style: italic;
+  text-align: center;
+}

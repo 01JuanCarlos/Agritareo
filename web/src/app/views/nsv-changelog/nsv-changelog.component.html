@@ -1,0 +1,37 @@
+<div class="container-fluid pt-1">
+  <div class="row mt-2" style="height: 100vh;">
+    <div class="col-md-12">
+      <div class="card card-body">
+        <h1 class="font-weight-semi-bold mb-0">Registro de cambios</h1>
+        <span class="text-muted font-size-sm">Caracteristicas agregadas, modificadas, reparadas, mejoradas o actualizadas en las últimas
+          versiones.</span>
+        <hr>
+
+        <div *ngFor="let it of changelog$ | async; let isLast=last;" [id]="'version' + parseVersion(it)" class="pb-3 mb-3"
+          [ngClass]="{'border-bottom': !isLast}">
+          <h4 class="d-flex align-content-center align-items-center" [title]="parseDate(it.date)"><code style="font-size: 1.3rem;" class="highlighter-rouge mr-2">{{ it.version }} </code>
+            {{ 'Publicado' | translate }}: {{ parseDateFomNow(it.date) }}
+            <a class="anchorjs-link" [href]="'/changelog#version' + parseVersion(it.version)" aria-label="Anchor" data-anchorjs-icon="#"></a>
+          </h4>
+
+          <p *ngFor="let ch of it.changes">
+            <ng-container *ngIf="ch.type">
+              <span class="badge rounded mr-2 text-capitalize"
+                [ngClass]="{
+                'badge-success': 'enhanced' === ch.type,
+                'badge-warning': 'updated' === ch.type,
+                'badge-danger': 'fixed' === ch.type,
+                'badge-primary': 'new' === ch.type,
+                'badge-secondary': 'refactor' === ch.type
+              }">{{ ch.type }}</span>
+              <span [innerHTML]="parseDescriptionType(ch.description, ch.project)"></span>
+              - <b>{{ ch.author}}</b> ( <a *ngIf="ch.commitHash" target="__blank"
+                [href]="'https://gitlab.com/nisirasystem/nisira-erp-'+ (ch.description.startsWith('[WEB]')?'web': 'server')  +'/-/commit/' + ch.commitHash">
+                #{{ch.commitHash}}</a>)
+            </ng-container>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

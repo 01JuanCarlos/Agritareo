@@ -1,0 +1,78 @@
+<div class="container-fluid pt-2">
+  <div class="row">
+    <div class="col-md-2">
+      <div class="img-wrapper">
+        <!-- <img src="" alt=""> -->
+        <img src="/static/images/profile/profile-picture.png" alt="">
+        <!-- Foto de perfil acá -->
+
+        <div class="control" (click)="imageUploader.click()">
+          Subir
+        </div>
+        <input type="file" class="d-none" #imageUploader accept="image/png, image/jpeg">
+      </div>
+    </div>
+    <div class="col-md-6">
+      <!-- {{userInfo | json}}-->
+      
+      <h3>
+        Información de usuario
+      </h3>
+
+      <div class="row">
+        <div class="col-md-8">
+          <ns-group-control>
+            <ns-label-control>Usuario</ns-label-control>
+            <ns-input-control disabled [value]="userInfo.alias"></ns-input-control>
+          </ns-group-control>
+        </div>
+        <div class="col-md-4">
+          <ns-group-control>
+            <ns-label-control>Rol</ns-label-control>
+            <ns-input-control disabled [value]="userInfo.profile"></ns-input-control>
+          </ns-group-control>
+        </div>
+      </div>
+      <hr />
+
+      
+      <h3>
+        Cambiar contraseña de inicio de sesion 
+      </h3>
+      
+      <form class="ActulizarCvForm" [formGroup]="ActulizarCvForm" (ngSubmit)="onSubmit()">
+        <!-- <form class="ActulizarCvForm" >
+        <div class="form-group form-group-feedback form-group-feedback-left mb-1">
+          <input formControlName="password" type="text" class="form-control" placeholder="Clave actualll">
+        </div>
+        -->
+        <div class="col-md-8">
+          <label for="password">Clave actual</label>
+          <input formControlName="passwor" type="password" class="form-control" placeholder="Ingrese aqui la clave actual">
+        </div>
+        <div class="col-md-8">
+          <label for="newpassword">Ingrese aqui la nueva clave</label>
+          <input formControlName="newpassword" type="password" class="form-control" placeholder="Ingrese aqui la nueva clave">
+        </div>
+        <div class="col-md-8">
+          <label for="newpassword2">Verificar la nueva clave</label>
+          <input formControlName="newpassword2" type="password" class="form-control" placeholder="Verificar la nueva clave">
+        </div>
+        <br>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-block" translate>Guardar</button>
+        </div>
+      </form>
+      <hr />
+
+
+      <h3>
+        Información personal
+      </h3>
+      <ns-group-control>
+        <ns-label-control>Nombre</ns-label-control>
+        <ns-input-control></ns-input-control>
+      </ns-group-control>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+<div class="custom-wrapper">
+  <div class="row no-gutters h-100">
+    <div class="col-md-4">
+      <div class="siembra-wrapper">
+        <div class="title">
+          {{ codigo }}
+        </div>
+        <div class="code" [ngClass]="{'active': estado, 'inactive': !estado}">
+          {{ estado ? 'ACTIVO' : 'INACTIVO' }}
+        </div>
+        <div class="detail">
+          <ul>
+            <li>
+              <strong>Cultivo: </strong> <span>{{ cultivo }}</span>
+            </li>
+            <li>
+              <strong>Variedad: </strong> <span>{{ variedad }}</span>
+            </li>
+            <li>
+              <strong>Fecha de Inicio: </strong> <span> {{ fechainicio }} </span>
+            </li>
+            <li>
+              <strong>Fecha de Fin: </strong> <span> {{ fechafin }} </span>
+            </li>
+            <li>
+              <strong>Hectáreas: </strong> <span>{{ area }}</span>
+            </li>
+          </ul>
+        </div>
+        <div class="bottom-wrapper" (click)="setupClick.emit()">
+          <span> <i class="icon-cog"></i> Configuración</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="map-wrapper">
+        <!-- <ns-map
+          [data]="coordenadas"
+          [lat]="lat"
+          [lng]="lng"></ns-map> -->
+      </div>
+    </div>
+  </div>
+</div>

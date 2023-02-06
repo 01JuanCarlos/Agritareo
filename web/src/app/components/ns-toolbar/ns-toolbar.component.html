@@ -1,0 +1,45 @@
+<ng-template #toolSection let-first="first" let-last="last" let-section>
+  <div class="tool-section">
+    <div class="drag-section ml-2 mr-1" *ngIf="!(false === section.dragable)">
+      <i class="fas fa-grip-vertical text-muted"></i>
+    </div>
+
+    <ng-container *ngFor="let group of section?.toolGroup; trackBy:trackByFn; let last=last">
+      <div class="list-icons tool-group">
+        <div *ngIf="section.searchable" class="form-group form-group-feedback form-group-feedback-left search-tools">
+          <input type="text" (input)="onsearch(section, $event.target.value)" class="form-control form-control-sm" placeholder="Buscar" #search>
+          <div class="form-control-feedback form-control-feedback-sm">
+            <i class="icon-search4"></i>
+          </div>
+        </div>
+
+        <div class="btn-group">
+          <ng-container *ngFor="let tool of group.tools;trackBy: trackByFn">
+            <button
+              (click)="!hasItems(tool) && onAction(tool)"
+              [title]="tool.title"
+              type="button"
+              class="btn btn-outline alpha-indigo text-grey-600 btn-icon tool-btn"
+              [ngClass]="toolClass(tool)"
+              [ngStyle]="tool?.settings?.style"
+              [attr.data-toggle]="hasItems(tool) ? 'dropdown': undefined">
+              <i [class]="tool.icon" [ngStyle]="tool?.settings?.iconStyle"></i>
+              <span class="d-none d-xl-inline-block">&nbsp; {{ tool.title}}</span>
+            </button>
+            <div *ngIf="hasItems(tool)" class="dropdown-menu dropdown-menu-right">
+              <a (click)="$event.preventDefault();onAction(t, tool)" *ngFor="let t of tool.items; trackBy: trackByFn" class="dropdown-item">
+                <i class="icon-file-text2"></i>
+                {{ t.title }}
+              </a>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+      <div class="separator" *ngIf="!last"></div>
+    </ng-container>
+  </div>
+</ng-template>
+
+<ng-container *ngFor="let section of service.toolbar | async; trackBy: trackByFn; let first = first; let last = last">
+  <ng-container *ngTemplateOutlet="toolSection; context: { $implicit: section, first: first,last: last }"></ng-container>
+</ng-container>

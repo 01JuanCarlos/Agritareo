@@ -1,0 +1,337 @@
+// .section-content {
+//   ::ng-deep {
+//     .ui-carousel-container {
+//       border: 1px solid #ddd;
+//       border-radius: 5px;
+//     }
+//   }
+// }
+
+// .img-wrapper {
+//   width: 100%;
+//   height: 200px;
+//   justify-content: center;
+//   align-items: center;
+//   align-content: center;
+
+//   img {
+//     max-width: 100%;
+//     max-height: 100%;
+//     width: 100%;
+//     min-height: 100%;
+//     object-fit: cover;
+//     height: 100%;
+//     object-position: center;
+//   }
+// }
+
+// $border-radius: 3px;
+
+// :host {
+//   position: absolute;
+//   left: 0;
+//   right: 0;
+//   top: 0;
+//   bottom: 0;
+// }
+
+// [hidden] {
+//   display: none;
+// }
+
+// .btn-wrapper {
+//   display: flex;
+//   width: 100%;
+
+//   .bajo {
+//     &.active {
+//       background: #D9534F !important;
+//       border-color: #D9534F !important;
+//       color: white !important;
+//     }
+//   }
+
+//   .medio {
+//     &.active {
+//       background: #F2A345 !important;
+//       border-color: #F2A345 !important;
+//       color: white !important;
+//     }
+//   }
+
+//   .alto {
+//     &.active {
+//       background: #449F4A !important;
+//       border-color: #449F4A !important;
+//       color: white !important;
+//     }
+//   }
+
+//   button {
+//     background: none;
+//     outline: 0;
+//     border-radius: 0 0 0 0;
+//     border: 0.25px solid #CCCCCC;
+//     height: 30px;
+//     padding: 0 15px;
+//     cursor: pointer;
+//     font-weight: 300;
+//     flex: 1;
+
+//     &.active {
+//       font-weight: 500;
+//       background: rgba(#449F4A, 0.3);
+//       border-color: rgba(#449F4A, 0.3);
+//       color: #449F4A;
+//     }
+
+//     &:first-child {
+//       border-radius: $border-radius 0 0 $border-radius;
+//       border-right: none;
+//     }
+
+//     &:last-child {
+//       border-left: none;
+//       border-radius: 0 $border-radius $border-radius 0;
+//     }
+
+//   }
+// }
+
+$active: #6f6f6f;
+$green: #4f7b52;
+$yellow: yellow;
+
+
+:host {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+[hidden] {
+  display: none;
+}
+
+.img-container {
+  .img-wrapper {
+    border-radius: 4px;
+    overflow: hidden;
+    height: 100%;
+    padding-bottom: 10px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}
+
+.control-wrapper {
+  position: absolute;
+  top: 10px;
+  right: 350px;
+  display: flex;
+
+  .control {
+    cursor: pointer;
+    outline: none;
+    border: none;
+    // height: 65px;
+    // width: 65px;
+    // margin-left: 10px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    // background: $active;
+
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    height: fit-content;
+    width: fit-content;
+    align-items: center;
+    align-content: center;
+    padding: 5px 10px;
+
+    border-right: 1px solid #ddd;
+
+    &:first-child {
+      border-radius: 2.5px 0 0 2.5px;
+    }
+
+    &:last-child {
+      border-right: none;
+      border-radius: 0 2.5px 2.5px 0;
+    }
+
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 2px 3px #000;
+    color: black;
+
+    // &.green {
+    //   // background: $green;
+    // }
+
+    // &.yellow {
+    //   // background: $yellow;
+    // }
+
+    i {
+      // color: white;
+      font-size: 1.2rem;
+    }
+
+    span {
+      // color: white;
+      display: none;
+      width: 100%;
+      padding-top: 6px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+::ng-deep {
+  .custom-bug-icon {
+    img {
+      transform: scale(.1);
+    }
+  }
+
+  p-checkbox {
+    display: flex;
+    align-content: center;
+
+    label {
+      margin-bottom: 0;
+    }
+  }
+
+  .custom-alert {
+    text-align: center;
+    font-weight: bold;
+  }
+
+  // .label-map-wrapper-vista-mapa {
+  //   background: black;
+  //   border: 1px dashed green;
+  //   font-weight: bold;
+  //   font-size: 14px;
+  //   -webkit-transform: translateX(-50%);
+  //   transform: translateX(-50%);
+  //   display: block;
+  //   position: fixed;
+  //   text-align: center;
+  //   padding: 5px 10px;
+  //   border-radius: 7.5px;
+
+
+  //   border: none;
+  //   background: #DDDDDD;
+  //   font-weight: bold;
+  //   font-size: 14px;
+  //   -webkit-transform: translateX(-50%);
+  //   transform: translateX(-50%);
+  //   display: block;
+  //   position: fixed;
+  //   text-align: center;
+  //   padding: 5px 10px;
+  //   border-radius: 2.5px;
+  //   box-shadow: 0px 0px 10px black;
+
+  //   .label-first {
+  //     color: yellow;
+  //     color: black;
+  //     font-size: 16px;
+  //   }
+
+  //   .label-second {
+  //     color: white;
+  //     color: #428642;
+  //   }
+
+  //   .fitosanidad-wrapper {
+  //     background: black;
+  //     border: 1px dashed green;
+  //     font-weight: bold;
+  //     font-size: 14px;
+  //     -webkit-transform: translateX(-50%);
+  //     transform: translateX(-50%);
+  //     display: block;
+  //     position: fixed;
+  //     text-align: center;
+  //     padding: 5px 10px;
+  //     border-radius: 7.5px;
+  //   }
+  // }
+
+  .fitosanidad-wrapper {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px dashed green;
+    // border: 2px dashed transparent;
+    font-weight: bold;
+    font-size: 14px;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    display: block;
+    position: fixed;
+    text-align: center;
+    padding: 5px 10px;
+    border-radius: 7.5px;
+    color: #ddd;
+  }
+
+
+  .fitosanidad-wrapper:active {
+    color:red;
+    box-shadow: 0 0 5px -1px rgba(0,0,0,0.6);
+}
+
+  .label-first {
+    color: white;
+    font-size: 16px;
+  }
+
+  .label-second {
+    color: white;
+  }
+
+  .label-sub{
+    color: #116FBF;
+  }
+
+
+}
+
+#buttonMapa::before{
+  content:"";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  // background: rgba(255, 255, 255, 0.8);
+  z-index: -1;
+  border-radius: 7px;
+  transform: translateY(5px);
+}
+
+#buttonMapa:active{
+  transform: translateY(5px);
+}
+
+#buttonMapa:active:before{
+  transform: translateY(0);
+}

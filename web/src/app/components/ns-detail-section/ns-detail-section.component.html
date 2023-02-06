@@ -1,0 +1,12 @@
+<ul class="nav nav-tabs custom-nav-tabs" *ngIf="isTab && arrayControls.length">
+  <li class="nav-item" role="presentation" *ngFor="let item of arrayControls; let i = index">
+    <a class="nav-link" (click)="onTabClicked(i, item)" [ngClass]="{'active': i === selectedIndex}">
+      {{item.value[tabLabelKey] || 'Tab ' + (i + 1)}}
+      <button class="btn-close" (click)="onDeleteTab(i)">
+        <i class="mi-close"></i>
+      </button>
+    </a>
+  </li>
+</ul>
+
+<ng-content *ngIf="arrayControls.length"></ng-content>

@@ -1,0 +1,82 @@
+<div class="wrapper">
+  <legend class="font-weight-semibold text-uppercase font-size-sm mb-0">
+    <i class="icon-cog3 mr-2"></i>
+    Configuración modo desarrollo
+  </legend>
+
+  <div class="group-options">
+    <div class="col-sm-12">
+      <div class="card-body text-center">
+        <a href="#" (click)="$event.preventDefault(); sync()" class="btn bg-indigo-400">
+          <i class="icon-loop3 mr-2"></i> Sincronizar
+        </a>
+      </div>
+    </div>
+
+    <div class="col-sm-12">
+      <ns-group-control inline>
+        <ns-label-control>Habilitar privilegios</ns-label-control>
+        <ns-switch-control (change)="updatePrivileges($event)" [checked]="privileges" class="ml-2"></ns-switch-control>
+      </ns-group-control>
+    </div>
+
+    <legend class="font-weight-bold mb-1">Development Tools</legend>
+
+    <div class="col-sm-12 p-0">
+      <div class="list-group list-group-bordered list-group-flush">
+        <a routerLink="/development/component-builder" class="list-group-item list-group-item-action list-group-item-primary"
+          style="padding: 0.3rem .8rem">
+          <div class="flex-fill">
+            <div class="d-flex justify-content-between">
+              <h6 class="mb-0"><i class="icon-car mr-1"></i> Construir componentes</h6>
+              <!-- <span class="text-muted">2 days ago</span> -->
+            </div>
+
+            Crear y configurar mantenedores, menús, tablas, etc.
+          </div>
+        </a>
+        <a routerLink="/development/component-builder" class="list-group-item list-group-item-action list-group-item-primary"
+          style="padding: 0.3rem .8rem">
+          <div class="flex-fill">
+            <div class="d-flex justify-content-between">
+              <h6 class="mb-0"><i class="icon-car mr-1"></i> Listar Api Endpoints</h6>
+              <!-- <span class="text-muted">2 days ago</span> -->
+            </div>
+
+            Obtener informacion de todas las rutas del api service.
+          </div>
+        </a>
+        <a routerLink="/development/component-builder" class="list-group-item list-group-item-action list-group-item-primary"
+          style="padding: 0.3rem .8rem">
+          <div class="flex-fill">
+            <div class="d-flex justify-content-between">
+              <h6 class="mb-0"><i class="icon-car mr-1"></i> Api Service Logs</h6>
+              <!-- <span class="text-muted">2 days ago</span> -->
+            </div>
+
+            Registro de errores y mensajes informativos del api service.
+          </div>
+        </a>
+        <a routerLink="/development/component-builder" class="list-group-item list-group-item-action list-group-item-primary"
+          style="padding: 0.3rem .8rem">
+          <div class="flex-fill">
+            <div class="d-flex justify-content-between">
+              <h6 class="mb-0"><i class="icon-car mr-1"></i> Buscar y Editar Procedimientos</h6>
+              <!-- <span class="text-muted">2 days ago</span> -->
+            </div>
+
+            Acceso rápido a los procedimientos de la base de datos.
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- <div class="col-sm-12">
+      <ns-group-control inline>
+        <ns-label-control>Habilitar privilegios</ns-label-control>
+        <ns-switch-control class="ml-2"></ns-switch-control>
+      </ns-group-control>
+    </div> -->
+  </div>
+
+</div>

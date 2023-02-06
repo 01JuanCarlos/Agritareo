@@ -1,0 +1,53 @@
+<div class="container-fluid mt-2" *ngIf="isNotFoundDocument">
+  <div class="row">
+    <div class="col-md-12">
+      <h3>Lo sentimos, no se encontró un cultivo con ese código</h3>
+    </div>
+  </div>
+</div>
+
+<ng-container *ngIf="!isNotFoundDocument">
+  <div class="header-content">
+    <a href="#" class="mr-2" (click)="$event.preventDefault(); backClicked()">
+      <i class="icon-arrow-left7" style="font-size: 0.8rem"></i>
+      Regresar
+    </a>
+    <h1>
+      {{ !isNewDocument ? "Controlador de riego " + form.value.nombre : "Nuevo controlador de riego" }}
+    </h1>
+    <div class="d-inline-flex justify-content-center flex-column">
+      <div class="ml-3 button-wrapper d-inline-block">
+        <ns-button *ngIf="isNewDocument" (btClick)="saveDocument()" label="Guardar" icon="icon-floppy-disk">
+        </ns-button>
+        <ns-button *ngIf="!isNewDocument" (btClick)="updateDocument()" label="Actualizar" icon="icon-floppy-disk"
+          type="warning">
+        </ns-button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid mt-2">
+    <div class="row" [formGroup]="form">
+      <div class="col-md-12">
+        <h3>Datos del controlador de riego</h3>
+
+        <div class="row section">
+          <div class="col-md-2">
+            <ns-group-control>
+              <ns-label-control>Código</ns-label-control>
+              <ns-input-control formControlName="codigo"></ns-input-control>
+            </ns-group-control>
+          </div>
+          <div class="col-md-2">
+            <ns-group-control>
+              <ns-label-control>Nombre</ns-label-control>
+              <ns-input-control formControlName="nombre"></ns-input-control>
+            </ns-group-control>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</ng-container>

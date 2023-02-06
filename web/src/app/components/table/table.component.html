@@ -1,0 +1,284 @@
+<div (mouseup)="onMouseUp($event)" class="card ns__datatable" [ngClass]="{'no-pagination': false, 'no-header-buttons': !showHeader}">
+  <div *ngIf="showHeader" class="card-header ns__datatable_header border-x-0">
+    <div class="row mx-0">
+      <div *ngIf="isSearchable" class="col-sm-3 px-0">
+        <div class="form-group form-group-feedback form-group-feedback-right mb-0 ns__datatable_search">
+          <input (keyup)="onSearch($event.target.value)" type="text" class="form-control form-control-sm" placeholder="Buscar...">
+          <div class="form-control-feedback form-control-feedback-sm">
+            <i class="icon-search4"></i>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="showOptions && !showToolbar" class="col px-1">
+        <div class="btn-toolbar justify-content-end">
+          <div *ngIf="isFilterable" class="btn-group mr-2">
+            <button type="button" class="btn btn-light dropdown-toggle dropdown-filter" data-toggle="dropdown">
+              <i class="fa fa-filter"></i>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right p-1 text-primary-800" (click)="$event.stopPropagation()">
+              <div class="filters">
+                <div class="row">
+                  <div class="col-md-12">
+                    <span class="font-weight-semibold cursor-pointer filter-title" data-toggle="collapse" data-target="#collapse-text"
+                      (click)="collapse($event.target)">
+                      <i class="icon-arrow-down5"></i> Filtrar por fecha
+                    </span>
+                    <div class="collapse show" id="collapse-text">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <p class="mb-0 text-muted text-uppercase">Desde Fecha</p>
+                        </div>
+                        <div class="col-md-12">
+                          <ns-input-control type="date" [showMask]="true"></ns-input-control>
+                        </div>
+                        <div class="col-md-12">
+                          <p class="mb-0 text-muted text-uppercase">Hasta Fecha</p>
+                        </div>
+                        <div class="col-md-12">
+                          <ns-input-control type="date" [showMask]="true"></ns-input-control>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <span class="font-weight-semibold cursor-pointer filter-title" data-toggle="collapse" data-target="#collapse-text"
+                      (click)="collapse($event.target)">
+                      <i class="icon-arrow-right5"></i> Filtrar por periodo
+                    </span>
+                    <div class="collapse" id="collapse-text">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <p class="mb-0 text-muted text-uppercase">Inicio de Periodo</p>
+                        </div>
+                        <div class="col-md-7 pr-0">
+                          <ns-select-control [items]="months"></ns-select-control>
+                        </div>
+                        <div class="col-md-5 pl-0">
+                          <ns-input-control type="number" value="2019"></ns-input-control>
+                        </div>
+                        <div class="col-md-12">
+                          <p class="mb-0 text-muted text-uppercase">Fin de Periodo</p>
+                        </div>
+                        <div class="col-md-7 pr-0">
+                          <ns-select-control [items]="months"></ns-select-control>
+                        </div>
+                        <div class="col-md-5 pl-0">
+                          <ns-input-control type="number" value="2019"></ns-input-control>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row pt-1" *ngIf="false">
+                  <div class="col-md-12">
+                    <span class="font-weight-semibold cursor-pointer filter-title" data-toggle="collapse" data-target="#collapse-text"
+                      (click)="collapse($event.target)">
+                      <i class="icon-arrow-right5"></i> Filtrar por campo
+                    </span>
+                    <div class="collapse" id="collapse-text">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <p class="mb-0 text-muted text-uppercase">Por nombre</p>
+                        </div>
+                        <div class="col-md-12">
+                          <ns-input-control type="date"></ns-input-control>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row pt-2" *ngIf="filterSelected != null">
+                  <div class="col-md-12">
+                    <button (click)="applyFilters()" class="btn btn-primary btn-block">
+                      Filtrar
+                    </button>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col text-right pt-1">
+                    <button class="btn btn-outline-warning btn-block"> Aplicar </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="dropdown-menu dropdown-menu-right">
+              <li class="dropdown-item">
+                <ns-select-control></ns-select-control>
+              </li>
+              <a href="#" class="dropdown-item"><i class="icon-screen-full"></i> Another action</a>
+              <a href="#" class="dropdown-item"><i class="icon-mail5"></i> One more action</a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item"><i class="icon-gear"></i> Separated line</a>
+            </div> -->
+          </div>
+
+          <div class="btn-group mr-2">
+            <button (click)="onAddRow()" *ngIf="hasPrivilege('CREATE')" title="Añadir" type="button" class="btn btn-light">
+              <i class="icon-plus2"></i>
+            </button>
+            <button (click)="onEditSelectedRow()" *ngIf="hasPrivilege('EDIT')" title="Editar" type="button" class="btn btn-light"
+              [disabled]="!isRowSelected">
+              <i class="icon-pencil4"></i>
+            </button>
+            <button (click)="onDelSelectedRow()" *ngIf="hasPrivilege('DELETE')" title="Eliminar" type="button" class="btn btn-light"
+              [disabled]="!isRowSelected">
+              <i class="icon-trash"></i>
+            </button>
+            <button (click)="onViewSelectedRow()" *ngIf="hasPrivilege('VIEW')" title="Ver" type="button" class="btn btn-light"
+              [disabled]="!isRowSelected">
+              <i class="icon-eye"></i>
+            </button>
+          </div>
+
+          <div class="btn-group mr-2">
+            <button (click)="reload()" *ngIf="isRemote" title="Recargar" type="button" class="btn btn-light">
+              <i class="icon-reload-alt"></i>
+            </button>
+            <!-- <button title="Importar" type="button" class="btn btn-light">
+              <i class="icon-file-upload2"></i>
+            </button> -->
+            <button
+              (click)="onPrintRows()"
+              *ngIf="this.hasPrivilege('FDOWNLOAD') && !!componentId"
+              title="Imprimir" type="button" class="btn btn-light">
+              <i class="icon-printer2"></i>
+            </button>
+
+            <button *ngIf="isExportable" type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown">
+              <i class="icon-file-download2"></i>
+            </button>
+            <div class="dropdown-menu">
+              <a (click)="exportTo('pdf')" class="dropdown-item"><i class="icon-file-pdf"></i> PDF </a>
+              <a (click)="exportTo('excel')" class="dropdown-item"><i class="icon-file-excel"></i> Excel</a>
+              <a (click)="exportTo('csv')" class="dropdown-item"><i class="icon-file-text2"></i> Csv</a>
+              <a (click)="exportTo('copy')" class="dropdown-item"><i class="icon-file-text2"></i> Copiar</a>
+              <!-- <a href="#" class="dropdown-item"><i class="icon-libreoffice"></i> Li</a> -->
+            </div>
+          </div>
+
+          <div class="list-icons list-icons-extended">
+            <a href="#" (click)="$event.preventDefault(); modal.open()" class="list-icons-item" data-popup="tooltip" title=""
+              data-container="body" data-original-title="Settings">
+              <i class="icon-cog"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-body ns__datatable_body disablePage">
+    <table [id]="id" class="table compact ns__datatable_table border-top"
+      [ngClass]="{ 'table-striped': isStriped, 'table-hover': isHover, 'table-bordered': isBordered }" #tableTpl>
+      <colgroup *ngIf="colgroup.length">
+        <col *ngFor="let col of colgroup" [ngStyle]="col.props" [span]="col.span">
+      </colgroup>
+      <thead class="table-header">
+        <tr>
+          <ng-container *ngFor="let it of header; trackBy: trackByHeaderFn">
+            <th>
+              <button *ngIf="it.filter" (click)="$event.stopPropagation();showColumnFilter($event)" type="button"
+                class="btn btn-outline bg-grey-300 border-grey-400 text-grey-600 btn-icon column-options">
+                <i class="icon-arrow-down5"></i>
+              </button>
+              {{ it.label }}
+            </th>
+          </ng-container>
+        </tr>
+      </thead>
+      <tbody *ngIf="tableErrorMessage">
+        <tr>
+          <td [attr.colspan]="HeaderSize">
+            <div class="alert alert-danger alert-dismissible mt-1">
+              <span *ngIf="tableErrorType" class="font-weight-semibold text-uppercase">{{tableErrorType}}: </span>{{tableErrorMessage}}.
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="column-filter" style="display: none;z-index: 2;" #columnOptions>
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a href="#justified-icon-only-tab1" class="nav-link active" data-toggle="tab">
+            <i class="icon-menu7"></i>
+            <span class="d-md-none ml-2">Options</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="#justified-icon-only-tab2" class="nav-link" data-toggle="tab">
+            <i class="icon-filter4"></i>
+            <span class="d-md-none ml-2">Filters</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="#justified-icon-only-tab3" class="nav-link" data-toggle="tab">
+            <i class="icon-paragraph-justify3 icon-rotate-90 font-size-xs"></i>
+            <span class="d-md-none ml-2">Columns</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+        <div class="tab-pane fade show active" id="justified-icon-only-tab1">
+          <a href="#" (click)="$event.preventDefault()" class="dropdown-item">
+            <i class="icon-pushpin"></i> Fijar columna
+          </a>
+          <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item"><i class="icon-switch2"></i> Agrupar por ...</a>
+        </div>
+
+        <div class="tab-pane fade px-1 py-1" id="justified-icon-only-tab2">
+          <input text="text" class="column-search" placeholder="Buscar..." />
+        </div>
+
+        <div class="tab-pane fade" id="justified-icon-only-tab3">
+          Ola k ai
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dropdown-menu dropdown-menu-sm dropdown-context-menu" #contextMenuTpl>
+    <a href="#" (click)="$event.preventDefault(); onViewSelectedRow(); hideContextMenu()" class="dropdown-item">
+      <i class="icon-eye"></i> Ver
+      <span class="ml-auto font-size-lg"> alt+V</span>
+      <!-- <span class="badge bg-primary ml-auto">Added</span> -->
+    </a>
+    <div class="dropdown-divider"></div>
+    <a href="#" (click)="$event.preventDefault(); onEditSelectedRow(); hideContextMenu()" class="dropdown-item">
+      <i class="icon-pencil5"></i> Editar
+      <span class="ml-auto font-size-lg"> alt+E</span>
+      <!-- <span class="badge bg-primary ml-auto">Added</span> -->
+    </a>
+    <a href="#" class="dropdown-item">
+      <i class="icon-copy2"></i> Copiar
+      <span class="ml-auto font-size-lg"><i class="icon-command"></i>C</span>
+      <!-- <span class="badge badge-pill bg-danger ml-auto">98</span> -->
+    </a>
+    <!-- <a (click)="$event.preventDefault(); onDelSelectedRow(); hideContextMenu()" href="#" class="dropdown-item">
+      <i class="icon-trash-alt"></i> Eliminar
+      <span class="ml-auto font-size-lg">supr</span>
+    </a> -->
+    <!-- <i class="icon-command"></i> -->
+
+    <div *ngIf="contextMenu.length" class="dropdown-divider"></div>
+
+    <a href="#" (click)="$event.preventDefault(); option.callback && option.callback(getSelected(), $event); hideContextMenu()"
+      class="dropdown-item"
+      *ngFor="let option of contextMenu">
+      <i [ngClass]="option.icon"></i> {{option.label}}
+      <span *ngIf="option.key" class="ml-auto font-size-lg">{{option.key}}</span>
+    </a>
+  </div>
+</div>
+
+<!-- <ns-modal size="md" (shown)="showTableSettings()" (hide)="destroyTableSettings()" (submit)="onSaveSettings($event)" [closeOnSave]="true" title="Configuración de la tabla" [id]="'dtModal'+id" #modal> -->
+<!-- <frm-table-settings [tableHeader]="header" [id]="componentId"></frm-table-settings> -->
+<!-- <ng-template #tableSettings></ng-template>
+  <span footerContent class="badge badge-light badge-striped-left border-left-warning flex-1">
+    {{ componentId }}
+  </span>
+</ns-modal> -->

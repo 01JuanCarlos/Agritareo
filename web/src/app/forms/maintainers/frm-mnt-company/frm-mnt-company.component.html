@@ -1,0 +1,144 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="form" autocomplete="false" class="w-100" [ngClass]="{'form-loading': this.isLoading}">
+  <div class="row">
+    <div class="col-md-12 px-1 py-1">
+      <div class="d-md-flex">
+        <ul class="nav nav-tabs nav-tabs-vertical flex-column wmin-md-200 mb-md-0 border-bottom-0">
+          <li class="nav-item">
+            <a href="#vertical-left-tab1" class="nav-link active" data-toggle="tab"><i class="fas fa-info-circle mr-2"></i> Información General</a>
+          </li>
+        </ul>
+        <div class="tab-content col-md-9">
+          <div class="tab-pane fade show active" id="vertical-left-tab1" formGroupName="general">
+            <div class="row">
+              <div class="col-md-4 px-2">
+                <ns-group-control>
+                  <ns-label-control>{{ 'R.U.C.' | translate }}</ns-label-control>
+                  <ns-input-control formControlName="ruc" name="ruc">
+                    <ns-addon-control icon="icono-sunat" prepend isBtn></ns-addon-control>
+                  </ns-input-control>
+                </ns-group-control>
+              </div>
+              <div class="col-md-8 px-2">
+                <ns-group-control>
+                  <ns-label-control>{{ 'Razón Social' | translate }}</ns-label-control>
+                  <ns-input-control formControlName="razon_social" name="razon_social">
+                    <ns-addon-control icon="icon-office" prepend></ns-addon-control>
+                  </ns-input-control>
+                </ns-group-control>
+              </div>
+            </div>
+            <div class="row pt-1">
+              <div class="col-md-6 px-2">
+                <ns-group-control>
+                  <ns-label-control>{{ 'Dirección' | translate }}</ns-label-control>
+                  <ns-input-control formControlName="direccion" name="direccion">
+                    <ns-addon-control icon="icon-location3" prepend></ns-addon-control>
+                  </ns-input-control>
+                </ns-group-control>
+              </div>
+              <div class="col-md-6 px-2">
+                <ns-group-control>
+                  <ns-label-control>{{ 'Referencia' | translate }}</ns-label-control>
+                  <ns-input-control formControlName="referencia" name="referencia"></ns-input-control>
+                </ns-group-control>
+              </div>
+            </div>
+
+            <div class="row pt-1">
+              <div class="col-md-3 px-2">
+                <ns-group-control>
+                  <ns-label-control>{{ 'Cód. País de operación' | translate }}</ns-label-control>
+                  <ns-input-control formControlName="codigo_pais" name="codigo_pais"></ns-input-control>
+                </ns-group-control>
+              </div>
+              <div class="col-md-9 px-2">
+                <ns-group-control>
+                  <ns-label-control>{{ 'País de Operación' | translate }}</ns-label-control>
+                  <ns-input-control formControlName="pais" name="pais"></ns-input-control>
+                </ns-group-control>
+              </div>
+            </div>
+            <div class="row pt-1">
+              <div class="col-md-3 px-2">
+                <ns-group-control>
+                  <ns-label-control>{{ 'Código de Ubigeo' | translate }}</ns-label-control>
+                  <ns-input-control formControlName="ubigeo" name="ubigeo"></ns-input-control>
+                </ns-group-control>
+              </div>
+              <div class="col-md-9 px-2">
+                <ns-group-control>
+                  <ns-label-control>{{ 'Ubigeo' | translate }}</ns-label-control>
+                  <ns-input-control formControlName="ubigeo_descripcion" name="ubigeo_descripcion"></ns-input-control>
+                </ns-group-control>
+              </div>
+            </div>
+            <div class="row pt-1">
+              <div class="col-md-3 px-2">
+                <ns-group-control>
+                  <ns-label-control>{{ 'Teléfonos' | translate }}</ns-label-control>
+                  <ns-input-control formControlName="telefono" name="telefono">
+                    <ns-addon-control icon="icon-phone2" prepend></ns-addon-control>
+                  </ns-input-control>
+                </ns-group-control>
+              </div>
+              <div class="col-md-6 px-2">
+                <ns-group-control>
+                  <ns-label-control>{{ 'E-mail' | translate }}</ns-label-control>
+                  <ns-input-control formControlName="email" name="email">
+                    <ns-addon-control icon="icon-envelop5" prepend></ns-addon-control>
+                  </ns-input-control>
+                </ns-group-control>
+              </div>
+            </div>
+            <div class="row pt-1">
+              <div class="col-md-3 px-2">
+                <ns-group-control>
+                  <ns-label-control>{{ 'Usuario SOL' | translate }}</ns-label-control>
+                  <ns-input-control formControlName="usuario_sol" name="usuario_sol">
+                    <ns-addon-control icon="icon-envelop5" prepend></ns-addon-control>
+                  </ns-input-control>
+                </ns-group-control>
+              </div>
+              <div class="col-md-6 px-2">
+                <ns-group-control>
+                  <ns-label-control>{{ 'Nombre Corto' | translate }}</ns-label-control>
+                  <ns-input-control formControlName="nombre_corto" name="nombre_corto"></ns-input-control>
+                </ns-group-control>
+              </div>
+              <div class="col-md-3 px-2">
+                <ns-group-control>
+                  <ns-label-control>{{ 'Partida Electrónica' | translate }}</ns-label-control>
+                  <ns-input-control formControlName="partida_electronica" name="partida_electronica"></ns-input-control>
+                </ns-group-control>
+              </div>
+            </div>
+            <div class="row pt-1">
+              <div class="col-md-3 px-2">
+                <ns-group-control>
+                  <ns-label-control>{{ 'Representante' | translate }}</ns-label-control>
+                  <ns-input-control formControlName="representante" name="representante">
+                    <ns-addon-control icon="icon-user" prepend></ns-addon-control>
+                  </ns-input-control>
+                </ns-group-control>
+              </div>
+              <div class="col-md-6 px-2">
+                <ns-group-control>
+                  <ns-label-control>{{ 'Documento de Identidad' | translate }}</ns-label-control>
+                  <ns-input-control formControlName="tipodocumento_representante" name="tipodocumento_representante"></ns-input-control>
+                </ns-group-control>
+              </div>
+              <div class="col-md-3 px-2">
+                <ns-group-control>
+                  <ns-label-control>{{ 'Número de Documento' | translate }}</ns-label-control>
+                  <ns-input-control formControlName="documento_representante" name="documento_representante">
+                    <ns-addon-control icon="icon-barcode2" prepend></ns-addon-control>
+                  </ns-input-control>
+                </ns-group-control>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,49 @@
+<as-split gutterSize="3" style="width: auto;">
+  <as-split-area [size]="splitted ? (wintabIsTree ? splitMinSize : 50) : 100" [minSize]="splitMinSize">
+    <ns-split-tabs
+      *ngIf="hasTabs && !wintabIsTree"
+      [items]="getLeftTabItems()"
+      (selectTab)="onSelectTab($event, TAB_LEFT)"
+      (closeAllTab)="onCloseAllTabs(TAB_LEFT)"
+      (closeTab)="onCloseTab($event)"
+      (dropTab)="onItemDrop($event, TAB_LEFT)"
+      (clickBtnSplit)="onSplitTabs()"
+      (clickBtnWindow)="onWindowTab(TAB_LEFT)"
+      [showTopOptions]="containerActiveDir === TAB_LEFT">
+    </ns-split-tabs>
+    <div class="row nav-split h-100">
+      <div (click)="containerActiveDir = TAB_LEFT;" class="col-md-12 splitcontainer">
+        <ng-container *ngIf="isViewOutletActive">
+          <router-outlet></router-outlet>
+        </ng-container>
+        <ng-template #leftContainer></ng-template>
+      </div>
+    </div>
+  </as-split-area>
+  <as-split-area [size]="splitted ? ( wintabIsTree ? 75 : 50) : 0" [visible]="splitted" [minSize]="splitMinSize">
+    <ns-split-tabs
+      *ngIf="hasTabs"
+      [showSplitBtn]="!wintabIsTree"
+      [showPopupBtn]="!wintabIsTree"
+      (selectTab)="onSelectTab($event, TAB_RIGHT)"
+      [items]="getRightTabItems()"
+      (closeAllTab)="onCloseAllTabs(TAB_RIGHT)"
+      (closeTab)="onCloseTab($event)"
+      (dropTab)="onItemDrop($event, TAB_RIGHT)"
+      (clickBtnSplit)="onSplitTabs()"
+      (clickBtnWindow)="onWindowTab(TAB_RIGHT)"
+      [showTopOptions]="containerActiveDir === TAB_RIGHT"></ns-split-tabs>
+    <div class="row nav-split">
+      <div (click)="containerActiveDir = TAB_RIGHT;" class="col-md-12 splitcontainer">
+        <ng-template #rightContainer></ng-template>
+      </div>
+    </div>
+  </as-split-area>
+</as-split>
+
+<app-modal-dialog class="modal3" [zIndex]="9999" modalTitle="{{wintabTitle | translate}}" [width]="800" [maximizable]="true"
+  [backdrop]="false">
+  <div class="app-modal-body">
+    <ng-template #windowContainer></ng-template>
+  </div>
+</app-modal-dialog>

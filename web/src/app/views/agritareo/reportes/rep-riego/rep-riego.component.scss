@@ -1,0 +1,86 @@
+:host {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+[hidden] {
+  display: none;
+}
+
+
+::ng-deep {
+  .riego-wrapper {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px dashed #64B0ED;
+    // border: 2px dashed transparent;
+    font-weight: bold;
+    font-size: 14px;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    display: block;
+    position: fixed;
+    text-align: center;
+    padding: 5px 10px;
+    border-radius: 7.5px;
+    color: #ddd;
+  }
+
+    .label-first {
+      color: white;
+      font-size: 16px;
+    }
+
+    .label-second {
+      color: white;
+    }
+
+    .label-third {
+      color: #116FBF;
+    }
+
+    .label-sub{
+      color: #116FBF;
+    }
+
+}
+
+#buttonMapa::before{
+  content:"";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  // background: rgba(255, 255, 255, 0.8);
+  z-index: -1;
+  border-radius: 7px;
+  transform: translateY(5px);
+}
+
+#buttonMapa:active{
+  transform: translateY(5px);
+}
+
+#buttonMapa:active:before{
+  transform: translateY(0);
+}
+
+
+
+
+  // Remove the negative margin from default .row, then the horizontal padding
+  // from all immediate children columns (to prevent runaway style inheritance).
+  .no-gutters {
+    margin-right: -35px;
+    margin-left: -9px;
+
+    > .col,
+    > [class*="col-"] {
+      padding-right: 0;
+      padding-left: 0;
+    }
+  }
+

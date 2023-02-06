@@ -1,0 +1,48 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "downlevelIteration": true,
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "module": "esnext",
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "esnext",
+    "allowSyntheticDefaultImports": true,
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2018",
+      "dom"
+    ],
+    "paths": {
+      "@views/*": [
+        "./src/app/views/*"
+      ],
+      "@forms/*": [
+        "./src/app/forms/*"
+      ],
+      "@app/*": [
+        "./src/app/*"
+      ],
+      "@workers/*": [
+        "./src/app/workers/*"
+      ],
+      "@components/*": [
+        "./src/app/components/*"
+      ],
+      "@static/*": [
+        "./src/static/*"
+      ],
+      "@full/*": [
+        "./*"
+      ]
+    }
+  }
+}

@@ -1,0 +1,40 @@
+.swal2-popup {
+  width: fit-content !important;
+  padding: 20px 60px !important;
+
+  .material {
+    margin-right: 10px;
+    height: 36px;
+    padding: 0 12px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    font-size: 13px;
+    color: #3367d6;
+    font-weight: 500;
+    text-transform: uppercase;
+    outline: none !important;
+    background: white;
+    border: 1px solid #3367d6;
+    transition: 0.3s;
+
+    &:hover:not(.cancel) {
+      background: #3367d6;
+      color: white;
+    }
+
+    &.cancel {
+      border: 1px solid white;
+      color: #0000008A;
+
+      &:hover {
+        border: 1px solid #0000008A;
+        background: white;
+        color: black;
+      }
+    }
+  }
+}

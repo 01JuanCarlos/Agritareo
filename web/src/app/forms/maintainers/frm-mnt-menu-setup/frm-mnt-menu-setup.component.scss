@@ -1,0 +1,13 @@
+.card {
+  border: none;
+  box-shadow: none;
+
+  .card-footer {
+    background: none;
+
+    button {
+      padding: 0.15rem 0.5rem;
+      padding-right: 1rem;
+    }
+  }
+}

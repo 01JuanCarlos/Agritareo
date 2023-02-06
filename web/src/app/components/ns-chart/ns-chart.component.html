@@ -1,0 +1,62 @@
+<div class="ns-chart-wrapper">
+  <div class="ns-chart-header">
+    <div class="list-icons ns-chart-more">
+      <!-- <div class="list-icons-item dropdown">
+        <a href="#" class="list-icons-item dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-menu7"></i></a>
+        <div class="dropdown-menu dropdown-menu-right">
+          <a href="#" class="dropdown-item"><i class="icon-file-stats"></i> View statement</a>
+          <a href="#" class="dropdown-item"><i class="icon-file-text2"></i> Edit campaign</a>
+          <a href="#" class="dropdown-item"><i class="icon-file-locked"></i> Disable campaign</a>
+          <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item"><i class="icon-gear"></i> Settings</a>
+        </div>
+      </div> -->
+    </div>
+    <span class="ns-chart-title ml-2" *ngIf="title?.length">
+      {{ title }}
+    </span>
+  </div>
+  <div class="ns-chart-options">
+    <div class="ns-chart-options-left">
+      <div class="ns-chart-graphic-options">
+        <!-- <select name="" id="" class="ns-chart-form-control">
+          <option value="">Mayor a Menor</option>
+          <option value="">Menor a Mayor</option>
+        </select> -->
+      </div>
+      <div class="ns-chart-graphic-type">
+        <button (click)="setChartType('bar')" [ngClass]="{'ative': type === 'bar'}">
+          <i class="icon-stats-bars2"></i>
+        </button>
+        <!-- <button (click)="setChartType('hbar')" [ngClass]="{'ative': type === 'line'}">
+          <i class="rotate-90 icon-stats-bars2"></i>
+        </button> -->
+        <!-- <button (click)="setChartType('area')" [ngClass]="{'ative': type === 'area'}">
+          <i class="icon-chart"></i>
+        </button> -->
+        <!-- <button (click)="setChartType('doughnut')" [ngClass]="{'ative': type === 'doughnut'}">
+          <i class="icon-chart1"></i>
+        </button> -->
+        <button (click)="setChartType('line')" [ngClass]="{'ative': type === 'line'}">
+          <i class="icon-stats-dots"></i>
+        </button>
+      </div>
+    </div>
+    <div class="ns-chart-options-right" style="display: none;">
+      <div class="ns-chart-graphic-filter">
+        <input class="ns-chart-form-control" type="text" #datePicker>
+      </div>
+    </div>
+  </div>
+  <div class="ns-chart-graphic" [ngClass]="{'extend': isExtended}">
+    <div class="ns-chart-graph">
+      <canvas class="chartjs" width="undefined" #chart></canvas>
+    </div>
+    <!-- <div class="ns-chart-detail">
+      Indicadores:
+      <div *ngFor="let plaga of labels">
+        {{plaga}}
+      </div>
+    </div> -->
+  </div>
+</div>

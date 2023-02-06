@@ -1,0 +1,163 @@
+.container:hover {
+  transition: 0.4s;
+  background: #116fbf;
+
+  i {
+    color: white;
+  }
+}
+
+.container {
+  position: fixed;
+  bottom: 20px;
+  right: 80px;
+  width: 50px;
+  height: 50px;
+  border-radius: 100px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  box-shadow: 0 3px 4px 0 rgb(0 0 0 / 20%),
+    0 3px 3px -2px rgb(0 0 0 / 14%),
+    0 1px 8px 0 rgb(0 0 0 / 12%);
+  transition: 0.4s;
+}
+
+
+i {
+  color: #2196F3;
+  text-decoration: none;
+  background-color: transparent;
+  -webkit-text-decoration-skip: objects;
+}
+
+.zoom {
+  opacity: 0;
+  background-color: #333;
+  position: fixed;
+  // left: 0;
+  right: 74px;
+  z-index: -1;
+  top: auto;
+  bottom: 0;
+  transform: scale(0.33);
+  transition-duration: 1s;
+  margin-bottom: 75px;
+}
+
+.zoom.active {
+  z-index: 999;
+  transition-duration: 1s;
+  opacity: 1;
+  max-height: 321px;
+  max-width: 395px;
+  transform: scale(1);
+  border-radius: 19px;
+}
+
+
+.custom-card {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+
+  .title {
+    color: #2E2E30;
+    font-size: 0.9rem;
+    font-weight: 500;
+    // border-bottom: 1px solid #F9F9F9;
+    border-bottom: 1px solid #b9b9c7;
+    padding: 7.5px 5px;
+
+    i {
+      font-size: 1.15rem;
+      margin-right: 5px;
+    }
+
+  }
+
+  .content {
+    padding: 7.5px 15px;
+
+    .emphasis {
+      color: black;
+      font-size: 2rem;
+      font-weight: 300 !important;
+      text-decoration: underline 4px;
+    }
+
+    .small {
+      color: #050505;
+      font-size: 1rem;
+    }
+
+    // .weather-img-wrapper {}
+
+    .temperature {
+      color: #3D84DC;
+      font-size: 3.5rem;
+      text-align: right;
+    }
+
+
+
+    .indicators-wrapper {
+      display: flex;
+      max-width: 100%;
+      overflow-x: auto;
+
+      .indicator {
+        width: fit-content;
+        padding: 10px 15px;
+        border-radius: 10px;
+        display: -webkit-box;
+        display: flex;
+        -webkit-box-pack: center;
+        justify-content: center;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        flex-direction: column;
+        margin-right: 10px;
+
+        &.yellow {
+          background: #FFD041;
+        }
+
+        &.blue {
+          background: #3588FE;
+        }
+
+        &.green {
+          background: #5BEAA8;
+        }
+
+        .imagen-wrapper {
+          i {
+            color: black;
+          }
+        }
+
+        .title-indicator {
+          color: black;
+          text-align: center;
+          font-size: 1rem;
+          font-weight: 400 !important;
+          // padding-top: 25px;
+        }
+
+        .detail {
+          color: black;
+          text-align: center;
+          // padding-left: 40px;
+          font-size: 1.4rem;
+          font-weight: 600 !important;
+        }
+      }
+
+    }
+
+  }
+
+}

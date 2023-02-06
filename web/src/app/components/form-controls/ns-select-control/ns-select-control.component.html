@@ -1,0 +1,19 @@
+<ng-template #optionTpl let-op>
+  <option [attr.selected]="op.selected" [value]="op.value" translate>{{op.label}}</option>
+</ng-template>
+
+<ng-template #childrenTpl let-item>
+  <optgroup [label]="item.label">
+    <ng-container *ngFor="let it of item.children; trackBy: trackByFn">
+      <ng-container *ngTemplateOutlet="optionTpl; context: { $implicit: it }"></ng-container>
+    </ng-container>
+  </optgroup>
+</ng-template>
+
+<select [value]="value" (change)="onChangeOption($event.target)" [id]="id" class="form-control" [attr.name]="name" [ngClass]="__controlClass"
+  [disabled]="disabled || readonly" [attr.multiple]="isMultiple || null">
+  <option *ngIf="showDefaultOption" selected disabled value="" translate>{{ placeholder }}</option>
+  <ng-container *ngFor="let it of options; trackBy: trackByFn">
+    <ng-container *ngTemplateOutlet="!it.isParent ? optionTpl : childrenTpl; context: { $implicit: it }"></ng-container>
+  </ng-container>
+</select>

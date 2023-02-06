@@ -1,0 +1,236 @@
+<div class="container-fluid mt-2" *ngIf="isNotFoundDocument">
+  <div class="row">
+    <div class="col-md-12">
+      <h3>Lo sentimos, no se encontró un cultivo con ese código</h3>
+    </div>
+  </div>
+</div>
+
+<ng-container *ngIf="!isNotFoundDocument">
+  <div class="header-content">
+    <a href="#" class="mr-2" (click)="$event.preventDefault();backClicked()">
+      <i class="icon-arrow-left7" style="font-size: 0.8rem;"></i>
+      Regresar
+    </a>
+    <h1>
+      {{!isNewDocument ? 'Editar Cultivo ' + form.value.descripcion_cultivo : 'Nuevo cultivo' }}
+    </h1>
+    <div class="d-inline-flex justify-content-center flex-column">
+      <div class="ml-3 button-wrapper d-inline-block">
+        <ns-button *ngIf="isNewDocument" (btClick)="saveDocument()" label="Guardar" icon="icon-floppy-disk">
+        </ns-button>
+        <ns-button *ngIf="!isNewDocument" (btClick)="updateDocument()" label="Actualizar" icon="icon-floppy-disk"
+          type="warning"></ns-button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid mt-2">
+    <div class="row" [formGroup]="form">
+      <div class="col-md-12">
+        <h3>Datos del Cultivo</h3>
+        <div class="row section">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-2">
+                <ns-group-control required>
+                  <ns-label-control>Codigo</ns-label-control>
+                  <ns-input-control formControlName="codigo"></ns-input-control>
+                </ns-group-control>
+              </div>
+              <div class="col-md-6">
+                <ns-group-control required>
+                  <ns-label-control>Nombre</ns-label-control>
+                  <ns-input-control formControlName="descripcion_cultivo"></ns-input-control>
+                </ns-group-control>
+              </div>
+              <div class="col-md-4">
+                <ns-group-control>
+                  <ns-label-control>Descripcion cientifica</ns-label-control>
+                  <ns-input-control formControlName="descripcion_cientifica"></ns-input-control>
+                </ns-group-control>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-md-2">
+                <ns-group-control required>
+                  <ns-label-control>Color por el cultivo</ns-label-control>
+                  <ns-colorpicker-control formControlName="color"></ns-colorpicker-control>
+                </ns-group-control>
+              </div>
+              <div class="col-md-2">
+                <ns-group-control>
+                  <ns-label-control>Estilo</ns-label-control>
+                  <ns-input-control formControlName="estilo"></ns-input-control>
+                </ns-group-control>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <h3 class="mt-3 mb-1 align-items-center">
+          Fenologías del cultivo
+
+          <div class="d-inline-flex custom-buttons">
+            <ns-button
+              (btClick)="addFenologiaClick(fenologiaModal)"
+              label="Añadir fenologia" icon="mi-add"></ns-button>
+            <ns-button [disabled]="!selectedFenologia" (btClick)="fenologiaModal.open()" icon="mi-mode-edit" mini>
+            </ns-button>
+            <ns-button [disabled]="!selectedFenologia"
+              (btClick)="deleteTab('fenologias_cultivo', fenologiasCultivoTable.selectedIndex[0])" icon="mi-delete"
+              mini></ns-button>
+            <!-- <ns-button [disabled]="!selectedFenologia" (btClick)="syncFenologiasVariedad()" icon="mi-sync" mini>
+            </ns-button> -->
+          </div>
+        </h3>
+        <div class="row">
+          <div class="col-md-12">
+            <ns-table-simple [header]="fenologiaHeader" [data]="fenologiasList"
+              (tsSelect)="selectedFenologia = $event; fenologiaForm.reset(); fenologiaForm.patchValue($event || {})"
+              #fenologiasCultivoTable>
+            </ns-table-simple>
+
+            <ns-modal size="sm" [title]="(!selectedFenologia? 'Nuevo' : 'Editar') + ' fenologia'" #fenologiaModal>
+              <div class="mx-0 row w-100 px-2 no-gutters mb-2" [formGroup]="fenologiaForm">
+                <div class="col-md-12 mb-2">
+                  <ns-group-control required>
+                    <ns-label-control>Código</ns-label-control>
+                    <ns-input-control formControlName="codigo"></ns-input-control>
+                    <small *ngIf="error" class="text-danger">{{error}}</small>
+                  </ns-group-control>
+                </div>
+                <div class="col-md-12 mb-2">
+                  <ns-group-control required>
+                    <ns-label-control>Fenologia</ns-label-control>
+                    <ns-input-control formControlName="nombre"></ns-input-control>
+                  </ns-group-control>
+                </div>
+                <div class="col-md-12 mb-2">
+                  <ns-group-control required>
+                    <ns-label-control>Días</ns-label-control>
+                    <ns-input-control formControlName="duracion_dias"></ns-input-control>
+                  </ns-group-control>
+                </div>
+              </div>
+              <ng-template nsTemplate="footer">
+                <button *ngIf="!selectedFenologia" type="button"
+                  (click)="addFenologia(fenologiaModal)"
+                  class="btn bg-primary btn-sm">
+                  Añadir
+                </button>
+                <button *ngIf="selectedFenologia" type="button"
+                  (click)="addFormArrayItem('fenologias_cultivo',fenologiaForm,fenologiasCultivoTable.selectedIndex[0]);fenologiaModal.close()"
+                  class="btn bg-primary btn-sm">
+                  Guardar
+                </button>
+              </ng-template>
+            </ns-modal>
+          </div>
+        </div>
+
+
+
+        <h3 class="d-flex align-items-center mt-4 mb-1">
+          Variedades del cultivo
+          <div class="d-inline-flex custom-buttons">
+            <ns-button (btClick)="addFormArrayItem('variedad', createVariedad());" label="Nueva variedad" icon="mi-add">
+            </ns-button>
+          </div>
+        </h3>
+
+        <ng-container *ngIf="!variedadesList?.controls.length; else fenologiasLst">
+          <h2> No existen variedades para mostrar </h2>
+        </ng-container>
+
+        <ng-template #fenologiasLst>
+          <ns-detail-section (deleteTab)="deleteTab(['variedad'], $event)" [formArray]="variedadesList" tabLabelKey="descripcion_variedad"
+            #variedadesSection>
+            <div class="row section">
+              <div class="col-md-2">
+                <ns-group-control controlName="codigo" required>
+                  <ns-label-control>Código</ns-label-control>
+                  <ns-input-control></ns-input-control>
+                </ns-group-control>
+              </div>
+              <div class="col-md-2">
+                <ns-group-control controlName="descripcion_variedad" required>
+                  <ns-label-control>Descripcion variedad</ns-label-control>
+                  <ns-input-control></ns-input-control>
+                </ns-group-control>
+              </div>
+              <div class="col-md-2">
+                <ns-group-control controlName="color_variedad">
+                  <ns-label-control>Color de la variedad</ns-label-control>
+                  <ns-colorpicker-control [defaultColor]="form.value.color || '#000000'"></ns-colorpicker-control>
+                </ns-group-control>
+              </div>
+              <div class="col-md-2">
+                <ns-group-control controlName="estilo">
+                  <ns-label-control>Estilo</ns-label-control>
+                  <ns-input-control></ns-input-control>
+                </ns-group-control>
+              </div>
+            </div>
+          </ns-detail-section>
+        </ng-template>
+
+
+
+        <h3 class="mt-3 mb-1 align-items-center">
+          Fenologías de la variedad {{variedadesSection?.selectedFormGroup?.value.descripcion_variedad}}
+
+          <div class="d-inline-flex custom-buttons">
+            <!-- <ns-button
+              (btClick)="selectedFenologiaVariedad = null; fenologiaVariedadForm.reset(); fenologiaVariedadModal.open()"
+              label="Añadir fenologia" icon="mi-add"></ns-button> -->
+            <ns-button [disabled]="!selectedFenologiaVariedad" (btClick)="fenologiaVariedadModal.open()"
+              icon="mi-mode-edit" mini></ns-button>
+            <ns-button [disabled]="!selectedFenologiaVariedad"
+              (btClick)="deleteTab(['variedad', variedadIndex, 'fenologias_variedad'], tableFenoVariedad.selectedIndex[0])"
+              icon="mi-delete" mini></ns-button>
+          </div>
+        </h3>
+        <div class="row">
+          <div class="col-md-12">
+            <ns-table-simple #tableFenoVariedad [header]="fenologiaVariedadHeader"
+              [data]="form.get(['variedad',variedadIndex, 'fenologias_variedad']).value"
+              (tsSelect)="selectedFenologiaVariedad = $event; fenologiaVariedadForm.patchValue($event || {})">
+            </ns-table-simple>
+
+            <ns-modal size="sm" [title]="(!selectedFenologiaVariedad? 'Nuevo' : 'Editar') + ' fenologia'"
+              #fenologiaVariedadModal>
+              <div class="mx-0 row w-100 px-2 no-gutters mb-2" [formGroup]="fenologiaVariedadForm">
+                <div class="col-md-12 mb-2">
+                  <ns-group-control required>
+                    <ns-label-control>Fenologia</ns-label-control>
+                    <ns-input-control formControlName="nombre" [readonly]="true"></ns-input-control>
+                  </ns-group-control>
+                </div>
+                <div class="col-md-12 mb-2">
+                  <ns-group-control required>
+                    <ns-label-control>Días</ns-label-control>
+                    <ns-input-control formControlName="duracion_dias"></ns-input-control>
+                  </ns-group-control>
+                </div>
+              </div>
+              <ng-template nsTemplate="footer">
+                <button *ngIf="!selectedFenologiaVariedad" type="button"
+                  (click)="addFormArrayItem(['variedad',variedadIndex, 'fenologias_variedad'], fenologiaVariedadForm);fenologiaVariedadModal.close()"
+                  class="btn bg-primary btn-sm">
+                  Añadir
+                </button>
+                <button *ngIf="selectedFenologiaVariedad" type="button"
+                  (click)="addFormArrayItem(['variedad',variedadIndex, 'fenologias_variedad'], fenologiaVariedadForm, tableFenoVariedad.selectedIndex[0]);fenologiaVariedadModal.close()"
+                  class="btn bg-primary btn-sm">
+                  Guardar
+                </button>
+              </ng-template>
+            </ns-modal>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

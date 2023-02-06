@@ -1,0 +1,97 @@
+<ns-input-control
+  [id]="id"
+  [showClear]="true"
+  (keyArrowDown)="onKeyArrowDown()"
+  (keyArrowUp)="onKeyArrowUp()"
+  [(ngModel)]="value"
+  (focus)="onSearchFocus()"
+  (blur)="onSearchBlur($event)"
+  (inputText)="onSearch($event)"
+  (keyEnter)="onKeyEnter()"
+  [iconFeedbackLeft]="loading ? 'spinner icon-spinner2' : searchIcon"
+  [disabled]="disabled"
+  [readonly]="readonly">
+</ns-input-control>
+<!-- [value]="value" -->
+<div #resultBox [hidden]="!visibleResult" (mouseenter)="mouseOnResult = true" (mouseleave)="mouseOnResult = false" class="list-group result">
+  <!-- Busqueda avanzada -->
+  <a href="#" (click)="$event.preventDefault();modal.open()" class="advanced-search text-right">
+    <span *ngIf="!!search" style="color: gray;float: left;">
+      Resultados de <b>{{search.length > 16 ? search.slice(0, 16) + '...': search}}</b>
+    </span>
+    <span style="float: right;">Búsqueda Avanzada</span>
+  </a>
+  <!-- Sín resultados -->
+  <span class="text-muted pl-1" *ngIf="noResultsFound === true && !loading">
+    No se encuentran resultados.
+  </span>
+  <!-- Lista de resultado -->
+  <ng-container *ngFor="let it of result; trackBy: trackByFn; let last = last; let first = first;">
+    <a tabindex="-1" href="#" (click)=" $event.preventDefault();onSelect(it, $event.target)"
+      class="list-group-item list-group-item-action result-item"
+      [ngClass]="{'list-group-item-active': it.active, 'empty-description': !it.description}">
+      <div class="flex-fill">
+        <div class="d-flex justify-content-between">
+          <div class="d-flex">
+            <div class="d-flex justify-content-center flex-column">
+              <span class="font-weight-semibold">
+                <i *ngIf="it.icon" [ngClass]="it.icon" class="mr-1"></i>
+              </span>
+            </div>
+            <div class="d-flex flex-column ml-1">
+              <span class="title">{{it.label}}</span>
+              <small class="text-muted description">{{it?.description}}</small>
+            </div>
+          </div>
+          <div class="d-flex justify-content-center flex-column">
+            <span class="text-muted text-muted-label">{{it.badge}}</span>
+          </div>
+        </div>
+      </div>
+    </a>
+    <div *ngIf="!last" class="list-group-item list-group-divider"></div>
+  </ng-container>
+</div>
+
+<ns-modal size="md" [closeOnSave]="true" title="Opciones avanzadas de búsqueda" [id]="'suggestAdvanced'+id" #modal>
+  <div class="text-uppercase title font-weight-bold mb-2">Busqueda avanzada
+    <div class="float-right">
+      <a class="cursor-pointer" (click)="addFilter()">
+        <i class="icon-filter3">
+        </i>
+      </a>
+    </div>
+  </div>
+  <!-- <div class="container"> -->
+  <!-- <form [formGroup]="orderForm" novalidate>
+    <div formArrayName="itemsF" *ngFor="let item of orderForm.get('itemsF').controls; let i = index;">
+      <div [formGroupName]="i">
+        <div class="row mb-1">
+          <div class="col-md-4">
+            <ns-group-control>
+              <ns-select-control placeholder="Campo de búsqueda" formControlName="name"></ns-select-control>
+            </ns-group-control>
+          </div>
+          <div class="col-md-4">
+            <ns-group-control>
+              <ns-select-control placeholder="Opción de búsqueda" formControlName="description"></ns-select-control>
+            </ns-group-control>
+          </div>
+          <div class="col-md-4">
+            <ns-group-control>
+              <ns-input-control placeholder="Valor del campo" formControlName="price"></ns-input-control>
+            </ns-group-control>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form> -->
+  <!-- </div> -->
+
+  <div class="row">
+    <div class="col-md-12">
+      <p class="text-uppercase title font-weight-bold my-2">Resultados</p>
+    </div>
+  </div>
+  <!-- TODO: Cambiar los botones del footer -->
+</ns-modal>

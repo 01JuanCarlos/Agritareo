@@ -1,0 +1,22 @@
+<div class="navbar navbar-light px-1 ns__footer">
+  <span class="navbar-text pull-left d-none d-sm-inline-block">
+    <ns-breadcrumb></ns-breadcrumb>
+  </span>
+  <span class="navbar-text pull-right">
+    <ul class="list-inline list-inline-dotted mb-0">
+      <li class="list-inline-item font-size-xs">
+        <span translate> {{ connectionStatus === 2 ? 'Connecting...' : 1 === connectionStatus ? 'Online': 'Offline' }}</span>
+        &nbsp;
+        <i class="icon-feed"
+          [ngClass]="{
+          'text-warning': connectionStatus === 2, 
+          'text-danger': !connectionStatus, 
+          'text-success':1 === connectionStatus  
+        }"></i>
+      </li>
+      <li class="list-inline-item d-sm-inline-block d-none">
+        <b>{{ businessName$ | async }}</b>
+      </li>
+    </ul>
+  </span>
+</div>

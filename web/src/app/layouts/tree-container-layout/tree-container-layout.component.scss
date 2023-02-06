@@ -1,0 +1,14 @@
+@import "src/assets/scss/colors/colors.scss";
+@import "src/assets/scss/mixins/theme-mixins.scss";
+
+:host-context(body.theme-dark) {
+  @include tree($theme-dark, $theme-dark-accent, $white-text);
+}
+
+:host-context(body.theme-grey) {
+  @include tree($theme-grey, $theme-grey-accent, $white-text);
+}
+
+:host-context(body.theme-light-grey) {
+  @include tree($theme-light-grey, $theme-light-grey-accent, $black-text);
+}

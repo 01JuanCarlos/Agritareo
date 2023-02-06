@@ -1,0 +1,102 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <ns-tabs tabFill>
+    <ns-tab label="Columnas" class="tab-settings" icon="icon-menu7">
+      <h6 class="title font-weight-bold text-uppercase pt-1">Lista de columnas</h6>
+      <hr class="mt-1 mb-2">
+      <ns-group-list formControlName="header" checkedKey="visible" checkbox></ns-group-list>
+    </ns-tab>
+
+    <ns-tab label="Formatos" class="tab-settings" icon="icon-file-pdf">
+      <div class="d-flex justify-content-between">
+        <div class="d-flex flex-column justify-content-end">
+          <h6 class="title font-weight-bold text-uppercase">Formatos de impresión</h6>
+        </div>
+        <button (click)="createReport()" class="btn pr-2 badge badge-info text-white title font-weight-bold text-uppercase"><i
+            class="fa fa-plus mr-1"></i>
+          Añadir</button>
+      </div>
+      <hr class="mt-1 mb-2">
+      <div class="row">
+        <div class="col-md-12 text-right">
+          <ns-group-list *ngIf="reportList.length !== 0" [items]="reportList" labelKey="componente">
+          </ns-group-list>
+          <p class="text-left font-weight-bold" *ngIf="reportList.length === 0">No se encuentran registros</p>
+        </div>
+      </div>
+    </ns-tab>
+
+    <ns-tab label="Configuración" class="tab-settings" icon="fa fa-cogs">
+      <h6 class="title pt-1 font-weight-bold text-uppercase">Paginación</h6>
+      <hr class="mt-1 mb-2">
+      <div class="row">
+        <div class="col-md-4 text-right">
+          <ns-label-control>Registros por página</ns-label-control>
+        </div>
+        <div class="col-md-2">
+          <ns-select-control formControlName="perPage" [showDefaultOption]="false">
+            <ns-select-option value="10">10</ns-select-option>
+            <ns-select-option value="15">15</ns-select-option>
+            <ns-select-option value="20">20</ns-select-option>
+          </ns-select-control>
+        </div>
+      </div>
+
+      <h6 class="title pt-2 font-weight-bold text-uppercase">Opciones de Tabla</h6>
+      <hr class="mt-1 mb-2">
+      <div class="row">
+        <div class="col-md-4 text-right">
+          <ns-label-control>Cabecera fija</ns-label-control>
+        </div>
+        <div class="col-md-2">
+          <ns-switch-control formControlName="headerFixed"></ns-switch-control>
+        </div>
+        <div class="col-md-4 text-right">
+          <ns-label-control>Mostrar indicadores</ns-label-control>
+        </div>
+        <div class="col-md-2">
+          <ns-switch-control formControlName="showIndicators"></ns-switch-control>
+        </div>
+      </div>
+      <div class="row pt-1">
+        <div class="col-md-4 text-right">
+          <ns-label-control>Permitir reajuste</ns-label-control>
+        </div>
+        <div class="col-md-2">
+          <ns-switch-control formControlName="allowAdjust"></ns-switch-control>
+        </div>
+        <div class="col-md-4 text-right">
+          <ns-label-control>Fijar columnas</ns-label-control>
+        </div>
+        <div class="col-md-2">
+          <ns-switch-control formControlName="fixedCols"></ns-switch-control>
+        </div>
+      </div>
+      <h6 class="title pt-2 font-weight-bold text-uppercase">Filtros y Ordenamiento</h6>
+      <hr class="mt-1 mb-2">
+      <div class="row">
+        <div class="col-md-4 text-right">
+          <ns-label-control>Permitir búsqueda</ns-label-control>
+        </div>
+        <div class="col-md-2">
+          <ns-switch-control formControlName="allowSearch"></ns-switch-control>
+        </div>
+        <div class="col-md-4 text-right">
+          <ns-label-control>Permitir ordenamiento</ns-label-control>
+        </div>
+        <div class="col-md-2">
+          <ns-switch-control formControlName="allowSort"></ns-switch-control>
+        </div>
+      </div>
+      <h6 class="title pt-2 font-weight-bold text-uppercase">Selección</h6>
+      <hr class="mt-1 mb-2">
+      <div class="row">
+        <div class="col-md-4 text-right">
+          <ns-label-control>Habilitar selección</ns-label-control>
+        </div>
+        <div class="col-md-2">
+          <ns-switch-control formControlName="allowSelection"></ns-switch-control>
+        </div>
+      </div>
+    </ns-tab>
+  </ns-tabs>
+</form>

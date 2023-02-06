@@ -1,0 +1,39 @@
+@import "src/assets/scss/colors/colors.scss";
+@import "src/assets/scss/mixins/theme-mixins.scss";
+@import "src/assets/scss/_bootstrap/bootstrap-grid.scss";
+
+:host-context(body.theme-dark) {
+  @include select($theme-dark, $theme-dark-accent, $white-text);
+}
+
+:host-context(body.theme-grey) {
+  @include select($theme-grey, $theme-grey-accent, $white-text);
+}
+
+:host-context(body.theme-light-grey) {
+  @include select($theme-light-grey, $theme-light-grey-accent, $black-text);
+}
+
+:host {
+  select {
+    &.form-control.form-control-sm {
+      height: 1.5625rem;
+      padding: 0.1rem 0.75rem;
+    }
+
+    &.form-control.form-control-md {
+      height: 1.9375rem;
+    }
+
+    &.form-control.form-control-lg {
+      height: 2.4375rem;
+    }
+  }
+}
+
+
+@include media-breakpoint-down(sm) {
+  :host {
+    margin-top: .1rem !important;
+  }
+}

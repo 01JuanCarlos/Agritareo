@@ -1,0 +1,32 @@
+.boton{
+  width: 30px ;
+  height: 35px ;
+  border:#ccc 3px solid;
+  cursor: initial;
+
+  outline: none;
+  box-shadow: none;
+
+}
+.modal-dialog-centered:before {
+  display: block;
+  height: calc(100vh - (0.5rem * 2));
+  content: "";
+}
+.divDeComponente{
+  height: 100px; 
+  width: 400px; 
+  display: flex;
+}
+.iDeboton{
+  color: #ccc;
+  font-size: 12px;
+}
+
+.table-responsive{
+  height: 400px;
+  overflow: scroll;
+  width: 490px;
+  margin-left: 7px;
+}
+

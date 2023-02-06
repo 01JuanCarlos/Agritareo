@@ -1,0 +1,8 @@
+.breadcrumb-item {
+  color: black !important;
+
+  &:last-child {
+    color: #757575 !important;
+    // color: #333333 !important;
+  }
+}

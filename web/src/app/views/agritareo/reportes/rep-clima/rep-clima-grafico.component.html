@@ -1,0 +1,50 @@
+<div class="header-sub-content">
+  <h1>CLima</h1>
+  <div class="control-wrapper ml-auto">
+    <div class="row" [formGroup]="form">
+      <div class="col d-flex">
+        <div class="d-inline-flex">
+          <div class="control-wrapper">
+            <div class="input-wrapper mr-2">
+              <p-multiSelect
+                [options]="loteList"
+                formControlName="selected_lote"
+                defaultLabel="Seleciona un fundo"
+                scrollHeight="250px"
+                optionLabel="nombrenivel"
+                optionValue="id"
+                #option
+                (onChange)="getValue(option.value)">
+              </p-multiSelect>
+            </div>
+          </div>
+          <div class="row no-gutters">
+            <div class="col ml-2">
+              <ns-date-control formControlName="fecha_inicio"></ns-date-control>
+            </div>
+            <div class="col ml-2">
+              <ns-date-control formControlName="fecha_fin"></ns-date-control>
+            </div>
+            <div class="col ml-2">
+              <button type="submit" class="btn btn-primary" (click)="updatedDate($event)">
+                <i class="icon-search4"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div class="col-md-12 mt-2">
+    <div class="row mt-1">
+      <div class="col-md-12">
+        <div class="chart-wrapper">
+          <canvas #chart></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

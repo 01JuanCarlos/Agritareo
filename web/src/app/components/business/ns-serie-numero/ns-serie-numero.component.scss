@@ -1,0 +1,118 @@
+.component-container {
+  // // background: #53AF50;
+  // background: #8aa59d;
+  // // background: #EFEFEF;
+  // // padding: 10px;
+  // position: absolute;
+  // // padding: 2.5px 10px;
+  // padding: 4px 10px;
+  // // border-radius: 0 0 0 4px;
+  // // border-radius: 4px 0 0 0;
+  // // border-radius: 2px 0 0 0;
+  // border-radius: 0 0 0 2px;
+  // color: white;
+  // right: 0;
+  // z-index: 9999;
+  // top: 0;
+  // // bottom: 0;
+  // // VERSION 2
+  // background: #54a8dee8;
+  // position: absolute;
+  // padding: 4px 10px;
+  // border-radius: 0 0 0 2px;
+  // color: white;
+  // right: 0;
+  // z-index: 9999;
+  // top: 0;
+  // border: 1px solid #35a7de;
+  // VERSION 3
+  background: #f6f6f3;
+  position: absolute;
+  padding: 4px 10px;
+  border-radius: 0 0 0 2px;
+  color: #4c4c4c;
+  right: 0;
+  // z-index: 100;
+  top: 0;
+  border: 1px solid #dfdfdf;
+  border-top: none;
+  border-right: none;
+  max-width: 13.5rem;
+  // overflow: hidden;
+
+  .right {
+    overflow: hidden;
+  }
+
+  &.inner {
+    z-index: 999;
+  }
+
+  ::ng-deep {
+
+    ns-group-control {
+      padding: 0;
+      margin: 0;
+    }
+
+    ns-label-control {
+      line-height: 0.6rem;
+
+      &.label-top {
+        display: flex;
+
+      }
+
+      label {
+        font-size: 0.6rem;
+        line-height: 0.6rem !important;
+        padding: 0 !important;
+      }
+    }
+
+    .form-group {
+      display: flex;
+      // flex-direction: row;
+      flex-direction: column;
+      margin: 0;
+
+      label {
+        font-size: 0.6rem;
+        line-height: 0.6rem !important;
+        padding: 0 !important;
+        margin-bottom: 2px;
+        margin-right: 5px;
+
+        &.custom-padding {
+          line-height: 14px !important
+        }
+      }
+
+      .select {
+        // height: 1rem;
+        // line-height: 0.6rem;
+        // font-size: 0.6rem;
+        // padding-top: 0;
+        // padding-bottom: 0;
+        // border-radius: 0;
+        // padding-left: 0;
+        // background: transparent;
+        // border: none;
+        // VERSION 3
+        height: 1rem;
+        line-height: 0.6rem;
+        font-size: 0.6rem;
+        padding-top: 0;
+        padding-bottom: 0;
+        border-radius: 0;
+        padding-left: 5px;
+        background: white;
+        border: 1px solid #dddddd;
+      }
+    }
+
+    input {
+      background: red;
+    }
+  }
+}

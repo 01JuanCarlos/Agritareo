@@ -1,0 +1,15 @@
+<div class="sidebar">
+  <ul class="tool-container mb-1">
+    <li class="tool menu-display" id="show" (click)="clickedTool()"><i class="fas" [ngClass]="_getIcon"></i>
+    </li>
+  </ul>
+  <ul class="tool-container" [ngClass]="_isHidden" [@fadeInOut]>
+    <li class="tool" id="tool1"><i class="fab fa-500px"></i></li>
+    <li class="tool" id="tool2"><i class="fab fa-500px"></i></li>
+    <li class="tool" id="tool3"><i class="fab fa-500px"></i></li>
+    <li class="tool" id="tool4"><i class="fab fa-500px"></i></li>
+    <li class="tool" id="tool5"><i class="fab fa-500px"></i></li>
+    <li class="tool" id="tool6"><i class="fab fa-500px"></i></li>
+    <li class="tool" id="tool7"><i class="fab fa-500px"></i></li>
+  </ul>
+</div>

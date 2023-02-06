@@ -1,0 +1,133 @@
+.custom-card {
+  background: white;
+  padding: 0 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  overflow: hidden;
+
+  .title {
+    color: #2E2E30;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-bottom: 1px solid #b9b9c7;
+    padding: 7.5px 5px;
+
+    i {
+      font-size: 1.15rem;
+      margin-right: 5px;
+    }
+  }
+
+  &.mapa {
+    padding: 0;
+
+    .title {
+      padding-left: 5px;
+      padding-right: 5px;
+
+      span {
+        margin-left: 5px;
+        font-weight: 300 !important;
+        color: grey;
+      }
+    }
+
+    .content {
+      padding: 0;
+      min-height: 220px;
+
+      ::ng-deep {
+        #map {
+          border-radius: 0 0 4px 4px;
+          overflow: hidden;
+          min-height: 220px;
+
+          .gmnoprint {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.ico-btn {
+  &.disabled {
+    color: #ddd !important;
+    pointer-events: none;
+  }
+}
+
+.report {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  padding-bottom: 5px;
+
+  li {
+    padding: 7.5px 15px;
+    border-bottom: 1px solid #eeee;
+    cursor: pointer;
+    font-weight: 300;
+
+    &:hover {
+      background: rgba(#449F4A, 0.3);
+      transition: 0.85s;
+    }
+  }
+}
+
+
+.actividades {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    border-bottom: 1px solid #eeee;
+    display: flex;
+    padding: 5px 2.5px;
+
+    .left {
+      background: rgba(#449F4A, 0.3);
+
+      .date {
+        padding: 0 15px;
+        display: flex;
+        justify-content: center;
+        min-height: 100%;
+        flex-direction: column;
+
+        .day {
+          color: #449F4A;
+          font-weight: bold;
+          font-size: 1.25rem;
+        }
+
+        .text {
+          color: gray;
+        }
+      }
+    }
+
+    .right {
+      margin-left: 10px;
+      background: right;
+      padding-right: 5px;
+
+      .emphasis {
+        font-size: 0.75rem;
+        color: #449F4A;
+      }
+    }
+  }
+
+  .chart-wrapper {
+    height: 400px;
+  }
+}

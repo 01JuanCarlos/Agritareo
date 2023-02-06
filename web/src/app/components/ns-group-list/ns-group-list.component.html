@@ -1,0 +1,48 @@
+<ul class="list-group list-group-bordered">
+  <li class="list-group-item font-weight-semibold group-title" *ngIf="!!title">
+    {{title}}
+    <span *ngIf="totalSelected > 0" class="badge badge-info badge-pill ml-1">{{totalSelected}}</span>
+  </li>
+  <div class="list-group-content" [ngClass]="{'checkbox-list': checkbox}">
+    <ng-container *ngIf="!collapsible; else collapse">
+      <li *ngFor="let it of data; trackBy: trackByFn; let idx = index" class="list-group-item ng-star-inserted d-flex justify-content-between"
+        [ngClass]="{ 'active': !checkbox && it.selected, 'checked': it.checked, 'disabled': it.disabled }">
+        <div class="d-flex">
+          <div class="check-container d-flex justify-content-center flex-column">
+            <input *ngIf="checkbox" (change)="onCheckboxChange(it)" [checked]="it.checked" type="checkbox" class="mr-1">
+          </div>
+          <span (click)="!checkbox && selectItemList(it)">
+            {{ it[labelKey] }}
+          </span>
+        </div>
+        <span *ngIf="removable" (click)="onRemoveItem(idx)" class="float-right">
+          <i class="fas fa-times"></i>
+        </span>
+      </li>
+    </ng-container>
+  </div>
+</ul>
+<ng-template #collapse>
+  <div id="accordion-group">
+    <div *ngFor="let it of data; trackBy: trackByFn; let idx = index" class="list-group-item d-block">
+      <div class="d-block">
+        <a data-toggle="collapse" class="text-default d-block" [href]="'#' + it.id">
+          {{it[labelKey]}}
+          <span *ngIf="removable" (click)="onRemoveItem(idx)" class="float-right">
+            <i class="fas fa-times"></i>
+          </span>
+        </a>
+      </div>
+      <div [id]="it.id" class="collapse" data-parent="#accordion-group">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <ng-container *ngTemplateOutlet="itemTpl; context: {$implicit: it}"></ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-content></ng-content>

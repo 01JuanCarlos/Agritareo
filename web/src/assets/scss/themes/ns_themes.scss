@@ -1,0 +1,95 @@
+html._theme-light {
+  --absolute: black;
+  --documentBackground: #efefef;
+  --contentBackground: #fff;
+  --textColor: #333;
+  --navbarBackground: #fff;
+  --navbarTextColor: #333333d9;
+  --tableHeaderBackground: #dcdcdc;
+  --headerHeaderTextColor: #333333d9;
+  --tableBorderColor: #d6d6d6;
+  --tableOddRow: rgba(0, 0, 0, 0.02);
+  --inputBackground: #f7f7f7;
+  --inputBorderColor: #2c2c2b;
+}
+// 777671
+// border 78, 77, 75
+// background 44, 45, 44
+// background 43, 43, 42 // disabled
+// color 251, 246, 234
+html._theme-dark {
+  --absolute: white;
+  --documentBackground: #121212;
+  --contentBackground: #1d1d1d;
+  --textColor: #f7f1e6;
+  --navbarBackground: #2f2f2f;
+  --navbarTextColor: #fffffff5;
+  --tableHeaderBackground: #2f2f2f;
+  --headerHeaderTextColor: #fbf6ead9;
+  --tableBorderColor: #4e4d4b;
+  --tableOddRow: rgba(0, 0, 0, 0.12);
+  --inputBackground: #2c2c2b;
+  --inputBorderColor: #2c2c2b;
+  --btnBorder: rgb(34, 34, 34);
+  --btnBackground: rgb(44, 45, 44);
+  --btnBackgroundDisabled: rgb(43, 43, 42);
+  --btnColor: rgb(251, 246, 234);
+  --dropdownMenuBackground: #2c2d2c;
+  --dropdownItemHoverBackground: #1717173d;
+}
+
+html {
+  --documentBackground: #efefef;
+  --contentBackground: #fff;
+  --navbarBackground: #fff;
+  --navbarTextColor: #333333d9;
+}
+
+html {
+  background: #fff;
+  background: var(--documentBackground)
+}
+
+body {
+  color: #333;
+  color: var(--textColor);
+  background: var(--documentBackground);
+}
+
+
+html._theme-dark .table {
+  background-color: var(--contentBackground);
+}
+
+html._theme-dark .card {
+  border-color: var(--inputBorderColor);
+
+  .card-body {
+    background-color: var(--contentBackground) !important;
+  }
+}
+
+html._theme-dark .btn {
+  background-color: var(--btnBackground) !important;
+  border-color: var(--btnBorder);
+  color: var(--btnColor);
+}
+
+html._theme-dark .navbar-nav {
+  &>.nav-item {
+    .dropdown-menu {
+      background-color: var(--dropdownMenuBackground) !important;
+      color: var(--textColor);
+
+      .dropdown-item {
+        &:hover {
+          background-color: var(--dropdownItemHoverBackground) !important;
+        }
+      }
+
+      .dropdown-divider {
+        border-top-color: var(--tableBorderColor);
+      }
+    }
+  }
+}

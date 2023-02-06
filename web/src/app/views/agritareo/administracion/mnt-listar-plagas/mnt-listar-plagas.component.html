@@ -1,0 +1,104 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="row">
+        <div class="col-md-12">
+          <p class="emphasis d-inline-block mb-0">Lista de cultivos</p>
+        </div>
+        <div class="col-md-12 mt-2">
+          <ns-table-simple
+            [header]="cultivosHeader"
+            [data]="cultivosData"
+            (tsSelect)="selectedCultivo($event)">
+          </ns-table-simple>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="row">
+        <ng-container *ngIf="!cultivoSelected; else elseTemplate">
+          <div class="col-md-12">
+            <div class="alert alert-info py-2" role="alert">
+              Para ver mas opciones selecciona un cultivo
+            </div>
+          </div>
+        </ng-container>
+        <ng-template #elseTemplate>
+          <div class="align-items-center col-md-12 d-flex">
+            <p class="emphasis d-inline-block mb-0">Lista de plagas del cultivo {{cultivoSelected.nombre}}</p>
+            <div class="ml-3 button-wrapper d-inline-block">
+              <button (click)="plagasIsOnEdit = false;openModal(formPlaga,plagasModal)">Nuevo</button>
+            </div>
+          </div>
+          <div class="col-md-12 content mt-1">
+            <ns-table-simple
+              [header]="plagasHeader"
+              [data]="plagasData"
+              [controls]="plagasTableOptions"
+              (tsSelect)="selectedPlaga($event)"
+              (tsDelete)="deletePlaga($event)"
+              (tsEdit)="plagasIsOnEdit = true; openModal(formPlaga,plagasModal,$event)">
+            </ns-table-simple>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- MODAL PLAGAS -->
+<ns-modal size="sm" title="Plagas" #plagasModal>
+  <div class="row" [formGroup]="formPlaga">
+    <div class="col-md-12">
+      <ns-group-control>
+        <ns-label-control class="left-rtl text-left">{{ 'Código' | translate }}</ns-label-control>
+        <ns-input-control [disabled]="plagasIsOnEdit" placeholder="Ej. PLAG001" formControlName="codigo"></ns-input-control>
+      </ns-group-control>
+    </div>
+    <div class="col-md-12 mt-2">
+      <ns-group-control required>
+        <ns-label-control class="left-rtl text-left">{{ 'Nombre' | translate }}</ns-label-control>
+        <ns-input-control formControlName="nombre"></ns-input-control>
+      </ns-group-control>
+    </div>
+    <div class="col-md-12 mt-2">
+      <ns-group-control required>
+        <ns-label-control class="left-rtl text-left">{{ 'Nombre Científico' | translate }}</ns-label-control>
+        <ns-input-control formControlName="nombrecientifico"></ns-input-control>
+      </ns-group-control>
+    </div>
+    <div class="col-md-6 mt-2">
+      <ns-group-control required>
+        <ns-label-control class="left-rtl text-left">{{ 'Alias' | translate }}</ns-label-control>
+        <ns-input-control formControlName="alias"></ns-input-control>
+      </ns-group-control>
+    </div>
+    <div class="col-md-6 mt-2">
+      <label for="tipo-plaga" class="mb-0">Tipo</label>
+      <select id="tipo-plaga" class="form-control form-control-sm" formControlName="tipo">
+        <option value="ENF">ENFERMEDAD</option>
+        <option value="PLG">PLAGA</option>
+        <option value="CTR">CTR</option>
+      </select>
+    </div>
+    <div class="col-md-12">
+      <small>Los * son campos obligatorios</small>
+    </div>
+  </div>
+  <ng-template nsTemplate="footer">
+    <div class="row pt-2">
+      <div class="col-md-12">
+        <div class="float-right">
+          <button class="btn btn-warning btn-sm" [disabled]="!this.formPlaga.valid" (click)="editPlaga()" *ngIf="plagasIsOnEdit">
+            Actualizar Plaga
+          </button>
+          <button class="btn btn-primary btn-sm" [disabled]="!this.formPlaga.valid" (click)="addPlaga()" *ngIf="!plagasIsOnEdit">
+            Añadir Plaga
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</ns-modal>

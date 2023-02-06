@@ -1,0 +1,28 @@
+<div class="wrapper d-flex justify-content-center map-wrapper">
+  <div class="detail-panel d-flex" [ngClass]="{'active': visibleLeftPanel, 'expanded': expandedLeftPanel}">
+    <div class="detail-panel-wrapper w-100" [ngClass]="{'loading-2': loadingLeftPanel}">
+      <div class="opt-btn-wrapper">
+        <div class="close-btn" (click)="toggleExpandedLeftPanel()">
+          <i *ngIf="!expandedLeftPanel" class="icon-screen-full"></i>
+          <i *ngIf="expandedLeftPanel" class="icon-screen-normal"></i>
+        </div>
+        <div class="close-btn" (click)="toggleLeftPanel()">
+          <i class="icon-cross2"></i>
+        </div>
+      </div>
+      <div class="section" *ngFor="let template of leftTemplates">
+        <ng-container *ngTemplateOutlet="template"></ng-container>
+      </div>
+    </div>
+  </div>
+
+  <router-outlet (activate)="activatedLayout($event)"></router-outlet>
+
+  <div class="right-panel active">
+    <div class="section-wrapper">
+      <div class="section px-0" *ngFor="let template of rightTemplates">
+        <ng-container *ngTemplateOutlet="template"></ng-container>
+      </div>
+    </div>
+  </div>
+</div>

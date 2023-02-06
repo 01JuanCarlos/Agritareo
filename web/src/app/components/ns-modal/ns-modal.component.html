@@ -1,0 +1,40 @@
+<!-- Modal -->
+<!-- <div [id]="'modal' + id" class="modal fade ns__modal" [ngClass]="{'right': isRight, 'left': isLeft}" role="dialog" tabindex="-1"> -->
+<div class="modal-dialog" [ngClass]="'modal-' + size" role="document">
+  <div class="modal-content" style="border-radius: 3px;">
+    <div *ngIf="showHeader" class="modal-header ng__modal_header" style="padding: 0.3rem 0.5rem;">
+      <span *ngIf="!!title" class="font-weight-semibold modal-title">{{title}}</span>
+      <div *ngIf="showHeaderButtons" class="header-elements ml-3">
+        <i class="icon-spinner4 spinner"></i>
+        <span class="badge badge-danger ml-2">Badge</span>
+
+        <div class="list-icons ml-2">
+          <a href="#" class="list-icons-item ml-1"><i class="icon-googleplus5"></i></a>
+          <a href="#" class="list-icons-item ml-1"><i class="icon-pin-alt"></i></a>
+          <a href="#" class="list-icons-item ml-1"><i class="icon-portfolio"></i></a>
+        </div>
+      </div>
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+    </div>
+
+    <div class="modal-body ns__modal_body p-1" [ngClass]="{'form-loading': isLoading | async}" #modalBody>
+      <ng-template #dynamicContent></ng-template>
+      <ng-container *ngTemplateOutlet="bodyTemplate; context: { $implicit: initialdata | async }"></ng-container>
+      <ng-content></ng-content>
+    </div>
+
+    <div class="modal-footer pb-1 px-2" *ngIf="showFooter">
+      <ng-container *ngIf="!footerTemplate; else elseTemplate">
+        <ng-content select="[footerContent]"></ng-content>
+        <button type="button" class="btn btn-link btn-sm" data-dismiss="modal">Cerrar</button>
+        <button type="button" [disabled]="(isLoading | async) || !(isValidChildren() | async)" class="btn bg-primary btn-sm"
+          (click)="onSaveModal($event)">Guardar cambios</button>
+      </ng-container>
+      <ng-template #elseTemplate>
+        <ng-container *ngTemplateOutlet="footerTemplate; context {$implicit: { }}"></ng-container>
+      </ng-template>
+    </div>
+  </div>
+</div>
+<!-- </div> -->
+<!-- /Modal -->

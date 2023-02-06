@@ -1,0 +1,150 @@
+<div class="page-content">
+  <div class="container-fluid login">
+    <div class="row h-100 login-container">
+      <div class="col-md-7 col-lg-8 d-none d-md-block image-container">
+        <div class="navbar navbar-expand-sm navbar-component">
+          <!-- <div class="navbar-brand">
+            <a href="http://www.nisira.com.pe/" class="d-inline-block">
+              <img class="nav-logo" src="/static/images/logo_light.png" alt="Nisira">
+            </a>
+          </div> -->
+          <div class="navbar-collapse collapse">
+            <ul class="navbar-nav social ml-sm-auto mr-3">
+              <li class="nav-item">
+                <a target="_blank" href="https://twitter.com/nisirasystems" class="navbar-nav-link">
+                  <i class="fab fa-twitter"></i>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a target="_blank" href="https://www.facebook.com/nisira.erp" class="navbar-nav-link">
+                  <i class="fab fa-facebook-square"></i>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a target="_blank" href="https://www.instagram.com/nisira_systems" class="navbar-nav-link">
+                  <i class="fab fa-instagram"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div id="carouselLoginControls" class="carousel slide h-100" data-ride="carousel">
+          <div class="carousel-inner h-100">
+            <div class="carousel-item h-100 active">
+              <img class="d-block w-100 h-100" src="/static/images/backgrounds/login_bg2.jpg" alt="First slide">
+            </div>
+            <div class="carousel-item h-100">
+              <img class="d-block w-100 h-100" src="/static/images/backgrounds/login_bg1.jpg" alt="Second slide">
+            </div>
+            <div class="carousel-item h-100">
+              <img class="d-block w-100 h-100" src="/static/images/backgrounds/login_bg3.jpg" alt="Third slide">
+            </div>
+          </div>
+          <a class="carousel-control-prev" href="#carouselLoginControls" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only" translate>Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselLoginControls" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only" translate>Next</span>
+          </a>
+        </div>
+      </div>
+      <div class="col-md-5 col-lg-4 form-container">
+        <div class="wrapper row h-100">
+          <div class="col-md-12">
+            <ns-select-control
+              dataKey="acronym"
+              class="language-select"
+              [items]="languages$ | async"
+              [(ngModel)]="lang"
+              (change)="updateLang()"
+              [showDefaultOption]="false">
+            </ns-select-control>
+          </div>
+          <div class="col-md-12">
+            <div class="text-center mt-3">
+              <img src="/static/images/logo.png" width="150">
+            </div>
+            <div class="text-center my-3">
+              <h3 translate>Bienvenido a Nisira ERP</h3>
+              <h6 class="mb-0" translate>Sistema de Gestión Integral</h6>
+            </div>
+            <div *ngIf="!!error" class="alert alert-danger border-0 mb-2 alert-dismissible">
+              <button type="button" class="close" (click)="error = ''" data-dismiss="alert"><span>&times;</span></button>
+              <span class="font-weight-semibold" translate>Fallo de inicio de sesión: </span> {{error}}.
+            </div>
+            <form class="loginform" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+              <div class="form-group mb-1">
+                <ns-select-control
+                  (select)="onSelectChange($event)"
+                  [placeholder]="'Seleccionar Empresa' | translate"
+                  formControlName="idcompany"
+                  size="md"
+                  [items]="corporations$ | async">
+                </ns-select-control>
+                <span *ngIf="(idcompany.dirty || idcompany.touched) && idcompany.invalid && idcompany.errors.required" class="form-text text-danger"
+                  translate>
+                  El nombre de la empresa es requerido.
+                </span>
+              </div>
+              <div class="form-group form-group-feedback form-group-feedback-left mb-1">
+                <input formControlName="username" type="text" class="form-control" placeholder="Nombre de usuario">
+                <div class="form-control-feedback">
+                  <i class="icon-user text-muted"></i>
+                </div>
+                <span *ngIf="(username.dirty || username.touched) && username.invalid && username.errors.required" class="form-text text-danger"
+                  translate>
+                  El nombre de usuario es requerido.
+                </span>
+              </div>
+              <div class="form-group form-group-feedback form-group-feedback-left">
+                <input formControlName="password" type="password" class="form-control" placeholder="Contraseña">
+                <div class="form-control-feedback">
+                  <i class="icon-lock2 text-muted"></i>
+                </div>
+                <span *ngIf="(password.dirty || password.touched) && password.invalid && password.errors.required" class="form-text text-danger"
+                  translate>
+                  La contraseña de usuario es requerida.
+                </span>
+              </div>
+              <!-- <div class="form-group d-flex align-items-center">
+                <div class="form-check mb-0 pl-0">
+                  <label class="form-check-label">
+                    <input type="checkbox" name="remember" class="form-input-styled" checked>
+                    {{'Recordarme' | translate}}
+                  </label>
+                </div>
+              </div> -->
+              <div class="form-group">
+                <button [disabled]="loginForm.invalid || submit" type="submit" class="btn btn-primary btn-block" translate>Iniciar sesión<i
+                    class="icon-circle-right2 ml-2"></i></button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="col-md-12 d-block d-sm-none">
+          <div class="social-media">
+            <ul class="social-media-list">
+              <li class="social">
+                <a target="_blank" href="https://twitter.com/nisirasystems" class="navbar-nav-link twitter">
+                  <i class="fab fa-twitter"></i>
+                </a>
+              </li>
+              <li class="social">
+                <a target="_blank" href="https://www.facebook.com/nisira.erp" class="navbar-nav-link facebook">
+                  <i class="fab fa-facebook-square"></i>
+                </a>
+              </li>
+              <li class="social">
+                <a target="_blank" href="https://www.instagram.com/nisira_systems" class="navbar-nav-link instagram">
+                  <i class="fab fa-instagram"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

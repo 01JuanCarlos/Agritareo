@@ -1,0 +1,46 @@
+@mixin responsive-layout {
+  .container-fluid[max-width~="100vh"] {
+    .row {
+      div[class^="col-md-"] {
+        min-width: 50%;
+
+        .col-md-6,
+        .col-md-4,
+        .col-md-8,
+        .col-md-10,
+        .col-md-2 {
+          width: 50% !important;
+          max-width: 50%;
+          min-width: 50% !important;
+        }
+
+        [class^="col-md"] {
+          width: 50% !important;
+        }
+      }
+
+    }
+  }
+
+  .container-fluid[max-width~="50vh"] {
+    .row {
+      div[class^="col-md-"] {
+        min-width: 100%;
+
+        .col-md-6,
+        .col-md-4,
+        .col-md-8,
+        .col-md-10,
+        .col-md-2 {
+          min-width: 100% !important;
+          max-width: 100% !important;
+        }
+
+        [class^="col-"] {
+          max-width: 100% !important;
+          min-width: 100% !important;
+        }
+      }
+    }
+  }
+}

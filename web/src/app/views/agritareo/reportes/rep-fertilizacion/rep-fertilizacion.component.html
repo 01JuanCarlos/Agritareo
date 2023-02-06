@@ -1,0 +1,98 @@
+<ng-template nsTemplate="loteDetails" type="leftPanel">
+  <div class="emphasis font-weight-bold">
+    <strong class="label-sub"> {{ selectedCentroCosto?.nombre }}</strong>
+  </div>
+  <div class="sec-content font-weight-bold">
+    <strong>Lista de nutrientes:</strong>
+    <span *ngFor="let nutriente of selectedCentroCosto?.nutrientes_lote; let last = last;">
+      {{ nutriente.desc_nutriente }}<span *ngIf="!last">, </span>
+    </span>
+  </div>
+</ng-template>
+<ng-template nsTemplate="grafico" type="leftPanel">
+  <!-- <div class="emphasis">Grafico de fertilizacion por lote</div>
+  <div class="sec-content">
+    <canvas id="FERTILIZACION" class="chartjs" width="undefined" height="400"></canvas>
+  </div> -->
+  <ns-chart
+    type="area"
+    [labels]="chartFertilizacionLabels"
+    [datasets]="chartFertilizacionData"
+    title="Grafico de fertilizacion por lote">
+  </ns-chart>
+</ng-template>
+
+<div class="content map" [ngClass]="{'loading': mapIsLoading}">
+  <!-- <ns-map
+    (selected)="selectedMapPolygon($event[0])"
+    (deselected)="selectedLote = null; openDetail = false"
+    [fillColor]="'#558b2f'"
+    polygonLabelKey="lote"
+    [lat]="latitud"
+    [lng]="longitud"
+    [data]="dataMapa"></ns-map> -->
+
+  <ns-map
+    [mapData]="centrosDeCosto" (selected)="selectedLoteMap($event)" #map></ns-map>
+</div>
+
+<ng-template nsTemplate="rangoFecha" type="rightPanel">
+  <div class="emphasis" data-toggle="collapse" data-target="#reporte-collapse" aria-expanded="false" aria-controls="reporte-collapse">
+    <i class="fa mr-1 label-sub"></i>
+    <strong class="label-sub"> Rango de Fecha</strong>
+  </div>
+  <div class="section-content collapse show px-1 " [formGroup]="form" id="fecha-collapse">
+    <div class="row no-gutters " >
+      <div class="col ">
+        <ns-date-control (focusout)="updatedDate($event)" formControlName="fecha_inicio"></ns-date-control>
+      </div>
+      <div class="col">
+        <ns-date-control (focusout)="updatedDate($event)" formControlName="fecha_fin"></ns-date-control>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="section-content collapse show" id="reporte-collapse">
+    <div class="row no-gutters">
+      <div class="col-6">
+        <input type="month" class="form-control" (input)="consultarPorFecha()" #date1 />
+      </div>
+      <div class="col-6">
+        <input type="month" class="form-control" (input)="consultarPorFecha()" #date2 />
+      </div>
+    </div>
+  </div> -->
+</ng-template>
+<ng-template nsTemplate="centroCosto" type="rightPanel">
+  <div class="emphasis" data-toggle="collapse" data-target="#centro-collapse" aria-expanded="false" aria-controls="centro-collapse">
+    <i class="fa mr-1 label-sub"></i>
+    <strong class="label-sub">  Centros de Costo</strong>
+  </div>
+  <div class="section-content collapse show" id="centro-collapse">
+    <p-tree
+      [value]="centrosDeCostoOrdered"
+      selectionMode="checkbox"
+      [(selection)]="centrosDeCostoSeleccionado"
+      (onNodeSelect)="centroSeleccionado($event)"
+      (onNodeUnselect)="centroSeleccionado($event)"></p-tree>
+  </div>
+</ng-template>
+<ng-template nsTemplate="nutrientes" type="rightPanel">
+  <div class="emphasis" data-toggle="collapse" data-target="#maquinaria-collapse" aria-expanded="false" aria-controls="maquinaria-collapse">
+    <i class="fa mr-1 label-sub"></i>
+    <strong class="label-sub">Nutrientes</strong>
+  </div>
+  <div class="section-content collapse show" id="maquinaria-collapse">
+    <p-checkbox
+      name="groupname"
+      class="d-block mb-1"
+      [ngClass]="{'disabled': !availableNutrientesList.includes(nutriente.simquimico)}"
+      [disabled]="!availableNutrientesList.includes(nutriente.simquimico)"
+      (onChange)="onCheckedNutriente()"
+      [label]="nutriente.desc_nutriente"
+      *ngFor="let nutriente of nutrientes"
+      [value]="nutriente.simquimico"
+      [(ngModel)]="nutrientesSelected">
+    </p-checkbox>
+  </div>
+</ng-template>

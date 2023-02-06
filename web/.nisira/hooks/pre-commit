@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# Obtener la rama actual
+current_branch=`git branch | grep \* | cut -d ' ' -f2`
+
+# Rama prinpipal para subir cambios
+develop_branch="develop"
+
+if [[ $current_branch =~ ^(master|release)$ ]]; then
+	>&2 echo -e "\033[0;31mError: No puedes realizar confirmaciones en una rama protegida.\033[0m"
+	echo ""
+	echo -e "La rama principal para realizar confirmaciones es \033[0;34m$develop_branch\033[0m"
+	echo -e "Puede realizar confirmaciones en ramas locales o ramas de características \033[0;34m(feature-micaracteristica)\033[0m"
+	exit 1
+fi;

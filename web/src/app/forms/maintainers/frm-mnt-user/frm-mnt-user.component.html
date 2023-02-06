@@ -1,0 +1,56 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="false" class="w-100" [ngClass]="{'form-loading': this.isLoading}">
+  <div class="col-md-12 form-user-component px-1">
+    <div class="row">
+      <div class="col-md-6">
+        <ns-group-control required>
+          <ns-label-control>{{ 'Usuario' | translate }}</ns-label-control>
+          <ns-input-control formControlName="usuario" name="usuario" placeholder="Ej. adminerp">
+            <ns-addon-control icon="icon-user-lock" prepend></ns-addon-control>
+          </ns-input-control>
+          <!-- <span *ngIf="(username.dirty || username.touched) && username.invalid && username.errors.required" class="form-text text-danger">
+            {{'El nombre de usuario es requerido.' | translate}}
+          </span> -->
+        </ns-group-control>
+      </div>
+      <div class="col-md-6">
+        <ns-group-control>
+          <ns-label-control>{{ 'Perfil de Usuario' | translate }}</ns-label-control>
+          <ns-select-control formControlName="idperfil" [items]="rolesOptions$ | async"></ns-select-control>
+        </ns-group-control>
+      </div>
+    </div>
+    <div class="row pt-1">
+      <div class="col-md-12">
+        <ns-group-control>
+          <ns-label-control>{{ 'Nombre de usuario' | translate }}</ns-label-control>
+          <ns-input-control formControlName="nombre" name="nombre" placeholder="Ej. Administrador del sistema">
+            <ns-addon-control icon="icon-user" prepend></ns-addon-control>
+          </ns-input-control>
+        </ns-group-control>
+      </div>
+    </div>
+    <div class="row pt-1">
+      <div class="col-md-6">
+        <ns-group-control>
+          <ns-label-control>{{ 'Fecha de Habilitacion' | translate }}</ns-label-control>
+          <ns-input-control formControlName="date" name="date" placeholder="yy/mm/dd">
+            <ns-addon-control icon="icon-calendar" prepend></ns-addon-control>
+          </ns-input-control>
+        </ns-group-control>
+      </div>
+      <div class="col-md-6">
+        <ns-group-control>
+          <ns-label-control>{{ 'Fecha de Baja' | translate }}</ns-label-control>
+          <ns-input-control placeholder="yy/mm/dd">
+            <ns-addon-control icon="icon-calendar" prepend></ns-addon-control>
+          </ns-input-control>
+        </ns-group-control>
+      </div>
+    </div>
+    <div *ngIf="!showSave" class="row pt-2">
+      <div class="col-md-12">
+        <input class="btn btn-success float-right" type="submit" value="Guardar">
+      </div>
+    </div>
+  </div>
+</form>

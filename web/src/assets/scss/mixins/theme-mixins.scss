@@ -1,0 +1,317 @@
+@mixin theme($name, $color) {
+  .title {
+    color: $color !important;
+  }
+}
+
+@mixin navbarTheme($property, $background, $color-text, $accent, $background-accent:"") {
+  .navbar {
+    color: $color-text;
+    background: $background;
+
+    &.ns__navbar {
+      &.navbar {
+        background: $background !important;
+        color: $color-text !important;
+
+        .svg-white {
+          @if $color-text !=inherit {
+            fill: $color-text !important;
+          }
+        }
+
+        .nav-item {
+          .navbar-nav-link {
+            color: $color-text !important;
+          }
+
+          .svg-white {
+            @if $accent !=inherit {
+              fill: $accent !important;
+            }
+          }
+
+          .badge {
+            @if $background !=inherit {
+              @if $background-accent !="" {
+                border-color: $background-accent !important;
+              }
+
+              @else {
+                $border: darken($background, 15%);
+                // $border: complement($background);
+                // $border: invert($background);
+                border-color: $border !important;
+              }
+
+            }
+          }
+
+          &.show {
+            .navbar-nav-link {
+              background: rgba(#000, 0.25) !important;
+
+              @if $accent !=inherit {
+                color: $accent !important;
+              }
+
+              .svg-white {
+                @if $accent !=inherit {
+                  fill: $accent !important;
+                }
+              }
+            }
+          }
+
+          .dropdown-menu {
+            @if $background !=inherit and $background !=white {
+              $background-color: darken($background, 15%);
+              background: rgba($background-color, 0.85) !important;
+            }
+
+            @else {
+              background: rgba(247, 247, 247, 0.95);
+            }
+
+            color: $color-text;
+
+            .dropdown-item {
+              color: $color-text !important;
+
+              &:hover {
+                background: rgba(#000, 0.25) !important;
+                color: $accent !important;
+
+                i {
+                  color: inherit !important;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@mixin navbar($theme, $theme-accent, $theme-text) {
+  .navbar {
+    color: $theme-text;
+    box-shadow: 0 -0.3px 0 rgb(161, 161, 161) inset;
+    background: $theme;
+
+    .navbar-container {
+      .navbar-collapse {
+        .navbar-nav {
+          .nav-item {
+
+            .navbar-nav-link {
+              color: $theme-text !important;
+
+              .svg-white {
+                fill: $theme-text;
+              }
+            }
+
+            &.show {
+              .navbar-nav-link {
+                background: $theme-accent;
+                color: $theme-text;
+
+                .badge {
+                  border-color: $theme-text;
+                }
+              }
+            }
+
+            .navbar-nav-link {
+              .badge-mark {
+                border-color: $theme-accent;
+              }
+            }
+          }
+
+          .dropdown-menu {
+            background: rgba($theme, 0.95);
+            box-shadow: 0.3px 0 0 rgb(141, 141, 141), -0.3px 0 0 rgb(141, 141, 141), 0 0.4px 0 rgb(141, 141, 141);
+            color: $theme-text;
+
+            .dropdown-item {
+              i {
+                color: rgba($theme-text, 0.5);
+              }
+
+              &:hover {
+                background: $theme-accent;
+                color: $theme-text;
+
+                i {
+                  color: inherit;
+                }
+              }
+            }
+
+            .dropdown-submenu {
+              .dropdown-menu.show {
+                box-shadow: 0.3px 0 0 rgb(141, 141, 141), -0.3px 0 0 rgb(141, 141, 141), 0 0.4px 0 rgb(141, 141, 141), 0 -0.3px 0 rgb(141, 141, 141);
+              }
+
+              &>.dropdown-toggle {
+                color: $theme-text;
+              }
+
+              &.show,
+              &:hover,
+              &:active {
+                &>.dropdown-toggle {
+                  background: $theme-accent;
+                  color: $theme-text;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@mixin footer($theme, $theme-accent, $theme-text) {
+  .navbar {
+    background: $theme;
+    border-top: 1px solid rgba($theme-text, 0.15);
+    color: $theme-text;
+
+    .navbar-text {
+      color: $theme-text;
+    }
+  }
+}
+
+@mixin input($theme, $theme-accent, $theme-text) {
+  input {
+    background: $theme;
+    color: $theme-text;
+    border-color: rgba($theme-text, 0.15);
+
+    &::placeholder {
+      color: $theme-accent;
+    }
+  }
+}
+
+@mixin select($theme, $theme-accent, $theme-text) {
+  select {
+    background: $theme;
+    color: $theme-text;
+    border-color: rgba($theme-text, 0.15);
+
+    &::placeholder {
+      color: $theme-accent;
+    }
+  }
+}
+
+@mixin nav($theme, $theme-accent, $theme-text) {
+  .nav-sidebar {
+    .nav-item {
+      border: none;
+
+      .nav-link {
+        color: $theme-text;
+        background: inherit;
+
+        &.active,
+        &:hover,
+        &:active {
+          background: $theme-accent;
+        }
+      }
+    }
+  }
+}
+
+@mixin speech($theme, $theme-accent, $theme-text) {
+  .spotlight-input {
+    background-color: $theme;
+    border: 1px solid rgba($theme-text, 0.25);
+
+    i {
+      color: rgba($theme-text, 0.8);
+      font-size: 1.2rem;
+    }
+
+    input {
+      color: $theme-text;
+
+      &:-moz-placeholder,
+      &::-moz-placeholder,
+      &:-ms-input-placeholder,
+      &::-webkit-input-placeholder {
+        color: $theme-accent;
+      }
+    }
+  }
+}
+
+@mixin tree($theme, $theme-accent, $theme-text) {
+  hr {
+    border-top: 1px solid rgba($theme-text, 0.15);
+  }
+}
+
+@mixin sys-config($theme, $theme-accent, $theme-text) {
+  input[type=radio].box {
+    &:checked {
+      box-shadow: 0px 0px 5px 0px rgba($theme-text, 0.75);
+    }
+  }
+}
+
+@mixin user-config($theme, $theme-accent, $theme-text) {
+  label {
+    color: $theme-text;
+  }
+
+  input,
+  select {
+    background: inherit;
+    color: $theme-text;
+    border-color: rgba($theme-text, 0.15);
+  }
+}
+
+@mixin tree-layout($theme, $theme-accent, $theme-text) {
+  .tree-layout-content {
+    background: $theme;
+  }
+
+  .btn-light {
+    background: inherit;
+    color: $theme-text;
+    border-color: rgba($theme-text, 0.25);
+  }
+
+  .btn-success {
+    background: $theme-accent;
+  }
+
+  .sidebar {
+    background: $theme;
+    color: $theme-text;
+    border-color: rgba($theme-text, 0.15);
+
+  }
+
+  .right-content {
+    background: $theme;
+    color: $theme-text;
+    border-color: rgba($theme-text, 0.15);
+
+    .navbar {
+      background: $theme;
+      color: $theme-text;
+      border-bottom-color: rgba($theme-text, 0.15);
+    }
+  }
+}

@@ -1,0 +1,18 @@
+ <!-- Label Template -->
+ <ng-template #labelControl>
+   <ng-content select="ns-label-control"></ng-content>
+ </ng-template>
+
+ <ng-template #inputControl>
+   <ng-content select="ns-input-control"></ng-content>
+ </ng-template>
+
+ <ng-template #selectControl>
+   <ng-content select="ns-select-control"></ng-content>
+ </ng-template>
+
+
+ <ng-container *ngTemplateOutlet="labelControl"></ng-container>
+ <ng-container *ngTemplateOutlet="inputControl"></ng-container>
+ <ng-container *ngTemplateOutlet="selectControl"></ng-container>
+ <ng-content></ng-content>

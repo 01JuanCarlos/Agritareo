@@ -1,0 +1,108 @@
+<div class="header-content">
+  <h1>Datos de mano de obra</h1>
+  <div class="control-wrapper ml-auto">
+    <div class="row" [formGroup]="form">
+      <div class="col d-flex">
+        <div class="d-inline-flex">
+          <div class="control-wrapper">
+            <div class="control-wrapper">
+              <div class="input-wrapper mr-2">
+                <div class="icon-wrapper">
+                  <i class="fa-spa fas"></i>
+                </div>
+                <select (input)="this.form.value.selected_lote=getValue($event)"
+                  formControlName="selected_lote">
+                  <option [value]="''">Todos los lotes</option>
+                  <option [value]="item.id" *ngFor="let item of loteList; let index= index" placeholder="Lote">
+                    {{item.nombrenivel}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row no-gutters">
+            <div class="col ml-2" [ngClass]="{'d-none': listViewMode}">
+              <ns-date-control formControlName="fecha_inicio"></ns-date-control>
+            </div>
+            <div class="col ml-2" [ngClass]="{'d-none': listViewMode}">
+              <ns-date-control formControlName="fecha_fin"></ns-date-control>
+            </div>
+            <div id="buttonMapa" class="col ml-2" [ngClass]="{'d-none': listViewMode}">
+              <button type="submit" class="btn btn-primary" (click)="updatedDate()">Enviar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="control-wrapper ml-auto">
+    <div class="btn-wrapper">
+      <button [ngClass]="{'active': listViewMode}" (click)="listViewMode = !listViewMode">
+        <i class="icon-list2"></i>
+      </button>
+      <button [ngClass]="{'active': !listViewMode}" (click)="listViewMode = !listViewMode">
+        <i class="icon-stats-dots"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<div class="container-fluid">
+  <div class="col-md-12 mt-2">
+    <div [ngClass]="{'d-none': !listViewMode}">
+      <ns-table-simple
+        [controllerParams]="[{param:'lote', value:
+        this.form.value.selected_lote, required: false},{param:'labor', value:
+        this.form.value.selected_labor, required: false}]"
+        [header]="tableHeader"
+        [controller]="viewURL"
+        (tsSelect)="selectedItem = $event"
+        (tsDblClick)="goEditMode($event)"
+        #table>
+      </ns-table-simple>
+      <!-- <pre>{{form.value | json }}</pre> -->
+    </div>
+    <div [ngClass]="{'d-none': listViewMode}">
+      <div class="row mt-1">
+        <div class="col-md-12">
+          <div class="chart-wrapper">
+            <canvas #chart></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ns-modal size="sm" title="Formato de descarga" #selectFile>
+  <div class="row p-2">
+    <div class="col">
+      <div class="form-check">
+        <input class="form-check-input" type="radio" [(ngModel)]="fileOption" name="file" id="csv" value="csv" checked>
+        <label class="form-check-label" for="csv">
+          CSV (.csv)
+        </label>
+      </div>
+
+      <div class="form-check">
+        <input class="form-check-input" type="radio" [(ngModel)]="fileOption" name="file" id="xlsx" value="xlsx" checked>
+        <label class="form-check-label" for="xlsx">
+          Excel (.xlsx)
+        </label>
+      </div>
+
+      <div class="form-check">
+        <input class="form-check-input" type="radio" [(ngModel)]="fileOption" name="file" id="pdf" value="pdf" checked>
+        <label class="form-check-label" for="pdf">
+          PDF (.pdf)
+        </label>
+      </div>
+    </div>
+  </div>
+  <ng-template nsTemplate="footer">
+    <div class="float-right">
+      <ns-button label="Descargar" (btClick)="downloadData()" icon="mi-arrow-downward"></ns-button>
+    </div>
+  </ng-template>
+</ns-modal>

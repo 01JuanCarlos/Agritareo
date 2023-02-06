@@ -1,0 +1,158 @@
+<div class="content map" [ngClass]="{'loading': mapIsLoading}">
+  <ns-map
+    [mapData]="centrosDeCostoSeleccionado"
+    (selected)="openTable($event)"
+    #map></ns-map>
+  <div class="container active">
+    <div class="legend-content">
+      <p class="mt-2">
+        <strong>NA</strong>
+        <input type="color" value="#808080" disabled>
+      </p>
+      <p>
+        <strong>Bajo</strong>
+        <input type="color" value="#317f43" disabled>
+      </p>
+      <p>
+        <strong>Medio</strong>
+        <input type="color" value="#ff7e00" disabled>
+      </p>
+      <p>
+        <strong>Alto</strong>
+        <input type="color" value="#FF0000" disabled>
+      </p>
+    </div>
+  </div>
+
+  <ng-template  nsTemplate="fechas" type="rightPanel">
+  <div class="emphasis" data-toggle="collapse" data-target="#fecha-collapse" aria-expanded="false" aria-controls="fecha-collapse">
+    <i class="fa mr-1 label-sub"></i>
+    <strong class="label-sub">Fechas</strong>
+  </div>
+  <div class="section-content collapse show px-1 " [formGroup]="form" id="fecha-collapse">
+    <div class="row no-gutters">
+      <div class="col ml-2">
+        <ns-date-control formControlName="fecha_inicio"></ns-date-control>
+      </div>
+      <div class="col ml-2">
+        <ns-date-control formControlName="fecha_fin"></ns-date-control>
+      </div>
+      <div id="buttonMapa" class="col ml-2" [ngClass]="{'d-none': listViewMode}">
+        <button type="submit" class="btn btn-primary" (click)="updatedDate($event)">
+          <i class="icon-search4"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template nsTemplate="plagas" type="rightPanel">
+  <div class="emphasis" data-toggle="collapse" data-target="#costo-collapse" aria-expanded="false" aria-controls="costo-collapse">
+    <i class="fa mr-1 label-sub"></i>
+    <strong class="label-sub">Plagas</strong>
+  </div>
+  <div class="section-content collapse show" id="costo-collapse">
+    <p-tree
+      [value]="plagaFiltro"
+      selectionMode="checkbox"
+      (onNodeSelect)="plagaSeleccionado($event)"
+      (onNodeUnselect)="plagaUnSeleccionado($event)"
+      [(selection)]="conceptos_agricolas">
+      <ng-template let-plaga pTemplate="default">
+        <a>{{plaga.concepto_agricola}}</a>
+        <i id="icon-cultivo" class="fas fa-spider"></i>
+      </ng-template>
+    </p-tree>
+  </div>
+</ng-template>
+
+<ng-template nsTemplate="cultivos" type="rightPanel">
+  <div class="emphasis" data-toggle="collapse" data-target="#costo-collapse" aria-expanded="false" aria-controls="costo-collapse">
+    <i class="fa mr-1 label-sub"></i>
+    <strong class="label-sub">Cultivos</strong>
+  </div>
+  <div class="section-content collapse show" id="costo-collapse">
+    <p-tree
+      [value]="cultivoFiltro"
+      selectionMode="checkbox"
+      (onNodeSelect)="cultivoSeleccionado($event)"
+      (onNodeUnselect)="cultivoUnSeleccionado($event)"
+      [(selection)]="cultivos">
+      <ng-template let-cultivo pTemplate="default">
+        <a>{{cultivo.cultivo}}</a>
+        <i id="icon-cultivo" class="fas fa-leaf"></i>
+      </ng-template>
+    </p-tree>
+  </div>
+</ng-template>
+
+<ng-template nsTemplate="centroCostos" type="rightPanel">
+  <div class="emphasis" data-toggle="collapse" data-target="#costo-collapse" aria-expanded="false" aria-controls="costo-collapse">
+    <i class="fa mr-1 label-sub"></i>
+    <strong class="label-sub">Centros de Costo</strong>
+  </div>
+  <div class="section-content collapse hide" id="costo-collapse">
+    <p-tree
+      [value]="centrosDeCostoOrdered"
+      selectionMode="checkbox"
+      [(selection)]="centrosDeCostoSeleccionado">
+      <ng-template let-centrocosto pTemplate="default">
+        <a (click)="centrarLote($event)">{{centrocosto.centro_costo}}</a>
+        <i id="icon-cultivo" class="fas fa-draw-polygon"></i>
+      </ng-template>
+    </p-tree>
+  </div>
+</ng-template>
+</div>
+<p-dialog  [(visible)]="display" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '25vw'}">
+  <ng-template pTemplate="header">
+    <span class="polygonInfo_subTitle_one"><i class="fas fa-map-marker-alt" style="padding-right: 2px;"></i>{{selectedLote?.codigo}}</span>
+    <span class="polygonInfo_subTitle"><i class="fas fa-seedling" style="padding-right: 2px;">{{selectedLote?.cultivo + ' - ' + selectedLote?.variedad}}</i></span>
+  </ng-template>
+  <ng-template #elseTemplate>
+    <h2 class="ml-3"> <strong>No cuenta con evaluaciones</strong></h2>
+</ng-template>
+  <!-- <span class="polygonInfo_subTitle" ><i class="fas fa-map-marker-alt"></i>{{selectedLote?.codigo}}</span>
+  <span class="polygonInfo_subTitle" ><i class="fas fa-seedling">{{selectedLote?.cultivo + ' - ' + selectedLote?.variedad}}</i></span> -->
+
+  <div class="table-responsive" *ngIf="(conceptoData || []).length; else elseTemplate">
+    <table id="table" class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col" class="polygonIcon_plaga"><i class="fas fa-bug"></i></th>
+          <th scope="col" class="polygonIcon_fecha"><i class="fas fa-user-clock" style="padding-right: 5px;"></i>{{this.fechaEvaluacion}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of conceptoData; let i = index">
+          <td style="border-right: 1.5px outset;">{{item.concepto}}</td>
+          <td class="td-table" (click)="openTableRow(item)">{{item.avg.toFixed(1)}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</p-dialog>
+
+<p-dialog [(visible)]="display_detail" position="right" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '25vw'}">
+  <ng-template pTemplate="header">
+      <span class="polygonInfo_subTitle" >{{this.valorConcepto}}</span>
+    </ng-template>
+    <div class="table-responsive">
+      <table id="table" class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col" class="polygonIcon_fecha"><i class="fas fa-user" style="padding-right: 5px;"></i></th>
+            <th scope="col" class="polygonIcon_fecha"><i class="fas fa-user-clock" style="padding-right: 5px;"></i></th>
+            <th scope="col" class="polygonIcon_plaga"><i class="fas fa-bug"></i></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of valorData; let i = index">
+            <td style="border-right: 1.5px outset;">{{item.evaluador}}</td>
+            <td style="border-right: 1.5px outset;">{{formatDateSeconds(item.fecha)}}</td>
+            <td>{{item.valor_encontrado}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </p-dialog>

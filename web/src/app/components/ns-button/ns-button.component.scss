@@ -1,0 +1,143 @@
+.button:not(.material) {
+  display: inline-block;
+  padding: 0 5px;
+  cursor: pointer;
+  outline: none;
+  border-radius: 3px;
+  background: #C7E2C8;
+  border: 1px solid #8ec192;
+  color: #4f7b52;
+  font-weight: bold;
+  $red-color: #D9534F;
+  $yellow-color: #f0ad4e;
+  position: relative;
+  overflow: hidden;
+  margin-right: 10px;
+
+  &:disabled {
+    cursor: not-allowed;
+    border: 1px solid #999999 !important;
+    background-color: #cccccc !important;
+    color: #666666 !important;
+
+    i {
+      border-right: 1px solid #999999 !important;
+    }
+  }
+
+  i {
+    border-right: 1px solid #8ec192;
+    transition: 0.5s;
+    padding-right: 3px;
+    font-size: 0.8rem;
+  }
+
+  span {
+    margin-left: 2px;
+    transition: 0.5s;
+    display: inline-block;
+    position: relative;
+    left: 0;
+    opacity: 1;
+    margin-left: 5px;
+    z-index: 0;
+  }
+
+  &.warning {
+    background: rgba(243, 189, 114, 0.25);
+    border: 1px solid #ffa11b;
+    color: #ec8c03;
+
+    i {
+      border-right: 1px solid #ffa11b;
+    }
+  }
+
+  &.error {
+    background: rgba($red-color, 0.25);
+    border: 1px solid $red-color;
+    color: $red-color;
+
+    i {
+      border-right: 1px solid $red-color;
+    }
+  }
+}
+
+
+.material {
+  background: white;
+  margin-right: 10px;
+  height: 36px;
+  padding: 0 12px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+
+  &:hover {
+    background: #EBEBEB;
+  }
+
+  &:disabled {
+
+    span,
+    i {
+      color: #0000008A;
+    }
+  }
+
+  i,
+  span {
+    font-size: 13px;
+    color: #3367d6;
+  }
+
+  i {
+    font-size: 18px;
+    margin-right: 6px;
+  }
+
+  span {
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+}
+
+
+// button{
+//   position: relative;
+//   border: none;
+//   outline: none;
+//   width: 170px;
+//   height: 55px;
+//   background-color: #086e7d;
+//   font-size: 1.4rem;
+//   color: #fff;
+//   border-radius: 7px;
+//   cursor: pointer;
+//   font-family: 'Roboto', sans-serif;
+// }
+
+button::before{
+  content:"";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  z-index: -1;
+  border-radius: 7px;
+  transform: translateY(5px);
+}
+
+button:active{
+  transform: translateY(5px);
+}
+
+button:active:before{
+  transform: translateY(0);
+}

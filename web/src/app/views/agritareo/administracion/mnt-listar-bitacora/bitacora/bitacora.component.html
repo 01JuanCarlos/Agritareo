@@ -1,0 +1,305 @@
+<div class="container-fluid mt-2" *ngIf="isNotFoundDocument">
+  <div class="row">
+    <div class="col-md-12">
+      <h3>Lo sentimos, no se encontró un evaluador con ese código</h3>
+    </div>
+  </div>
+</div>
+
+<ng-container *ngIf="!isNotFoundDocument">
+  <div class="header-content">
+    <a href="#" class="mr-2" (click)="$event.preventDefault(); backClicked()">
+      <i class="icon-arrow-left7" style="font-size: 0.8rem"></i>
+      Regresar
+    </a>
+    <h1>
+      {{ !isNewDocument ? "Bitacora " + form.value.idcentro_costo : "Nueva bitacora" }}
+    </h1>
+    <div class="d-inline-flex justify-content-center flex-column">
+      <div class="ml-3 button-wrapper d-inline-block">
+        <ns-button *ngIf="isNewDocument" [disabled]="!form.valid" (btClick)="saveDocument()" label="Guardar" icon="icon-floppy-disk">
+        </ns-button>
+        <ns-button *ngIf="!isNewDocument" [disabled]="!form.valid" (btClick)="updateDocument()" label="Actualizar" icon="icon-floppy-disk"
+          type="warning">
+        </ns-button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid mt-2">
+    <div class="row" [formGroup]="form">
+      <div class="col-md-12">
+
+        <h3>{{isNewDocument ?  'Nueva' : 'Editar'}} bitacora {{form.value.nombre}}</h3>
+        <div class="row section">
+          <div class="col-md-2">
+            <ns-group-control required>
+              <ns-label-control>Tipo de registro</ns-label-control>
+              <!-- (select)="form.patchValue({datos_perfil: $event.data})" -->
+              <ns-select-control
+                formControlName="idtipo_registro">
+                <ns-select-option [value]="type.id" *ngFor="let type of registryTypes">{{type.nombre}}
+                </ns-select-option>
+              </ns-select-control>
+            </ns-group-control>
+          </div>
+          <div class="col-md-2">
+            <ns-group-control>
+              <ns-label-control>Responsable</ns-label-control>
+              <ns-finder [componentId]="SuggestResponsable" formControlName="evaluador" (input)="checkParcela()" [readonly]="true"></ns-finder>
+            </ns-group-control>
+          </div>
+          <div class="col-md-2">
+            <ns-group-control>
+              <ns-label-control>Fecha</ns-label-control>
+              <ns-date-control (input)="checkParcela()" formControlName="fecha" [readonly]="true"></ns-date-control>
+            </ns-group-control>
+          </div>
+          <div class="col-md-2">
+            <ns-group-control>
+              <ns-label-control>Parcela</ns-label-control>
+              <ns-finder [componentId]="SuggestParcela" formControlName="parcela" (input)="checkParcela()" [readonly]="true">
+              </ns-finder>
+            </ns-group-control>
+          </div>
+        </div>
+
+
+        <h3 class="mt-3">Referencia de parcela</h3>
+        <div class="row section">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-2">
+                <ns-group-control>
+                  <ns-label-control>Cultivo</ns-label-control>
+                  <ns-finder [readonly]="true" [componentId]="SuggestCultivo" formControlName="idcultivo"
+                    #cultivoSuggest></ns-finder>
+                </ns-group-control>
+              </div>
+              <div class="col-md-2">
+                <ns-group-control>
+                  <ns-label-control>Variedad</ns-label-control>
+                  <ns-finder [readonly]="true" [componentId]="SuggestVariedad" formControlName="idcultivo_variedad"
+                    [correlated]="cultivoSuggest">
+                  </ns-finder>
+                </ns-group-control>
+              </div>
+              <div class="col-md-2">
+                <ns-group-control>
+                  <ns-label-control>Campaña</ns-label-control>
+                  <ns-input-control [readonly]="true" formControlName="codigo_campania"></ns-input-control>
+                </ns-group-control>
+              </div>
+              <div class="col-md-4">
+                <ns-group-control>
+                  <ns-label-control>Descripción de campaña</ns-label-control>
+                  <ns-input-control [readonly]="true" formControlName="descripcion_campania"></ns-input-control>
+                </ns-group-control>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-md-2">
+                <ns-group-control>
+                  <ns-label-control>Día de crecimiento</ns-label-control>
+                  <ns-input-control [readonly]="true" formControlName="dia_crecimiento"></ns-input-control>
+                </ns-group-control>
+              </div>
+              <div class="col-md-2">
+                <ns-group-control>
+                  <ns-label-control>Semana de crecimiento</ns-label-control>
+                  <ns-input-control [readonly]="true" formControlName="semana_crecimiento"></ns-input-control>
+                </ns-group-control>
+              </div>
+              <div class="col-md-2">
+                <ns-group-control>
+                  <ns-label-control>Estado fenologico</ns-label-control>
+                  <ns-input-control [readonly]="true" formControlName="fenologia_variedad"></ns-input-control>
+                </ns-group-control>
+              </div>
+              <div class="col-md-2">
+                <ns-group-control>
+                  <ns-label-control>Area Sembrada</ns-label-control>
+                  <ns-input-control [readonly]="true" formControlName="area_sembrada"></ns-input-control>
+                </ns-group-control>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <ng-container *ngIf="form.value.idtipo_registro == IDEVALUACION_SANITARIA">
+          <h3 class="mb-1">
+            Evaluaciones sanitarias - Conceptos agrícolas
+
+            <div class="d-inline-flex custom-buttons">
+              <ns-button (btClick)="addFormArrayItem('evaluaciones_sanitarias', createEvaluacionSanitaria())" label="Añadir evaluación" icon="mi-add">
+              </ns-button>
+            </div>
+          </h3>
+          <div class="row">
+            <div class="col-md-12" *ngIf="form.value.evaluaciones_sanitarias.length">
+
+              <ns-detail-section
+                (deleteTab)="deleteTab('evaluaciones_sanitarias', $event)"
+                [formArray]="form.get('evaluaciones_sanitarias')"
+                tabLabelKey="concepto" #evaluacionesSanitariasDetails>
+                <div class="row section">
+                  <div class="col-md-12">
+                    <div class="row">
+                      <div class="col-md-2">
+                        <ns-group-control controlName="idtipo_concepto">
+                          <ns-label-control>Tipo de concepto</ns-label-control>
+                          <ns-finder [componentId]="SuggestTipoConcepto" #suggestTipoC>
+                          </ns-finder>
+                        </ns-group-control>
+                      </div>
+                      <div class="col-md-2">
+                        <ns-group-control
+                          controlName="idconcepto">
+                          <ns-label-control>Concepto evaluado</ns-label-control>
+                          <ns-finder
+                            (selected)="getSubConceptoCultivo($event)"
+                            [correlated]="suggestTipoC"
+                            [componentId]="SuggestConcepto">
+                          </ns-finder>
+                        </ns-group-control>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ns-detail-section>
+            </div>
+            <div class="col-md-12" *ngIf="!form.value.evaluaciones_sanitarias.length">
+              <h3 class="text-warning font-weight-bold">Lote sin evaluaciones</h3>
+            </div>
+          </div>
+
+          <ng-container *ngIf="form.value.evaluaciones_sanitarias.length">
+            <h3 class="mt-4 d-flex align-items-center mb-1">
+              Organos afectados
+              {{evaluacionesSanitariasDetails?.selectedFormGroup?.value?.concepto || 'Tab ' + ((evaluacionesSanitariasDetails?.selectedIndex || 0)  + 1)}}
+              <div class="d-inline-flex custom-buttons">
+                <ns-button
+                  (btClick)="addFormArrayItem(['evaluaciones_sanitarias', evaluacionesSanitariasDetails?.selectedIndex || 0, 'organos_afectados'],
+                  createOrganoAfectado())"
+                  label="Nuevo Organo"
+                  icon="mi-add">
+                </ns-button>
+              </div>
+            </h3>
+
+            <div class="row">
+              <div class="col-md-12" *ngIf="evaluacionSanitariaHasOrganos">
+                <ns-detail-section
+                  (deleteTab)="deleteTab(['evaluaciones_sanitarias', evaluacionesSanitariasDetails?.selectedIndex, 'organos_afectados'], $event)"
+                  tabLabelKey="organo_afectado" [formArray]="form.get(['evaluaciones_sanitarias', evaluacionesSanitariasDetails?.selectedIndex || 0,
+                'organos_afectados'])"
+                  #organosAfectadosDetails>
+                  <div class="row section">
+                    <div class="col-md-2">
+                      <ns-group-control
+                        controlName="idevaluacion_subconcepto">
+                        <ns-label-control>Subconcepto evaluado</ns-label-control>
+                        <ns-select-control
+                          [items]="subconceptos"
+                          dataKey="idevaluacion_subconcepto"
+                          (select)="onSelectedSubconcepto($event.value)">
+                        </ns-select-control>
+                      </ns-group-control>
+                    </div>
+                    <div class=" col-md-2">
+                      <ns-group-control
+                        controlName="metodo_evaluacion">
+                        <ns-label-control>Método de evaluación</ns-label-control>
+                        <ns-input-control [readonly]="true"></ns-input-control>
+                      </ns-group-control>
+                    </div>
+                    <div class="col-md-2">
+                      <ns-group-control
+                        controlName="unimedida">
+                        <ns-label-control>Unidad de medida</ns-label-control>
+                        <ns-input-control [readonly]="true"></ns-input-control>
+                      </ns-group-control>
+                    </div>
+                    <div class="col-md-2">
+                      <ns-group-control
+                        controlName="organo_afectado">
+                        <ns-label-control>Órgano afectado</ns-label-control>
+                        <ns-input-control [readonly]="true"></ns-input-control>
+                      </ns-group-control>
+                    </div>
+                  </div>
+                  <h3 class="mt-3">Registro de evaluación sanitaria</h3>
+                  <div class="row section">
+                    <div class="col-md-6">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="row">
+                            <div class="col-md-8">
+                              <ns-group-control
+                                controlName="idumbral_rango">
+                                <ns-label-control>Valores disponibles (*)</ns-label-control>
+                                <ns-select-control
+                                  [items]="umbrales"
+                                  (select)="patchEvaluacionDetalle($event.value)">
+                                </ns-select-control>
+                              </ns-group-control>
+                            </div>
+                            <div class="col-md-4">
+                              <ns-group-control
+                                controlName="valor_encontrado">
+                                <ns-label-control>Valor encontrado</ns-label-control>
+                                <ns-input-control></ns-input-control>
+                              </ns-group-control>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-12 mt-2">
+                          <ns-group-control
+                            controlName="glosa">
+                            <ns-label-control>Glosa (*)</ns-label-control>
+                            <ns-textarea-control [rows]="5"></ns-textarea-control>
+                          </ns-group-control>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <p-carousel
+                      [value]="image" *ngIf="image?.length"
+                      [numVisible]="1"
+                      [numScroll]="1"
+                      [circular]="true"
+                      [responsiveOptions]="responsiveOptions">
+                      <ng-template pTemplate="header">
+                      </ng-template>
+                      <ng-template let-image pTemplate="item">
+                        <div class="product-item">
+                          <div class="product-item-content">
+                            <div class="p-mb-3">
+                              <img id="imagen" [src]="image.ruta" alt="">
+                            </div>
+                            <div>
+                              <h6 id="title_organo" class="d-flex justify-content-center">{{image.organo_afectado}}</h6>
+                            </div>
+                          </div>
+                        </div>
+                      </ng-template>
+                    </p-carousel>
+                    </div>
+                  </div>
+                </ns-detail-section>
+              </div>
+              <div class="col-md-12" *ngIf="!evaluacionSanitariaHasOrganos">
+                <h3 class="text-warning font-weight-bold">Evaluacion sanitaria sin organos afectados</h3>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+
+

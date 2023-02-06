@@ -1,0 +1,77 @@
+<div class="topbar" [ngClass]="{'focus-input': focusedInput}">
+  <div class="left-content d-none d-md-inline-flex">
+    <div class="logo-wrapper">
+      <img src="/static/images/logo.png" alt="">
+    </div>
+  </div>
+  <!-- <div class="title-wrapper" *ngFor="let item of initial; let index= index">
+    <h3>
+      {{item.nombre}}
+    </h3>
+  </div> -->
+  <div class="searchbar d-none d-md-inline-flex">
+    <div class="input-wrapper d-flex flex-column" #inputWrapper>
+      <div class="d-flex">
+        <div class="icon-wrapper">
+          <i class="mi-search" *ngIf="!loading"></i>
+          <i class="icon-spinner2 spinner" *ngIf="loading && !!searchText"></i>
+        </div>
+        <input
+          type="text"
+          placeholder="Navegación rápida"
+          (focus)="this.focusedInput = true"
+          [(ngModel)]="searchText"
+          (input)="this.loading = true; textSearch($event.target.value)"
+          #search>
+      </div>
+
+      <div class="result-wrapper" *ngIf="!loading && !!searchText">
+        <ng-container *ngIf="results.length; else elseTemplate">
+          <div class="list-item-module" *ngFor="let module of results">
+            <div class="module">{{module.label}}</div>
+
+            <a
+              [routerLink]="'/'+component.path"
+              class="list-item"
+              *ngFor="let component of module.components">
+              <i [class]="component.icon || 'mi-bug-report'"></i>
+              <span>
+                {{component.label}}
+              </span>
+            </a>
+          </div>
+        </ng-container>
+        <ng-template #elseTemplate>
+          <div class="list-item">
+            No se encontraron resultados con "{{searchText}}"
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+  <div class="right-content">
+    <div class="menu-wrapper">
+      <div class="navbar-nav-link dropdown-toggle" data-toggle="dropdown">
+        <div class="img-wrapper">
+          <!-- <i class="mi-account-circle"></i> -->
+          <img src="/static/images/profile/profile-picture.png" alt="">
+        </div>
+        <span class="font-weight-semibold text-capitalize">
+          {{ userAlias$ | async}}
+        </span>
+      </div>
+
+      <div class="dropdown-menu dropdown-content dropdown-menu-right">
+        <a routerLink="/changelog" class="dropdown-item text-muted"> {{ 'Versión' | translate}}: {{APP_VERSION}}</a>
+        <div class="dropdown-divider"></div>
+        <a routerLink="/preferencias/perfil" class="dropdown-item"><i class="fa-user fas"></i> {{ 'Perfil' | translate}}</a>
+        <!-- <a class="dropdown-item"><i class="icon-coins"></i> {{ 'Mi Cuenta' | translate}} </a> -->
+        <div class="dropdown-divider"></div>
+        <a routerLink="/preferencias/changelog" class="dropdown-item"><i class=" icon-help"></i> {{ 'Ayuda' | translate}}</a>
+        <div class="dropdown-divider"></div>
+        <a routerLink="/configuration" class="dropdown-item"><i class="icon-cog5"></i> {{ 'Configuración' | translate}} </a>
+        <a (click)="logout()" class="dropdown-item"><i class="icon-switch2"></i> {{ 'Salir' | translate}}</a>
+      </div>
+    </div>
+  </div>
+</div>

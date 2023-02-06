@@ -1,0 +1,14 @@
+<div class="d-inline-block" *ngIf="( breadcrumbs$  | async)?.length !== 0">
+  <div class="breadcrumb breadcrumb-arrows">
+    <ng-container *ngFor="let item of breadcrumbs$  | async; let last=last">
+      <ng-container *ngIf="!last; else span">
+        <a [href]="item?.fullPath || '/' + item?.path" class="breadcrumb-item py-0">{{item?.label}}</a>
+      </ng-container>
+      <ng-template #span>
+        <span class="breadcrumb-item py-0">
+          {{item?.label}}
+        </span>
+      </ng-template>
+    </ng-container>
+  </div>
+</div>

@@ -1,0 +1,145 @@
+<div class="header-content">
+  <h1>Lista de usuarios</h1>
+  <div class="button-wrapper">
+    <ns-button href="nuevo" icon="mi-add" label="Nuevo"></ns-button>
+    <ns-button [href]="selectedItem?.id" label="Editar" icon="mi-mode-edit" [disabled]="!selectedItem"></ns-button>
+    <ns-button (btClick)="deleteItem(selectedItem?.id)" label="Eliminar" icon="mi-delete" [disabled]="!selectedItem"></ns-button>
+    <ns-button (btClick)="updateEstadoEvaluador()" label="Actualizar Estado" icon="mi-cached" [disabled]="!selectedItem"></ns-button>
+    <ns-button label="Imprimir" icon="mi-print" (click)="printPdf()" [disabled]="selectPrint"></ns-button>
+    <ns-button label="Exportar" (btClick)="selectFile.open()" icon="mi-arrow-downward"></ns-button>
+  </div>
+  <div class="control-wrapper ml-auto">
+    <button type="button" class="material mr-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <i class="mi-filter-list"></i>
+      <span>Columnas</span>
+    </button>
+    <div class="dropdown-menu dropdown-menu-right">
+      <ng-container *ngFor="let item of tableHeader">
+        <div class="dropdown-item" *ngIf="!!item.label" (click)="$event.stopPropagation(); updateTable(item)">
+          <input type="checkbox" [checked]="item.visible !== false ? true : false">
+          <span class="ml-1">
+            {{item.label}}
+          </span>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <div class="control-wrapper ml-auto">
+    <!-- <div class="input-wrapper">
+      <div class="icon-wrapper">
+        <i class="icon-search4"></i>
+      </div>
+      <input type="text" placeholder="Búsqueda por nombre" #filterInput>
+    </div> -->
+    <div class="btn-wrapper">
+      <button [ngClass]="{'active': listViewMode}" (click)="listViewMode = !listViewMode">
+        <i class="icon-list2"></i>
+      </button>
+      <button [ngClass]="{'active': !listViewMode}" (click)="listViewMode = !listViewMode">
+        <i class="icon-grid6"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12 mt-2">
+      <div [ngClass]="{'d-none': !listViewMode}">
+        <ns-table-simple
+          [header]="tableHeader"
+          [controller]="viewURL"
+          (tsSelect)="selectedItem = $event"
+          (tsDblClick)="goEditMode($event)"
+          #table>
+        </ns-table-simple>
+      </div>
+      <div [ngClass]="{'d-none': listViewMode}">
+        <div class="row">
+          <ng-container *ngIf="table?.data; else elseNoData">
+            <div class="col-md-6 col-lg-6 col-xl-3 mb-3" *ngFor="let evaluador of table?.data">
+              <div class="custom-card">
+                <div class="content">
+                  <div class="left">
+                    <div class="img-wrapper">
+                      <img src="https://w0.pngwave.com/png/613/636/computer-icons-user-profile-male-avatar-avatar-png-clip-art.png" alt="">
+                    </div>
+                  </div>
+                  <div class="right">
+                    <div class="name">
+                      {{evaluador.nombre}} {{ evaluador.apellido_paterno }} {{ evaluador.apellido_materno }}
+                    </div>
+                    <div [ngClass]="{'activo': evaluador.estado, 'inactivo': !evaluador.estado}" class="status activo">
+                      {{ evaluador.estado_c }}
+                    </div>
+                    <div class="last-activity">
+                      <i class="icon-mobile"></i>
+                      <span>
+                        {{ evaluador.telefono }}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="footer">
+                  <div class="btn-wrapper">
+                    <a [routerLink]="evaluador.id" class="editar">
+                      <i class="icon-pencil7"></i>
+                      Editar
+                    </a>
+                    <button class="eliminar" (click)="deleteItem(evaluador.id)">
+                      <i class="icon-trash-alt"></i>
+                      Eliminar
+                    </button>
+                    <button class="estado" (click)="updateEstadoEvaluador()">
+                      <i class="icon-sync"></i>
+                      Estado
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+          <ng-template #elseNoData>
+            <div class="col-md-12">
+              <div class="alert alert-info py-2" role="alert">
+                No se encontraron datos.
+              </div>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ns-modal size="sm" title="Formato de descarga" #selectFile>
+  <div class="row p-2">
+    <div class="col">
+      <div class="form-check">
+        <input class="form-check-input" type="radio" [(ngModel)]="fileOption" name="file" id="csv" value="csv" checked>
+        <label class="form-check-label" for="csv">
+          CSV (.csv)
+        </label>
+      </div>
+
+      <div class="form-check">
+        <input class="form-check-input" type="radio" [(ngModel)]="fileOption" name="file" id="xlsx" value="xlsx" checked>
+        <label class="form-check-label" for="xlsx">
+          Excel (.xlsx)
+        </label>
+      </div>
+
+      <div class="form-check">
+        <input class="form-check-input" type="radio" [(ngModel)]="fileOption" name="file" id="pdf" value="pdf" checked>
+        <label class="form-check-label" for="pdf">
+          PDF (.pdf)
+        </label>
+      </div>
+    </div>
+  </div>
+  <ng-template nsTemplate="footer">
+    <div class="float-right">
+      <ns-button label="Descargar" (btClick)="downloadData()" icon="mi-arrow-downward"></ns-button>
+    </div>
+  </ng-template>
+</ns-modal>

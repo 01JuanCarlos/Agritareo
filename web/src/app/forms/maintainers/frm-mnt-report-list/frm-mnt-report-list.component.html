@@ -1,0 +1,20 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="pb-1">
+    <ns-group-control>
+      <ns-label-control class="text-left text-md-right">{{ 'Seleccionar Componente' | translate }}</ns-label-control>
+      <ns-select-control formControlName="moduleId" [items]="reportService.modules" (select)="loadComponents($event)"></ns-select-control>
+    </ns-group-control>
+  </div>
+  <div class="pb-1">
+    <ns-group-control>
+      <ns-label-control class="text-left text-md-right">{{ 'Seleccionar Componente' | translate }}</ns-label-control>
+      <ns-select-control formControlName="componentId" [items]="components" (select)="isFilled()"></ns-select-control>
+    </ns-group-control>
+  </div>
+  <div>
+    <ns-group-control>
+      <ns-label-control class="text-left text-md-right">{{ 'Nombre del Reporte' | translate }}</ns-label-control>
+      <ns-input-control formControlName="name"></ns-input-control>
+    </ns-group-control>
+  </div>
+</form>

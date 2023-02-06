@@ -1,0 +1,36 @@
+:host {
+  .list-group-item {
+    padding: 0.17rem .55rem;
+
+    &.group-title {
+      background-color: #fafafa;
+      border-color: #ddd;
+      color: #333;
+    }
+  }
+
+  .list-group-content {
+    height: 14.9rem;
+    overflow: auto;
+    background: #eeeeee50;
+
+    .list-group-item {
+      span {
+        cursor: pointer;
+      }
+    }
+
+    &.checkbox-list {
+      .list-group-item {
+        span {
+          text-decoration: line-through;
+        }
+
+        &.checked span {
+          text-decoration: none;
+        }
+      }
+    }
+  }
+
+}

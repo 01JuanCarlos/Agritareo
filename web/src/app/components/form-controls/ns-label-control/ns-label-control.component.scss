@@ -1,0 +1,51 @@
+:host {
+  label {
+    i.label-icon {
+      padding-right: .2rem;
+    }
+
+    &.col-form-label-sm {
+      padding-top: calc(0.2rem + 1px);
+      padding-bottom: calc(0.2rem + 1px);
+      line-height: 1.4;
+    }
+
+    &.col-form-label-md {
+      padding-top: calc(0.3rem + 1px);
+      padding-bottom: calc(0.3rem + 1px);
+      line-height: 1.5;
+    }
+
+    &.col-form-label-lg {
+      padding-top: calc(0.4rem + 1px);
+      padding-bottom: calc(0.4rem + 1px);
+      line-height: 1.6;
+    }
+
+    span {
+      user-select: none;
+    }
+
+    i.extra_icon {
+      font-size: 11px !important;
+      margin-right: .15rem;
+      margin-left: .11rem;
+      cursor: pointer;
+    }
+
+    &.required::after {
+      content: '*';
+      color: red;
+    }
+  }
+}
+
+:host-context(html[dir="rtl"]) {
+  label {
+    text-align: right;
+
+    i.label-icon {
+      padding-left: .2rem;
+    }
+  }
+}

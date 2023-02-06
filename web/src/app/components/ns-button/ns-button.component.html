@@ -1,0 +1,25 @@
+<ng-container *ngIf="!href; else elseTemplate">
+  <button
+    class="button"
+    [class]="type"
+    [ngClass]="{'material': material}"
+    [disabled]="disabled"
+    (click)="btClick.emit()">
+    <i [class]="icon" [ngClass]="{'mr-0': mini}"></i>
+    <span class="btn-label" *ngIf="!mini">
+      {{label}}
+    </span>
+  </button>
+</ng-container>
+<ng-template #elseTemplate>
+  <a
+    class="button"
+    [class]="type"
+    [ngClass]="{'material': material}"
+    [routerLink]="[href]">
+    <i [class]="icon"></i>
+    <span class="btn-label">
+      {{label}}
+    </span>
+  </a>
+</ng-template>

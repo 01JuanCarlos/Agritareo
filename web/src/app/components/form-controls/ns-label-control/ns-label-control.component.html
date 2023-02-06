@@ -1,0 +1,13 @@
+<label [id]="id" [for]="for" class="mb-0" [ngClass]="__controlClass">
+  <i *ngIf="!!icon" class="label-icon" [ngClass]="icon"></i>
+  <ng-container *ngIf="messagePlacement === 'left'" [ngTemplateOutlet]="messageTpl"></ng-container>
+  <span translate #templateContent>
+    <ng-content></ng-content>
+  </span>
+  <ng-container *ngIf="messagePlacement !== 'left'" [ngTemplateOutlet]="messageTpl"></ng-container>
+</label>
+
+<ng-template #messageTpl>
+  <i *ngIf="message" class="extra_icon" [appPopover]="message" [title]="messageTitle || templateContent.innerText" [type]="messageType"
+    [ngClass]="messageIconClass"></i>
+</ng-template>

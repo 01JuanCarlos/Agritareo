@@ -1,0 +1,32 @@
+<h6 class="mb-3 pt-1">
+  {{label}}
+  <a href="" class="float-right" (click)="$event.preventDefault();collapseAll()">
+    {{(isToggled? 'Expand All':'Collapse All')}}
+    <i [ngClass]="isToggled? 'icon-circle-down2':'icon-circle-up2'"></i></a>
+</h6>
+<ol *ngIf="!isEmpty" class="dd-list">
+  <ng-template #recursiveItems let-items>
+    <li
+      *ngFor="let it of items"
+      ns-nestable-item
+      (newItem)="addItemChildren($event)"
+      (edtItem)="editarItem($event)"
+      (delItem)="deleteItem($event)"
+      [label]="it.label"
+      [icon]="it.icon"
+      [id]="it.id"
+      [parentId]="it.parent_id"
+      [children]="it.children"
+      [link]="it.label"
+      [target]="it.target"
+      [tooltip]="it.tooltip"
+      [data]="it"
+      [dataKey]="dataKey"
+      [idmodulo]="it.module_id">
+      <ol class="dd-list" *ngIf="it.children && it.children.length">
+        <ng-container *ngTemplateOutlet="recursiveItems; context: { $implicit: it.children }"></ng-container>
+      </ol>
+    </li>
+  </ng-template>
+  <ng-container *ngTemplateOutlet="recursiveItems; context: { $implicit: data }"></ng-container>
+</ol>

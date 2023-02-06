@@ -1,0 +1,39 @@
+:host {
+  display: inline-block;
+
+  &.form-check {
+
+    // In horizontal form group
+    .form-group.row &:not(.dropdown-item) {
+      margin-top: 0 !important;
+    }
+  }
+
+  .form-check-label {
+    ::ng-deep {
+      .bootstrap-switch-off.bootstrap-switch-small.bootstrap-switch.bootstrap-switch-wrapper.bootstrap-switch-animate {
+        margin-right: 0 !important;
+      }
+
+
+      .bootstrap-switch-small.bootstrap-switch.bootstrap-switch-wrapper.bootstrap-switch-animate.bootstrap-switch-on {
+        margin: 0 !important;
+      }
+
+      .bootstrap-switch-small.bootstrap-switch.bootstrap-switch-wrapper.bootstrap-switch-focused.bootstrap-switch-animate.bootstrap-switch-on {
+        margin: 0 !important;
+      }
+
+      .bootstrap-switch-small .bootstrap-switch-handle-on,
+      .bootstrap-switch-small .bootstrap-switch-handle-off,
+      .bootstrap-switch-small .bootstrap-switch-label {
+        padding: 2px 5px !important;
+        font-weight: bold;
+      }
+
+      span.switchery {
+        left: inherit;
+      }
+    }
+  }
+}

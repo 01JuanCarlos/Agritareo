@@ -1,0 +1,51 @@
+.sidebar {
+    // position: fixed;
+    position: relative;
+    left: 0;
+    top: 0;
+    margin-top: -50vh;
+    max-width: 40px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    .tool-container {
+        border: 1px solid #ccc;
+        background: white;
+        border-left: none;
+        width: fit-content;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        border-radius: 0 10px 10px 0;
+        overflow: hidden;
+        box-shadow: 1px 0px 2.5px 1px #ccc;
+
+        .tool {
+            cursor: pointer;
+            padding: 15px 5px;
+            display: block;
+            text-align: center;
+            border-bottom: 1px solid #ccc;
+            transition: 0.25s;
+
+            &.menu-display {
+                padding: 5px;
+            }
+
+            &:last-child {
+                border-bottom: none !important;
+            }
+
+            &:hover:not(.menu-display) {
+                background: rgba(#ccc, 0.5);
+                padding: 20px 10px;
+                transition: 0.25s;
+            }
+        }
+    }
+}
+
+.v-hidden {
+    visibility: hidden;
+}

@@ -1,0 +1,296 @@
+<div class="header-content">
+  <h1> Datos de campo</h1>
+  <!-- <h1 [ngClass]="{'d-none': listViewMode}"> KG/DIA</h1> -->
+  <!-- <div class="button-wrapper">
+    <ns-button label="Imprimir" icon="mi-print" (click)="printPdf()" [disabled]="selectPrint"></ns-button>
+    <ns-button label="Exportar" (btClick)="selectFile.open()" icon="mi-arrow-downward"></ns-button>
+  </div> -->
+  <!-- formControlName="selected_tipo_registro" -->
+  <div class="control-wrapper ml-auto">
+    <div class="row" [formGroup]="form">
+      <div class="col d-flex">
+        <div class="d-inline-flex">
+          <!-- <div class="control-wrapper">
+            <div class="input-wrapper mr-2">
+              <div class="icon-wrapper">
+                <i class="fa-spa fas"></i>
+              </div>
+              <select placeholder="Sector" formControlName="selected_sector"
+                (change)="form.patchValue({ selected_lote: '' }); updatedSelectedSector()">
+                <option [value]="''">Todos</option>
+                <option [value]="item.id" *ngFor="let item of sectoresList; let index= index">{{item.nombrenivel}}</option>
+              </select>
+            </div>
+          </div> -->
+          <div class="control-wrapper" [ngClass]="{'d-none': listViewMode}">
+            <div class="input-wrapper mr-2">
+              <div class="icon-wrapper">
+                <i class="fa-spa fas"></i>
+              </div>
+                  <!-- <p-multiSelect
+                    [options]="loteList"
+                    formControlName="selected_multiple_lote"
+                    defaultLabel="Seleciona un lote"
+                    scrollHeight="250px"
+                    optionLabel="nombrenivel"
+                    optionValue="idcentro_costo"
+                    #option
+                    (onChange)="getValue(option.value)">
+                  </p-multiSelect> -->
+                  <select (input)="this.form.value.selected_lote=getValue($event)"
+                    formControlName="selected_lote">
+                    <option [value]="''">Todos los lotes</option>
+                    <option [value]="item.idcentro_costo" *ngFor="let item of loteList; let index= index" placeholder="Lote">
+                      {{item.nombrenivel}}</option>
+                  </select>
+            </div>
+          </div>
+          <div class="control-wrapper" [ngClass]="{'d-none': !listViewMode}">
+            <div class="input-wrapper mr-2">
+              <div class="icon-wrapper">
+                <i class="fas fa-seedling"></i>
+              </div>
+              <select placeholder="Todos los Cultivos"
+                formControlName="selected_cultivo">
+                <option [value]="''">Todos los Cultivos</option>
+                <option [value]="item.id" *ngFor="let item of cultivoList; let index= index">{{item.nombre}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="control-wrapper" [ngClass]="{'d-none': !listViewMode}">
+            <div class="input-wrapper mr-2">
+              <div class="icon-wrapper">
+                <i class="fa-book-reader fas"></i>
+              </div>
+              <select placeholder="Todos los conceptos"
+                formControlName="selected_concepto">
+                <option [value]="''">Todos los conceptos</option>
+                <option [value]="item.idconcepto" *ngFor="let item of conceptoList; let index= index">{{item.nombre}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="control-wrapper" [ngClass]="{'d-none': !listViewMode}">
+            <div class="input-wrapper mr-2">
+              <div class="icon-wrapper">
+                <i class="fa-spa fas"></i>
+              </div>
+              <select placeholder="Organos"
+                formControlName="selected_organo">
+                <option [value]="''">Todos los organos afectados</option>
+                <option [value]="item.idevaluacion_subconcepto" *ngFor="let item of organoList; let index= index">
+                  {{item.organo_afectado}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="input-wrapper mr-2" [ngClass]="{'d-none': !listViewMode}">
+            <div class="icon-wrapper">
+              <i class="fas fa-users"></i>
+            </div>
+            <select placeholder="Todos los Evaluadores"
+              formControlName="selected_evaluador">
+              <option [value]="''">Todos los Evaluadores</option>
+              <option [value]="item.id" *ngFor="let item of evaluadorList; let index= index">{{item.nombre}}</option>
+            </select>
+          </div>
+          <div class="row no-gutters">
+            <div class="col ml-2" [ngClass]="{'d-none': listViewMode}">
+              <ns-date-control formControlName="fecha_inicio"></ns-date-control>
+            </div>
+            <div class="col ml-2" [ngClass]="{'d-none': listViewMode}">
+              <ns-date-control formControlName="fecha_fin"></ns-date-control>
+            </div>
+            <div id="buttonMapa" class="col ml-2" [ngClass]="{'d-none': listViewMode}">
+              <button type="submit" class="btn btn-primary" (click)="updatedDate($event)">
+                <i class="icon-search4"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="row mr-2">
+        <p-multiSelect
+          [options]="selectedZona"
+          formControlName="zona"
+          optionLabel="descripcion"
+          defaultLabel="Seleciona una zona"
+          scrollHeight="250px"
+          display="chip">
+          <ng-template let-group pTemplate="group">
+            <div class="p-d-flex p-ai-center">
+              <span>{{group.label}}</span>
+            </div>
+          </ng-template>
+        </p-multiSelect>
+      </div>
+      <div class="row mr-2">
+        <p-multiSelect
+          [options]="selectedTipoBitacora"
+          formControlName="selected_tipo_registro"
+          optionLabel="nombre"
+          defaultLabel="Seleciona una zona"
+          scrollHeight="250px"
+          display="chip">
+          <ng-template let-group pTemplate="group">
+            <div class="p-d-flex p-ai-center">
+              <span>{{group.label}}</span>
+            </div>
+          </ng-template>
+        </p-multiSelect>
+      </div> -->
+    </div>
+    <!-- <button type="button" class="material mr-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <i class="mi-filter-list"></i>
+      <span>Columnas</span>
+    </button> -->
+    <!-- <div class="dropdown-menu dropdown-menu-right">
+      <ng-container *ngFor="let item of tableHeader">
+        <div class="dropdown-item" *ngIf="!!item.label" (click)="$event.stopPropagation(); updateTable(item)">
+          <input type="checkbox" [checked]="item.visible !== false ? true : false">
+          <span class="ml-1">
+            {{item.label}}
+          </span>
+        </div>
+      </ng-container>
+    </div> -->
+  </div>
+  <div class="control-wrapper ml-auto">
+    <div class="btn-wrapper">
+      <button [ngClass]="{'active': listViewMode}" (click)="listViewMode = !listViewMode">
+        <i class="icon-list2"></i>
+      </button>
+      <button [ngClass]="{'active': !listViewMode}" (click)="listViewMode = !listViewMode">
+        <i class="icon-stats-dots"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<div class="container-fluid">
+  <div class="col-md-12 mt-2">
+    <div [ngClass]="{'d-none': !listViewMode}">
+      <ns-table-simple
+        [controllerParams]="[{param:'cul', value: this.form.value.selected_cultivo, required: false}, {param:'e', value:
+        this.form.value.selected_evaluador, required: false}, {param:'co', value:
+        this.form.value.selected_concepto, required: false}, {param:'org', value:
+        this.form.value.selected_organo, required: false},{param:'lote', value:
+        this.form.value.selected_lote, required: false}]"
+        [header]="tableHeader"
+        [controller]="viewURL"
+        #table>
+      </ns-table-simple>
+      <!-- (tsDblClick)="onSelectedLote($event)" -->
+      <!-- <pre>{{form.value | json }}</pre> -->
+    </div>
+    <div [ngClass]="{'d-none': listViewMode}">
+      <div class="row mt-1">
+        <div class="col-md-12">
+          <div class="chart-wrapper">
+            <canvas #chart></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ns-modal size="sm" title="Formato de descarga" #selectFile>
+  <div class="row p-2">
+    <div class="col">
+      <div class="form-check">
+        <input class="form-check-input" type="radio" [(ngModel)]="fileOption" name="file" id="csv" value="csv" checked>
+        <label class="form-check-label" for="csv">
+          CSV (.csv)
+        </label>
+      </div>
+
+      <div class="form-check">
+        <input class="form-check-input" type="radio" [(ngModel)]="fileOption" name="file" id="xlsx" value="xlsx" checked>
+        <label class="form-check-label" for="xlsx">
+          Excel (.xlsx)
+        </label>
+      </div>
+
+      <div class="form-check">
+        <input class="form-check-input" type="radio" [(ngModel)]="fileOption" name="file" id="pdf" value="pdf" checked>
+        <label class="form-check-label" for="pdf">
+          PDF (.pdf)
+        </label>
+      </div>
+    </div>
+  </div>
+  <ng-template nsTemplate="footer">
+    <div class="float-right">
+      <ns-button label="Descargar" (btClick)="downloadData()" icon="mi-arrow-downward"></ns-button>
+    </div>
+  </ng-template>
+</ns-modal>
+
+<!-- <ng-container>
+  <div>
+    <strong>Evidencias:</strong>
+    <div class="row img-container">
+      <div class="col-md-6" *ngFor="let img of image || []">
+        <div class="img-wrapper">
+          <img [src]="img.ruta" alt="">
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container> -->
+
+<!-- <ng-container>
+  <div class="carousel-item" *ngFor="let img of image || []">
+    <img class="d-block w-100" [src]="img.ruta" alt="...">
+    <div class="carousel-caption d-none d-md-block">
+      <h5>...</h5>
+      <p>...</p>
+    </div>
+  </div>
+</ng-container> -->
+
+<!-- <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel" *ngFor="let img of image || []">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img class="d-block w-100" [src]="img.ruta" alt="First slide">
+    </div>
+  </div>
+</div> -->
+
+
+
+<p-carousel
+  [ngClass]="{'d-none': !listViewMode}"
+  [value]="image" *ngIf="image?.length"
+  [autoplayInterval]="3000"
+  [numVisible]="3"
+  [numScroll]="3"
+  [circular]="false"
+  [responsiveOptions]="responsiveOptions">
+  <ng-template pTemplate="header">
+    <h4 class="m-2 p-2"><strong>Evidencias</strong></h4>
+  </ng-template>
+  <ng-template let-image pTemplate="item">
+    <div class="product-item">
+      <div class="product-item-content">
+        <h4 class="p-mb-1">LOTE:<strong> {{image.nombrenivel}}</strong></h4>
+        <div class="p-mb-3">
+          <img id="imagen" [src]="image.ruta" alt="">
+        </div>
+        <div>
+          <h4 class="p-mb-1">Concepto:<strong> {{image.concepto}}</strong></h4>
+          <h6 class="p-mt-0 p-mb-3">Organo afectado:<strong> {{image.organo_afectado}}</strong></h6>
+          <h7 class="p-mt-0 p-mb-3">Nota: <strong> {{image.nota}}</strong></h7>
+          <!-- <div class="car-buttons p-mt-5">
+                        <p-button type="button" styleClass="p-button p-button-rounded p-mr-2" icon="pi pi-search"></p-button>
+                        <p-button type="button" styleClass="p-button-success p-button-rounded p-mr-2" icon="pi pi-star-fill"></p-button>
+                        <p-button type="button" styleClass="p-button-help p-button-rounded" icon="pi pi-cog"></p-button>
+                    </div> -->
+        </div>
+      </div>
+    </div>
+    <!-- <div class="img-wrapper">
+              <img [src]="image.ruta" alt="">
+            </div> -->
+  </ng-template>
+</p-carousel>

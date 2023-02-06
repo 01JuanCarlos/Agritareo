@@ -1,0 +1,15 @@
+.nav-link.custom {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-left: 1rem;
+    padding-right: 1rem;
+
+    &:after {
+        content: none;
+    }
+
+    .icon-screen-full {
+        margin-right: 0;
+    }
+}

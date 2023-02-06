@@ -1,0 +1,63 @@
+<ns-button
+  [icon]="icon"
+  [label]="label"
+  [disabled]="disabled"
+  [type]="type"
+  [material]="material"
+  (btClick)="uploadModal.open()"></ns-button>
+
+<!-- MODAL FENOLOGIA -->
+<ns-modal size="md" title="Subir archivo" #uploadModal>
+  <div class="row d-flex">
+    <div class="col-md-6 left">
+      <div class="uploader-zone" #uploaderZone>
+        <i class="mi-keyboard-capslock"></i>
+      </div>
+      <div class="text-zone mt-2 text-center">
+        <div class="emphasis">Arrastra o sube tu archivo!</div>
+        <ns-button
+          icon="mi-folder-open"
+          label="Buscar"
+          [type]="type"
+          [material]="material"
+          (btClick)="fileInput.click()"></ns-button>
+        <input
+          class="d-none"
+          type="file"
+          [accept]="accept"
+          (change)="onUpdatedElement($event.target.files)"
+          #fileInput
+          [multiple]="multiple">
+      </div>
+    </div>
+    <div class="col-md-6 right">
+      <div class="item" *ngFor="let file of _files">
+        <div class="doc-info">
+          <span>{{file.typeExt}}</span>
+        </div>
+        <div class="doc-data">
+          <div class="title">{{file.name}}</div>
+          <div *ngIf="file.messageType !== 'ERROR'" class="progress">
+            <div class="progress-bar bg-success"
+              role="progressbar"
+              [style]="'width:'+ file.status +'%'">
+            </div>
+          </div>
+          <div
+            class="text-danger font-size-xs"
+            *ngIf="file.messageType === 'ERROR'">
+            {{file.message}}
+          </div>
+          <div class="detail">{{file.loaded}}Mb / {{file.sizeMB}}Mb</div>
+        </div>
+        <div class="options">
+          <i *ngIf="file.messageType !== 'ERROR' && file.messageType !== 'DONE'" class="icon-spinner2 spinner"></i>
+          <i *ngIf="file.messageType === 'ERROR'" class="mi-error-outline text-danger"></i>
+          <i *ngIf="file.messageType === 'DONE'" class="mi-check text-success"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template nsTemplate="footer">
+  </ng-template>
+</ns-modal>

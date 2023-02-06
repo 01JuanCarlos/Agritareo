@@ -1,0 +1,15 @@
+.title {
+  font-size: 0.65rem;
+  color: #555;
+  margin: 0;
+}
+
+.tab-settings {
+  ::ng-deep {
+
+    label,
+    span {
+      font-size: 11px;
+    }
+  }
+}

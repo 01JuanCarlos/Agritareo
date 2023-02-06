@@ -1,0 +1,17 @@
+<div class="list-feed" [ngClass]="{'loading': service.isLoading | async}">
+  <!-- <p class="text-description" *ngIf="!service.data.length">No hay actividad para mostrar</p> -->
+  <div [@flyInOut] class="list-feed-item border-warning-400" *ngFor="let activity of service.activities | async">
+    <div class="text-muted font-size-sm mb-1 time">{{parseTime(activity.time)}}</div>
+    Se {{actionNames[activity.type]}} el registro <a *ngIf="activity.id" class="id-link initialism"
+      [href]="activity.path + '#' + activity.id" (click)="$event.preventDefault(); goToFormId(activity)">#{{activity.id}}</a> en <a
+      class="badge badge-light font-italic"
+      [href]="activity.path">{{activity.componentName}} </a>
+
+  </div>
+</div>
+<div class="floating-button">
+  <button (click)="loadData()" type="button" class="btn btn-link w-100">
+    <i class="fas fa-sync-alt mr-1" [ngClass]="{'spinner': service.isLoading | async}"></i>
+    Sincronizar
+  </button>
+</div>

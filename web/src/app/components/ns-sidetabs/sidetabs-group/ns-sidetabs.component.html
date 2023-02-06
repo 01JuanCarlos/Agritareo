@@ -1,0 +1,24 @@
+<div class="d-md-flex h-100">
+  <ul class="nav nav-tabs nav-tabs-vertical flex-column mr-md-1 wmin-lg-200 mb-md-0 border-bottom-0">
+    <li class="nav-item nav-item-tab" *ngFor="let tab of tabs; trackBy: trackByFn">
+      <a [href]="'#' + tab.id" class="list-group-item list-group-item-action" (click)="onActiveTab(tab)" [ngClass]="{'active': tab.active }"
+        data-toggle="tab">
+        <div class="flex-fill d-flex">
+          <div class="icon px-2">
+            <i *ngIf="tab.icon" class="h6 my-lg-0 my-md-2" [ngClass]="tab.icon"></i>
+          </div>
+          <div class="text d-md-none d-lg-inline-block pr-2">
+            <h6 class="mb-0">
+              {{ tab.label }}
+            </h6>
+            <span class="tab-description" style="font-size: 11px; color: #ccc">{{ tab?.description }}</span>
+          </div>
+        </div>
+      </a>
+    </li>
+  </ul>
+
+  <div class="tab-content w-100" style="overflow: auto; overflow-x: hidden;">
+    <ng-content></ng-content>
+  </div>
+</div>

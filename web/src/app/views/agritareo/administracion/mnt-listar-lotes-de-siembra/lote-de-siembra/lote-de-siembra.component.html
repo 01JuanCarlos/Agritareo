@@ -1,0 +1,432 @@
+<div class="container-fluid" *ngIf="isNotFoundDocument">
+  <div class="row">
+    <div class="col-md-12">
+      <h3>Lo sentimos, no se encontró una parcela con ese código</h3>
+    </div>
+  </div>
+</div>
+
+<ng-container *ngIf="!isNotFoundDocument">
+  <div class="header-content">
+    <a href="#" class="mr-2" (click)="$event.preventDefault();backClicked()">
+      <i class="icon-arrow-left7" style="font-size: 0.8rem;"></i>
+      Regresar
+    </a>
+    <h1>
+      {{!isNewDocument ? 'Editar lote ' + form.value.codigo :(isFundo? 'Añadir nuevo fundo':(isSector?'Añadir nuevo sector':'Añadir nuevo lote')) }}
+    </h1>
+    <div class="d-inline-flex justify-content-center flex-column">
+      <div class="ml-3 button-wrapper d-inline-block">
+        <ns-button *ngIf="isNewDocument" (btClick)="saveDocument()" label="Guardar" icon="icon-floppy-disk"></ns-button>
+        <ns-button *ngIf="!isNewDocument" (btClick)="updateDocument()" label="Actualizar" icon="icon-floppy-disk"
+          type="warning">
+        </ns-button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid mt-2">
+    <div class="row centro-de-costo">
+      <div class="col-md-12" [formGroup]="form">
+        <h3>Datos de {{CentroDeCostosTipo[form.value.idnivelconfiguracion]}}</h3>
+        <div class="row section">
+          <div class="col-md-12">
+            <div class="row mb-2">
+              <div class="col-md-6 col-lg-2">
+                <ns-group-control>
+                  <ns-label-control message="
+                          - Fundo: Área total donde se encuentra ubicado el terreno de la empresa<br>
+                          - Sector: Módulos divisores del fundo <br>
+                          - Lote: Las diferentes siembras de un sector <br>
+                          " messageTitle="Niveles" messagePlacement="right" class="mb-0">Tipo
+                  </ns-label-control>
+                  <ns-select-control formControlName="idnivelconfiguracion" [readonly]="isLote && !isNewDocument">
+                    <ns-select-option [value]="11">FUNDO</ns-select-option>
+                    <ns-select-option [value]="12">SECTOR</ns-select-option>
+                    <ns-select-option [value]="13">LOTE</ns-select-option>
+                  </ns-select-control>
+                </ns-group-control>
+              </div>
+              <div class="col-md-6 col-lg-3" *ngIf="isSector">
+                <ns-group-control>
+                  <ns-label-control>Fundo</ns-label-control>
+                  <ns-finder (selected)="selectedTopLevel($event)" formControlName="idcentrocostopadre"
+                    [componentId]="finderFundo"></ns-finder>
+                </ns-group-control>
+              </div>
+              <div class="col-md-6 col-lg-3" *ngIf="isLote">
+                <ns-group-control>
+                  <ns-label-control>Sector</ns-label-control>
+                  <ns-finder (selected)="selectedTopLevel($event)" formControlName="idcentrocostopadre"
+                    [componentId]="finderSector"></ns-finder>
+                </ns-group-control>
+              </div>
+              <div class="col-md-6 col-lg-2">
+                <ns-group-control required>
+                  <ns-label-control>Zona Geográfica</ns-label-control>
+                      <div class="divDeComponente"> 
+                            <div>
+                              <button
+                                data-toggle="modal" data-target="#ZonaGeografica"
+                                autocomplete="off"
+                                [disabled]="disabled || readonly"
+                                class="boton"
+                                type="button">
+                                  <i class="iDeboton" [ngClass]="{'icon-search4': !loading}">
+                                  </i>
+                              </button>
+                            </div>
+                          <div> 
+                              <ns-finder [componentId]="finderZonaGeografica" [codigo]="codigo" [descripcion]="descripcion" 
+                              [idseleccionado]="id" formControlName="idzona_geografica"></ns-finder>
+                          </div>
+                      </div>
+                </ns-group-control>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 col-lg-2">
+                <ns-group-control required>
+                  <ns-label-control>Código</ns-label-control>
+                  <ns-input-control formControlName="codigo" placeholder="Codigo"></ns-input-control>
+                </ns-group-control>
+              </div>
+              <div class="col-md-6 col-lg-3">
+                <ns-group-control required>
+                  <ns-label-control>Nombre</ns-label-control>
+                  <ns-input-control formControlName="nombrenivel" placeholder="Nombre"></ns-input-control>
+                </ns-group-control>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <ng-container *ngIf="!isFundo && !isSector">
+          <h3 class="mt-4 d-flex align-items-center mb-1">
+            Datos de la siembra
+            <div class="d-inline-flex custom-buttons">
+              <ns-button (btClick)="addFormArrayItem('siembra', createSiembra())" label="Nueva siembra" icon="mi-add">
+              </ns-button>
+            </div>
+          </h3>
+          <div class="row">
+            <div class="col-md-12" *ngIf="form.value.siembra.length">
+              <ns-detail-section
+                (deleteTab)="deleteTab('siembra', $event)"
+                [formArray]="form.get('siembra')"
+                tabLabelKey="codigo_siembra" #siembraDetails>
+                <div class="row section">
+                  <div class="col-md-12">
+                    <div class="row">
+                      <div class="col-md-2">
+                        <ns-group-control controlName="codigo_siembra" required>
+                          <ns-label-control>Número o código de siembra</ns-label-control>
+                          <ns-input-control type="number"></ns-input-control>
+                        </ns-group-control>
+                      </div>
+                      <div class="col-md-2">
+                        <ns-group-control controlName="fecha_inicio" required>
+                          <ns-label-control>Fecha Inicio Siembra</ns-label-control>
+                          <ns-date-control></ns-date-control>
+                        </ns-group-control>
+                      </div>
+                      <div class="col-md-2">
+                        <ns-group-control controlName="fecha_fin">
+                          <ns-label-control>Fecha Fin Siembra</ns-label-control>
+                          <ns-date-control></ns-date-control>
+                        </ns-group-control>
+                      </div>
+                      <div class="col-md-2">
+                        <ns-group-control controlName="area_sembrada" required>
+                          <ns-label-control>Area sembrada</ns-label-control>
+                          <ns-input-control>
+                            <ns-addon-control text="Ha." append></ns-addon-control>
+                          </ns-input-control>
+                        </ns-group-control>
+                      </div>
+                    </div>
+                    <div class="row mt-2">
+                      <div class="col-md-2 jaja">
+                        <ns-group-control controlName="idcultivo" required>
+                          <ns-label-control>Cultivo</ns-label-control>
+                              <div class="divDeComponente"> 
+                                    <div>
+                                      <button
+                                        data-toggle="modal" data-target="#Cultivo"
+                                        autocomplete="off"
+                                        [disabled]="disabled || readonly"
+                                        class="boton"
+                                        type="button">
+                                          <i class="iDeboton" [ngClass]="{'icon-search4': !loading}">
+                                          </i>
+                                      </button>
+                                    </div>
+                                  <div> 
+                                      <ns-finder [componentId]="finderCultivo" [codigo]="codigo" [descripcion]="descripcion" 
+                                      [idseleccionado]="id" formControlName="idzona_geografica" #cultivo></ns-finder>
+                                  </div>
+                              </div>
+                        </ns-group-control>
+                      </div>
+                      <div class="col-md-2" >
+                        <ns-group-control controlName="idvariedad" required>
+                          <ns-label-control>Variedad</ns-label-control>
+                                    <div class="divDeComponente"> 
+                                          <div>
+                                            <button
+                                              data-toggle="modal" data-target="#Cultivo"
+                                              autocomplete="off"
+                                              [disabled]="disabled || readonly"
+                                              class="boton"
+                                              type="button">
+                                                <i class="iDeboton" [ngClass]="{'icon-search4': !loading}">
+                                                </i>
+                                            </button>
+                                          </div>
+                                        <div> 
+                                            <ns-finder [componentId]="finderVariedadCultivo" [codigo]="codigo" [descripcion]="descripcion" 
+                                            [idseleccionado]="id" formControlName="idzona_geografica" [correlated]="cultivo" ></ns-finder>
+                                        </div>
+                                    </div>
+                        </ns-group-control>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ns-detail-section>
+            </div>
+            <div class="col-md-12" *ngIf="!form.value.siembra.length">
+              <h3 class="text-warning font-weight-bold">Lote sin siembras</h3>
+            </div>
+          </div>
+
+          <ng-container *ngIf="form.value.siembra.length">
+            <h3 class="mt-4 d-flex align-items-center mb-1">
+              Datos de campaña de la siembra
+              {{siembraDetails?.selectedFormGroup?.value?.codigo_siembra || 'Tab ' + ((siembraDetails?.selectedIndex || 0)  + 1)}}
+
+              <div class="d-inline-flex custom-buttons">
+                <ns-button
+                  (btClick)="addFormArrayItem(['siembra', siembraDetails?.selectedIndex || 0, 'campania'], createCampania())"
+                  label="Nueva Campaña"
+                  icon="mi-add">
+                </ns-button>
+                <ns-button
+                  (btClick)="getFenologiasZonaVariedad()"
+                  label="Sincronizar fenologías"
+                  icon="mi-sync">
+                </ns-button>
+              </div>
+            </h3>
+
+            <div class="row">
+              <div class="col-md-12" *ngIf="siembraHasCampanias">
+                <ns-detail-section (deleteTab)="deleteTab(['siembra', siembraDetails?.selectedIndex, 'campania'], $event)"
+                  tabLabelKey="codigo" [formArray]="form.get(['siembra', siembraDetails?.selectedIndex || 0, 'campania'])"
+                  #campaniaDetails>
+                  <div class="row section">
+                    <div class="col-md-2">
+                      <ns-group-control controlName="codigo" required>
+                        <ns-label-control>Código de campaña</ns-label-control>
+                        <ns-input-control type="number"></ns-input-control>
+                      </ns-group-control>
+                    </div>
+                    <div class="col-md-2">
+                      <ns-group-control controlName="idcampania_agricola" required>
+                        <ns-label-control>Campaña</ns-label-control>
+                        <ns-finder [componentId]="finderCampana"></ns-finder>
+                      </ns-group-control>
+                    </div>
+                    <div class="col-md-2">
+                      <ns-group-control controlName="fecha_inicio" required>
+                        <ns-label-control>Fecha Inicio Campaña</ns-label-control>
+                        <ns-date-control (input)="updateFechas()">
+                        </ns-date-control>
+                      </ns-group-control>
+                    </div>
+                    <div class="col-md-2">
+                      <ns-group-control controlName="fecha_fin">
+                        <ns-label-control>Fecha Fin Campaña</ns-label-control>
+                        <ns-date-control (input)="updateFechas()">
+                        </ns-date-control>
+                      </ns-group-control>
+                    </div>
+                  </div>
+                  <div class="row section mt-2">
+                    <div class="col-md-2">
+                      <ns-group-control controlName="costo_proyectado">
+                        <ns-label-control>Costo Proyectado</ns-label-control>
+                        <ns-input-control type="number">
+                          <ns-addon-control text="S/" prepend></ns-addon-control>
+                        </ns-input-control>
+                      </ns-group-control>
+                    </div>
+                    <div class="col-md-2">
+                      <ns-group-control controlName="kilos_proyectado">
+                        <ns-label-control>Kilos proyectados</ns-label-control>
+                        <ns-input-control type="number">
+                          <ns-addon-control text="Kg." append></ns-addon-control>
+                        </ns-input-control>
+                      </ns-group-control>
+                    </div>
+                    <div class="col-md-2">
+                      <ns-group-control controlName="numero_plantas">
+                        <ns-label-control>Número de plantas</ns-label-control>
+                        <ns-input-control type="number">
+                        </ns-input-control>
+                      </ns-group-control>
+                    </div>
+                    <div class="col-md-2">
+                      <ns-group-control controlName="area_sembrada" required>
+                        <ns-label-control>Area sembrada</ns-label-control>
+                        <ns-input-control type="number">
+                          <ns-addon-control text="Ha." append></ns-addon-control>
+                        </ns-input-control>
+                      </ns-group-control>
+                    </div>
+                  </div>
+
+
+                  <div class="row mt-4">
+                    <div class="col-md-12">
+                      <h3 class="mb-1">
+                        Fenologias para campaña
+                        {{campaniaDetails.selectedFormGroup?.value.codigo || ('Tab ' + ((campaniaDetails?.selectedIndex  || 0)+1))}}
+                      </h3>
+
+                      <ns-table-simple [header]="headerFenologias" [data]="dataFenologias"></ns-table-simple>
+                    </div>
+                  </div>
+                </ns-detail-section>
+              </div>
+
+              <div class="col-md-12" *ngIf="!siembraHasCampanias">
+                <h3 class="text-warning font-weight-bold">Siembra sin campañas</h3>
+              </div>
+            </div>
+
+
+            <!-- <h3 class="mt-4 mb-1" *ngIf="false">Datos de la fenología del cultivo para la parcela</h3>
+
+            <div class="row" *ngIf="false">
+              <div class="col-md-12">
+                <ns-table-simple [data]="dataFenologias">
+                </ns-table-simple>
+              </div>
+            </div> -->
+          </ng-container>
+
+
+          <h3 class="mt-4">Datos del controlador de riego</h3>
+          <div class="row section">
+            <div class="col-md-2">
+              <ns-group-control>
+                <ns-label-control>Controlador de riego asociado</ns-label-control>
+                <ns-select-control [items]="controladoresDeRiego" formControlName="idcontrolador_riego"
+                  placeholder="Controlador de riego">
+                </ns-select-control>
+              </ns-group-control>
+            </div>
+            <div class="col-md-10">
+              <ns-group-control>
+                <ns-label-control>N° de válvulas asociadas</ns-label-control>
+                <ns-input-control formControlName="valvulas" placeholder="Válvulas asociadas"></ns-input-control>
+              </ns-group-control>
+            </div>
+          </div>
+
+
+          <h3 class="mt-4 d-flex align-items-center mb-1">
+            Datos de ubicación geográfica
+            <div class="d-inline-flex custom-buttons">
+              <ns-button *ngIf="!editableCoordenadas" (click)="editableCoordenadas = !editableCoordenadas"
+                label="Editar" icon="mi-add"></ns-button>
+              <ns-button *ngIf="!!editableCoordenadas" (click)="editableCoordenadas = !editableCoordenadas"
+                label="Cancelar" icon="mi-add">
+              </ns-button>
+            </div>
+          </h3>
+
+          <div class="row no-padding no-gutters">
+            <div class="col-md-8 mapa">
+              <ns-map
+                [drawingManager]="editableCoordenadas"
+                [mapData]="mapData"
+                [lat]="form.value.latitud"
+                [lng]="form.value.longitud"
+                (drawed)="form.patchValue({coordenadas:$event})"
+                [editable]="editableCoordenadas">
+              </ns-map>
+            </div>
+            <div class="col-md-4 px-2">
+              <div class="row">
+                <div class="col-md-12 mb-2">
+                  <ns-group-control>
+                    <ns-label-control>Área ingresada</ns-label-control>
+                    <ns-input-control formControlName="area_ingresada" placeholder="Área ingresada">
+                      <ns-addon-control text="Ha." append></ns-addon-control>
+                    </ns-input-control>
+                  </ns-group-control>
+                </div>
+                <div class="col">
+                  <ns-table-simple [header]="headerCoordenadas" [data]="coordinatesTable">
+                  </ns-table-simple>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+</ng-container>
+
+
+
+<!--Modal-->
+<div class="modal fade" id="ZonaGeografica" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document" style=" max-width: 500px; max-height: 300px;">
+    <div class="modal-content"  style="height: 500px;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Zona Geográfica</h5>
+      </div>
+    <br>
+      <ns-table-simple
+        class="table-responsive"
+        [controller]="viewURLZONAS"
+        [header]="tableHeaderZONAS"
+        (tsDblClick)="goEditZona($event)"
+        #table>
+      </ns-table-simple>
+    <br>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Modal-->
+<div class="modal fade" id="Cultivo" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document" style=" max-width: 500px; max-height: 300px;">
+    <div class="modal-content"  style="height: 500px;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Cultivo</h5>
+      </div>
+    <br>
+      <ns-table-simple
+        class="table-responsive"
+        [controller]="viewURLCULTIVOS"
+        [header]="tableHeaderCULTIVOS"
+        (tsDblClick)="goEditCultivo($event)"
+        #table>
+      </ns-table-simple>
+    <br>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>

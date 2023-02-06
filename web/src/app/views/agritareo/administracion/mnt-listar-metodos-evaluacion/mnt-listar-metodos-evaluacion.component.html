@@ -1,0 +1,76 @@
+<div class="header-content">
+  <h1>Lista de Métodos de evaluación</h1>
+  <div class="button-wrapper">
+    <ns-button href="nuevo" icon="mi-add" label="Nuevo"></ns-button>
+    <ns-button [href]="selectedItem?.id" label="Editar" icon="mi-mode-edit"
+      [disabled]="!selectedItem">
+    </ns-button>
+    <ns-button (btClick)="deleteItem(selectedItem.id)" label="Eliminar" icon="mi-delete"
+      [disabled]="!selectedItem">
+    </ns-button>
+    <ns-button label="Imprimir" icon="mi-print" (click)="printPdf()" [disabled]="selectPrint"></ns-button>
+    <ns-button label="Exportar" (btClick)="selectFile.open()" icon="mi-arrow-downward"></ns-button>
+  </div>
+  <div class="control-wrapper ml-auto">
+    <button type="button" class="material mr-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <i class="mi-filter-list"></i>
+      <span>Columnas</span>
+    </button>
+    <div class="dropdown-menu dropdown-menu-right">
+      <ng-container *ngFor="let item of tableHeader">
+        <div class="dropdown-item" *ngIf="!!item.label" (click)="$event.stopPropagation(); updateTable(item)">
+          <input type="checkbox" [checked]="item.visible !== false ? true : false">
+          <span class="ml-1">
+            {{item.label}}
+          </span>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12 mt-2">
+      <ns-table-simple
+        [header]="tableHeader"
+        [controller]="viewURL"
+        (tsSelect)="selectedItem = $event"
+        (tsDblClick)="goEditMode($event)"
+        #table>
+      </ns-table-simple>
+    </div>
+  </div>
+</div>
+
+<ns-modal size="sm" title="Formato de descarga" #selectFile>
+  <div class="row p-2">
+    <div class="col">
+      <div class="form-check">
+        <input class="form-check-input" type="radio" [(ngModel)]="fileOption" name="file" id="csv" value="csv" checked>
+        <label class="form-check-label" for="csv">
+          CSV (.csv)
+        </label>
+      </div>
+
+      <div class="form-check">
+        <input class="form-check-input" type="radio" [(ngModel)]="fileOption" name="file" id="xlsx" value="xlsx" checked>
+        <label class="form-check-label" for="xlsx">
+          Excel (.xlsx)
+        </label>
+      </div>
+
+      <div class="form-check">
+        <input class="form-check-input" type="radio" [(ngModel)]="fileOption" name="file" id="pdf" value="pdf" checked>
+        <label class="form-check-label" for="pdf">
+          PDF (.pdf)
+        </label>
+      </div>
+    </div>
+  </div>
+  <ng-template nsTemplate="footer">
+    <div class="float-right">
+      <ns-button label="Descargar" (btClick)="downloadData()" icon="mi-arrow-downward"></ns-button>
+    </div>
+  </ng-template>
+</ns-modal>

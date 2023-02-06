@@ -1,0 +1,36 @@
+:host {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+[hidden] {
+  display: none;
+}
+
+::ng-deep {
+  .label-map-wrapper {
+    background: black;
+    border: 1px dashed green;
+    font-weight: bold;
+    font-size: 14px;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    display: block;
+    position: fixed;
+    text-align: center;
+    padding: 5px 10px;
+    border-radius: 7.5px;
+
+    .label-first {
+      color: yellow;
+      font-size: 16px;
+    }
+
+    .label-second {
+      color: white;
+    }
+  }
+}

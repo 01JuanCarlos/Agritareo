@@ -1,0 +1,188 @@
+$blue-color: #00BCD4;
+
+.custom-alert {
+  background: #ececec;
+  background: white;
+}
+
+.custom-button {
+  border: 1px solid $blue-color !important;
+  background: rgba($blue-color, 0.25) !important;
+  color: #245d8a !important;
+  font-weight: 500 !important;
+}
+
+
+.map-wrapper {
+  height: 250px;
+}
+
+
+
+.dropdown-menu {
+  .dropdown-item {
+    height: 30px;
+    display: flex;
+    align-content: center;
+  }
+}
+
+
+.material {
+  background: white;
+  margin-right: 10px;
+  height: 36px;
+  padding: 0 12px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+
+  &:hover {
+    background: #EBEBEB;
+  }
+
+  &:disabled {
+
+    span,
+    i {
+      color: #0000008A;
+    }
+  }
+
+  i,
+  span {
+    font-size: 13px;
+    color: #3367d6;
+  }
+
+  i {
+    font-size: 18px;
+    margin-right: 6px;
+  }
+
+  span {
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+}
+
+
+
+.control-wrapper {
+  display: flex;
+
+  .input-wrapper {
+    position: relative;
+
+    .icon-wrapper {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-content: center;
+
+      i {
+        font-size: 14px;
+        padding-top: 1px;
+      }
+    }
+
+    input,
+    select {
+      border-radius: 4px !important;
+      padding-left: 30px;
+      max-width: 220px;
+      width: 100%;
+      padding-right: 5px;
+      height: 100% !important;
+    }
+  }
+
+  .btn-wrapper {
+    margin-left: 10px;
+    display: flex;
+    overflow: hidden;
+
+    button {
+      cursor: pointer;
+      background: #EEEDE9;
+      width: 30px;
+      outline: none;
+      border: none;
+      border: 1px solid #ddd;
+      border-left: none;
+      flex: 1;
+
+      i {
+        font-size: 12px;
+      }
+
+      &:first-child {
+        border-left: 1px solid #ddd;
+        border-radius: 4px 0 0 4px;
+      }
+
+
+      &.active {
+        background: rgba(#449F4A, 0.3);
+        color: #449F4A;
+        border-color: rgba(#449F4A, 0.4);
+        border: 1px solid #449F4A;
+
+      }
+
+      &:last-child {
+        border-radius: 0 4px 4px 0;
+      }
+    }
+  }
+}
+
+
+input[type="radio"],
+input[type="checkbox"] {
+  box-sizing: border-box;
+  padding: 0;
+  height: fit-content !important;
+  bottom: 3.5px;
+}
+
+
+
+.btn-monk{
+  /* From uiverse.io by @adamgiebl */
+button {
+  position: relative;
+  display: inline-block;
+  margin: 15px;
+  padding: 15px 30px;
+  text-align: center;
+  font-size: 18px;
+  letter-spacing: 1px;
+  text-decoration: none;
+  color: #725AC1;
+  background: transparent;
+  cursor: pointer;
+  transition: ease-out 0.5s;
+  border-radius: 30px;
+  border: 2px solid #725AC1;
+  border-radius: 10px;
+  box-shadow: inset 0 0 0 0 #725AC1;
+ }
+
+ button:hover {
+  color: white;
+  box-shadow: inset 0 -100px 0 0 blue;
+ }
+
+ button:active {
+  transform: scale(0.9);
+ }
+}

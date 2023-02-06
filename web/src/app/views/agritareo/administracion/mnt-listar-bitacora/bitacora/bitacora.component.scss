@@ -1,0 +1,19 @@
+::ng-deep {
+  input:read-only {
+    background: #fafafa !important;
+  }
+}
+
+.carousel-item{
+  background:red;
+}
+
+#imagen{
+  width: 100%;
+  height: 100%;
+}
+
+#title_organo{
+  font-weight: bold;
+  font-size: 1em;
+}

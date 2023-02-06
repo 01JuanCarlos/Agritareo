@@ -1,0 +1,54 @@
+<ns-topbar></ns-topbar>
+<div class="wrapper">
+  <div class="left d-none d-lg-block">
+    <app-navbar (modulesClick)="onModules()" (openTabsClick)="onTabs()" (userClick)="onUser()">
+    </app-navbar>
+  </div>
+  <div class="right container-fluid">
+    <div class="page-content">
+      <div class="row">
+        <div class="col-md-12">
+          <ng-content select=".header-content"></ng-content>
+        </div>
+      </div>
+
+      <div class="content-wrapper" [ngClass]="wrapperClass">
+        <div class="content p-0" [ngClass]="{'loading-3': isLoading}">
+          <router-outlet (activate)="onActivate($event)"></router-outlet>
+
+          <div class="container-fluid mt-3" *ngIf="metaForm && !isNewDocument">
+            <div class="row">
+              <div class="col-md-12">
+                <h3>Datos del registro</h3>
+
+                <div class="row section">
+                  <div class="col-md-2">
+                    <ns-group-control>
+                      <ns-label-control>Id. Unico</ns-label-control>
+                      <ns-input-control [value]="metaForm.id" disabled></ns-input-control>
+                    </ns-group-control>
+                  </div>
+                  <div class="col-md-2">
+                    <ns-group-control>
+                      <ns-label-control>Fecha creación</ns-label-control>
+                      <ns-input-control type="date" [value]="metaForm.fecha_creacion" disabled></ns-input-control>
+                    </ns-group-control>
+                  </div>
+                  <div class="col-md-2">
+                    <ns-group-control>
+                      <ns-label-control>Usuario creador</ns-label-control>
+                      <ns-input-control [value]="metaForm.usuario_creador" disabled></ns-input-control>
+                    </ns-group-control>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ns-sidebar [isOnRTL]="isOnRTL$ | async"></ns-sidebar>

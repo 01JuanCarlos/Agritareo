@@ -1,0 +1,157 @@
+<div class="chat-section">
+  <div class="wrapper">
+    <!-- Buscador de mensajes o usuarios. -->
+    <ns-input-control class="mb-1" size="md" placeholder="Buscar...">
+      <!-- font-size-base -->
+      <ns-addon-control icon="icon-search4" class="text-grey-300" prepend></ns-addon-control>
+    </ns-input-control>
+
+    <legend class="mb-0 font-weight-bold text-muted">CONECTADOS</legend>
+    <!-- Lista de mensajes recientes -->
+    <div (click)="startChat()" *ngFor="let it of chats" class="chat-item">
+      <div class="left">
+        <div class="image-wrapper">
+          <div class="image">
+          </div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="name">Lorem, ipsum dolor.</div>
+        <div class="message">{{it.message}}</div>
+      </div>
+    </div>
+
+    <legend class="mb-0 font-weight-bold text-muted">CHATS</legend>
+    <div (click)="startChat()" *ngFor="let it of chats" class="chat-item">
+      <div class="left">
+        <div class="image-wrapper">
+          <div class="image">
+          </div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="name">Lorem, ipsum dolor.</div>
+        <div class="message">{{it.message}}</div>
+      </div>
+    </div>
+
+    <div class="new-chat" (click)="newChat(); newchatv = true">
+      <span><i class="icon-bubble9"></i></span>
+    </div>
+  </div>
+</div>
+
+<div class="chat-section-open" *ngIf="newchatv === true" [@slideInOut]>
+  <div class="chat-section">
+    <div class="wrapper">
+      <button (click)="newchatv = false" type="button" class="btn btn-link back-button">
+        <i class="fas fa-chevron-circle-left"></i>
+        Atrás
+      </button>
+      <div class="input-group search">
+        <div class="input-group-prepend">
+          <span class="input-group-text"><i class="icon-search4"></i></span>
+        </div>
+        <input type="text" (input)="filterList($event.target.value)" class="form-control" placeholder="Buscar...">
+      </div>
+      <div (click)="startChat()" *ngFor="let item of userListF" class="chat-item">
+        <div class="left">
+          <div class="image-wrapper">
+            <div class="image">
+            </div>
+          </div>
+        </div>
+        <div class="right">
+          <div class="name">{{item.name}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="chat-section-open" *ngIf="openedChat" [@slideInOut]>
+  <button (click)="closeChat()" type="button" class="btn btn-link back-button">
+    <i class="fas fa-chevron-circle-left"></i>
+    Volver
+  </button>
+  <!-- Aki va el chat -->
+  <ng-container *ngTemplateOutlet="messages"></ng-container>
+</div>
+
+
+<ng-template #messages>
+  <ng-template #photo let-chat>
+    <div class="chat-photo" [ngClass]="{ 
+      'mr-1': isOwnMessage(chat),
+      'ml-2': isOwnMessage(chat),
+      'ml-1': !isOwnMessage(chat),
+      'mr-2': !isOwnMessage(chat)
+    }">
+      <a href="/static/images/placeholders/placeholder.jpg">
+        <img src="/static/images/placeholders/placeholder.jpg" class="rounded-circle" width="30" height="30" alt="">
+      </a>
+    </div>
+  </ng-template>
+  <ul class="chat-list media-list media-chat media-chat-scrollable mb-1 h-100" #chatlist>
+    <li [id]="'chat-'+chat.id"
+      *ngFor="let chat of room?.messages; trackBy: trackByFn"
+      class="media chat-item"
+      [ngClass]="{'media-chat-item-reverse': isOwnMessage(chat) }">
+
+      <ng-container *ngIf="!isOwnMessage(chat)" [ngTemplateOutlet]="photo" [ngTemplateOutletContext]="{$implicit: chat}"></ng-container>
+
+      <div class="media-body">
+        <div class="media-chat-item chat-message">{{chat.message}}</div>
+        <div class="font-size-sm text-muted mt-2 chat-time">{{parseTime(chat.time)}}</div>
+      </div>
+
+      <ng-container *ngIf="isOwnMessage(chat)" [ngTemplateOutlet]="photo" [ngTemplateOutletContext]="{$implicit: chat}"></ng-container>
+
+    </li>
+    <!-- <li class="media">
+      <div class="mr-3">
+        <a href="/static/images/placeholders/placeholder.jpg">
+          <img src="/static/images/placeholders/placeholder.jpg" class="rounded-circle" width="40" height="40" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <div class="media-chat-item">Grunted smirked and grew.</div>
+        <div class="font-size-sm text-muted mt-2">13 minutes ago</div>
+      </div>
+    </li> -->
+    <!-- <li class="media media-chat-item-reverse">
+      <div class="media-body">
+        <div class="media-chat-item"><i class="icon-menu"></i></div>
+      </div>
+      <div class="ml-3">
+        <a href="/static/images/placeholders/placeholder.jpg">
+          <img src="/static/images/placeholders/placeholder.jpg" class="rounded-circle" width="40" height="40" alt="">
+        </a>
+      </div>
+    </li> -->
+  </ul>
+  <div class="control-wrapper mt-auto">
+    <textarea
+      (keydown.enter)="$event.preventDefault(); SendMessage($event.target.value)"
+      name="enter-message"
+      class="form-control mb-2"
+      rows="3"
+      cols="1"
+      (keyup)="onWriteMessage()"
+      [(ngModel)]="message"
+      placeholder="Escribe tu mensaje..."></textarea>
+    <div class="d-flex align-items-center">
+      <div class="list-icons list-icons-extended">
+        <a href="#" class="list-icons-item" data-popup="tooltip" data-container="body" title="Send photo"><i class="icon-file-picture"></i></a>
+        <a href="#" class="list-icons-item" data-popup="tooltip" data-container="body" title="Send video"><i class="icon-file-video"></i></a>
+        <a href="#" class="list-icons-item" data-popup="tooltip" data-container="body" title="Send file"><i class="icon-file-plus"></i></a>
+      </div>
+      <button
+        type="button"
+        class="btn btn-sm bg-teal-400 btn-labeled btn-labeled-right ml-auto">
+        <b><i class="icon-paperplane"></i></b> Enviar
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<!-- [disabled]="!message.trim().length" -->

@@ -1,0 +1,34 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="false" class="w-100" [ngClass]="{'form-loading': this.isLoading}">
+  <div class="row">
+    <div class="col-md-6">
+      <ns-group-control>
+        <ns-label-control>{{ 'Codigo' | translate }}</ns-label-control>
+        <ns-input-control formControlName="codigo" name="codigo" placeholder="Ej. ROL001" [readonly]="isEditMode">
+          <ns-addon-control icon="icon-vcard" prepend></ns-addon-control>
+        </ns-input-control>
+      </ns-group-control>
+    </div>
+    <div class="col-md-6">
+      <ns-group-control>
+        <ns-label-control>{{ 'Descripcion' | translate }}</ns-label-control>
+        <ns-input-control formControlName="descripcion" name="descripcion" placeholder="Ej. VENDEDOR">
+          <ns-addon-control icon="icon-vcard" prepend></ns-addon-control>
+        </ns-input-control>
+      </ns-group-control>
+    </div>
+    <div class="col-md-6">
+      <ns-label-control>{{ 'Licencia' | translate }}</ns-label-control>
+      <ns-select-control dataKey="id" [items]="licencias" formControlName="type"
+        [showDefaultOption]="false">
+      </ns-select-control>
+    </div>
+  </div>
+  <div [hidden]="!isEditMode" class="row pt-1">
+    <div class="col-md-12">
+      <ns-group-control>
+        <ns-label-control>{{ 'Habilitado' | translate }}</ns-label-control>
+        <ns-select-control formControlName="status" name="status" [items]="habilitado"></ns-select-control>
+      </ns-group-control>
+    </div>
+  </div>
+</form>

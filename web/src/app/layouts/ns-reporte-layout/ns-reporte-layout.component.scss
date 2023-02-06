@@ -1,0 +1,244 @@
+.map-wrapper {
+  overflow: hidden;
+}
+
+.wrapper {
+  position: relative;
+  height: 100%;
+
+  ::ng-deep {
+    .opt-btn-wrapper {
+      display: flex;
+      -webkit-box-pack: center;
+      justify-content: center;
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      z-index: 10;
+      height: 45px;
+
+      .close-btn {
+        cursor: pointer;
+        width: 2.5rem;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+
+        &:hover {
+          background: rgba(0, 0, 0, 0.04);
+        }
+      }
+    }
+
+    [data-toggle="collapse"] .fa:before {
+      content: "\f146";
+    }
+
+    [data-toggle="collapse"].collapsed .fa:before {
+      content: "\f0fe";
+    }
+
+    .content {
+      height: 100vh;
+      padding: 0;
+
+      &.map {
+        background: green;
+      }
+    }
+
+    .right-panel,
+    .detail-panel {
+      overflow: auto;
+      width: 320px;
+      position: relative;
+
+      .section {
+        padding: 0;
+      }
+    }
+
+
+    .right-panel {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 100%;
+      width: 320px;
+      z-index: 0;
+
+      &.active {
+        right: 10px;
+        top: 10px;
+        bottom: 10px;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 5px !important;
+        overflow: hidden;
+        height: fit-content;
+        max-height: calc(100% - 20px);
+        display: flex;
+        justify-content: center;
+        overflow: auto;
+      }
+
+      .section-wrapper {
+        max-height: 100%;
+        overflow-y: auto;
+        width: 100%;
+        height: fit-content;
+      }
+
+      .section {
+        .emphasis {
+          padding: 10px 15px;
+          font-size: 1rem;
+          font-weight: 300;
+          color: #0F0F0F;
+          border: none;
+          background: #FAFAFA;
+        }
+
+        .section-content {
+          padding: 5px 15px;
+          padding-bottom: 12px;
+        }
+      }
+    }
+
+    .detail-panel {
+      width: 500px;
+      position: relative;
+      top: 10px;
+      bottom: 10px;
+      z-index: 1;
+      left: -100%;
+      transition: 0.4s;
+      margin-right: unset;
+      overflow-x: hidden;
+      background: rgba(255, 255, 255, 0.8);
+      margin-right: auto;
+      border-radius: 5px !important;
+      max-height: calc(100% - 20px);
+
+      .emphasis {
+        color: #0F0F0F;
+        background: #FAFAFA;
+      }
+
+      .sec-content {
+        padding: 0.2rem 0.8rem;
+        text-align: justify;
+
+        p {
+          font-size: 0.8rem;
+        }
+      }
+
+      &.active {
+        left: 10px;
+        transition: 0.4s;
+      }
+
+      &.expanded {
+        width: calc(100% - 360px);
+        z-index: 10;
+        transition: 0.4s;
+      }
+    }
+
+    .section {
+      .emphasis {
+        position: relative;
+        padding: 10px 15px;
+        font-size: 1rem;
+        font-weight: 300;
+        color: #0F0F0F;
+        border: none;
+        background: #FAFAFA;
+      }
+
+      .section-content {
+        padding: 5px 15px;
+        padding-bottom: 12px;
+      }
+    }
+
+    .p-tree {
+      border: none !important;
+      background: none !important;
+
+      // .p-treenode-toggler {
+      //   background: red;
+      //   // display: none;
+      // }
+
+      .p-tree-container {
+        .p-treenode-content {
+          padding: 0.01rem;
+          background: none !important;
+          border: none;
+
+          &:focus {
+            box-shadow: none;
+          }
+
+          .p-tree-toggler {
+            width: 1rem;
+          }
+
+          .p-checkbox {
+            .p-checkbox-box {
+              border-color: #ccc;
+              background-color: none;
+
+              .p-checkbox-icon {
+                color: #222;
+              }
+
+              &.p-highlight {
+                background: white;
+              }
+            }
+          }
+
+          &.p-highlight {
+            .p-treenode-label {
+              padding: 0.1rem;
+              border-radius: 4px;
+              color: rgba(0, 0, 0, 0.7) !important;
+              background-color: rgba(246, 246, 246, 0.7) !important;
+              font-weight: bold !important;
+            }
+          }
+
+        }
+      }
+    }
+
+    .ui-carousel-container {
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      position: relative;
+
+      button {
+        outline: none;
+        box-shadow: none !important;
+      }
+
+      .ui-carousel-prev {
+        position: absolute;
+        left: 0;
+        z-index: 1;
+      }
+
+      .ui-carousel-next {
+        position: absolute;
+        right: 0;
+      }
+    }
+  }
+}

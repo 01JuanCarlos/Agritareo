@@ -1,0 +1,57 @@
+<div class="container-fluid mt-3">
+  <div class="row" [formGroup]="form">
+    <div class="col d-flex">
+      <div class="d-inline-flex w-100">
+        <div class="control-wrapper">
+          <div class="input-wrapper mr-2">
+            <div class="icon-wrapper">
+              <i class="fa-seedling fas"></i>
+            </div>
+            <select
+              placeholder="Cultivo"
+              (change)="plotChart()"
+              formControlName="cultivo">
+              <!-- <option [value]="''">Todos los cultivos</option> -->
+              <option [value]="item.idcultivo" *ngFor="let item of cultivos">{{item.cultivo}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="control-wrapper">
+          <div class="input-wrapper mr-2">
+            <div class="icon-wrapper">
+              <i class="fa-book-reader fas"></i>
+            </div>
+            <select
+              placeholder="Conceptos"
+              (change)="plotChart()"
+              formControlName="concepto">
+              <!-- <option [value]="''">Todos los conceptos</option> -->
+              <option [value]="item.idconcepto_agricola" *ngFor="let item of conceptosF">{{item.concepto_agricola}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="ml-auto control-wrapper">
+          <div class="input-wrapper">
+            <div class="icon-wrapper">
+              <i class="icon-calendar"></i>
+            </div>
+            <input type="date" (focusout)="setInitialData()" formControlName="fecha_inicio">
+          </div>
+          <div class="input-wrapper">
+            <div class="icon-wrapper">
+              <i class="icon-calendar"></i>
+            </div>
+            <input type="date" (focusout)="setInitialData()" formControlName="fecha_fin">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-1">
+    <div class="col-md-12">
+      <div class="chart-wrapper">
+        <canvas #chart></canvas>
+      </div>
+    </div>
+  </div>
+</div>

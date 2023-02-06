@@ -1,0 +1,9 @@
+<label class="form-check-label">
+  <ng-container *ngIf="isRight" [ngTemplateOutlet]="labelText"></ng-container>
+  <input [disabled]="disabled" [checked]="checked" [value]="value" type="radio" class="form-check-input" checked disabled>
+  <ng-container *ngIf="!isRight" [ngTemplateOutlet]="labelText"></ng-container>
+</label>
+
+<ng-template #labelText>
+  <ng-content></ng-content>
+</ng-template>

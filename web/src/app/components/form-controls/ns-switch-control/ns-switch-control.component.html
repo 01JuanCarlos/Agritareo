@@ -1,0 +1,15 @@
+<label class="form-check-label">
+  <input type="checkbox"
+    [checked]="value"
+    [attr.data-on-text]="onText"
+    [attr.data-off-text]="offText"
+    [attr.data-on-color]="onColor || color || 'success'"
+    [attr.data-off-color]="offColor || 'default'"
+    [attr.data-size]="sizes[size]"
+    [ngClass]="__controlClass"
+    [disabled]="disabled"
+    [readonly]="readonly"
+    (change)="toggleValue($event)"
+    data-fouc>
+  <ng-content></ng-content>
+</label>

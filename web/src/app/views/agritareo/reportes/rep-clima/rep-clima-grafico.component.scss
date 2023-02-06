@@ -1,0 +1,53 @@
+::ng-deep {
+  .header-sub-content {
+    height: 48px;
+    display: flex;
+    align-content: center;
+    align-items: center;
+
+    h1 {
+      color: #333333;
+      font-size: 18px;
+      font-weight: 500;
+      margin: 0;
+    }
+
+    .button-wrapper {
+      display: inline-block;
+      margin-left: 3rem;
+    }
+  }
+}
+
+.content-wrapper {
+  overflow: auto;
+  height: 100%;
+
+  .content {
+    height: 100%;
+  }
+}
+
+.margin-top-min-nav {
+  margin-top: 0px;
+  min-height: 100vh;
+}
+
+.margin-top-max-nav {
+  margin-top: 25px;
+}
+
+:host ::ng-deep .p-multiselect {
+  min-width: 15rem;
+  width: 15rem;
+
+  .p-multiselect-label {
+    padding-top: .25rem;
+    padding-bottom: .25rem;
+  }
+
+  .country-placeholder {
+    padding: 0.25rem;
+  }
+
+}

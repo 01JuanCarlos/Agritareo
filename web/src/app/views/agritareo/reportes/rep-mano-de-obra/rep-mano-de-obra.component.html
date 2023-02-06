@@ -1,0 +1,70 @@
+  <ng-template nsTemplate="loteDetails" type="leftPanel">
+    <div class="emphasis">
+      Lote: {{ selectedCentroCosto?.lote }}
+    </div>
+    <div class="sec-content">
+      <p>
+        <strong>Total de Horas:</strong>
+        {{ selectedCentroCosto?.total_horas }}
+      </p>
+      <p>
+        <strong>Horas Hectarea:</strong>
+        {{ selectedCentroCosto?.horas_ha }}
+      </p>
+    </div>
+  </ng-template>
+  <ng-template nsTemplate="loteGraph" type="leftPanel">
+    <ns-chart
+      type="area"
+      [labels]="chartVolumenAguaLabels"
+      [datasets]="chartVolumenAguaData"
+      (click)="selectData($event)"
+      title="Horas utilizadas por maquinaria">
+    </ns-chart>
+    <div class="sec-content bg-white px-0 pb-4 w-100" style="position: relative; height: 50vh">
+      <canvas id="MAQUINARIA" class="chartjs" width="undefined"></canvas>
+    </div>
+  </ng-template>
+
+  <div class="content map" [ngClass]="{'loading': mapIsLoading}">
+    <!-- <ns-map
+      (selected)="selectedMapPolygon($event[0])"
+      (deselected)="unselectedMapPolygon()"
+      [fillColor]="'#F2A345'"
+      [lat]="latitud"
+      [lng]="longitud"
+      [data]="dataMapa"></ns-map> -->
+    <ns-map [mapData]="centrosDeCosto" (selected)="selectedLoteMap($event)" #map></ns-map>
+
+  </div>
+
+  <ng-template nsTemplate="dateRange" type="rightPanel">
+    <div class="emphasis" data-toggle="collapse" data-target="#reporte-collapse" aria-expanded="false" aria-controls="reporte-collapse">
+      <i class="fa mr-1"></i>
+      Rango de Fecha
+    </div>
+    <div class="section-content collapse show" id="reporte-collapse">
+      <div class="row no-gutters">
+        <div class="col-6">
+          <input type="month" class="form-control" (input)="consultarPorFecha()" #date1 />
+        </div>
+        <div class="col-6">
+          <input type="month" class="form-control" (input)="consultarPorFecha()" #date2 />
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template nsTemplate="costCenters" type="rightPanel">
+    <div class="emphasis" data-toggle="collapse" data-target="#centro-collapse" aria-expanded="false" aria-controls="centro-collapse">
+      <i class="fa mr-1"></i>
+      Centros de Costo
+    </div>
+    <div class="section-content collapse show" id="centro-collapse">
+      <p-tree
+        [value]="centrosDeCostoOrdered"
+        selectionMode="checkbox"
+        [(selection)]="centrosDeCostoSeleccionado"
+        (onNodeSelect)="centroSeleccionado($event)"
+        (onNodeUnselect)="centroSeleccionado($event)"></p-tree>
+    </div>
+  </ng-template>

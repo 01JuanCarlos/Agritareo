@@ -1,0 +1,128 @@
+$accent-color: #18B597;
+
+:host {
+  display: block;
+
+
+  .ns-chart-wrapper {
+    border: 1px solid #ccc;
+    box-shadow: 1px 3px 3px #ccc;
+
+    background: white;
+    padding: 5px;
+    border-radius: 2.5px;
+
+    .ns-chart-header {
+      padding: 5px;
+      // border-bottom: 1px solid #ccc;
+
+      .ns-chart-more {
+        vertical-align: text-bottom;
+
+        .dropdown {
+          .dropdown-menu {
+            left: 15px !important;
+          }
+
+        }
+      }
+
+      .ns-chart-title {
+        font-weight: bold;
+        font-size: 16px;
+      }
+    }
+
+    .ns-chart-options {
+      padding: 5px;
+      display: flex;
+      justify-content: space-between;
+
+      .ns-chart-options-left {
+        flex-grow: 1;
+        display: flex;
+      }
+
+
+      .ns-chart-graphic-options {
+        margin-right: 3px;
+      }
+
+      .ns-chart-graphic-type {
+        button {
+          background: #EAEAEA;
+          border: 1px solid #DCDCDC;
+          outline: none;
+          cursor: pointer;
+
+          &.active {
+            background: $accent-color;
+            border-color: $accent-color;
+
+            i {
+              color: white;
+            }
+          }
+
+          &:first-child {
+            border-radius: 4px 0 0 4px;
+          }
+
+          &:last-child {
+            border-radius: 0 4px 4px 0;
+          }
+
+          .i {}
+        }
+      }
+    }
+
+    .ns-chart-graphic {
+      padding: 3px;
+      display: flex;
+      // justify-content: center;
+      flex-direction: column;
+
+      &.extend {
+        flex-direction: row;
+
+        .ns-chart-graph {
+          width: 95%;
+        }
+
+        .ns-chart-detail {
+          width: 20%;
+        }
+      }
+
+      .ns-chart-graph {
+        // background: red;
+      }
+
+      .ns-chart-detail {
+        // background: black;
+      }
+    }
+
+    .ns-chart-options-right {
+      .ns-chart-graphic-filter {
+        float: right;
+        height: 100%;
+
+        input {
+          padding: 0 5px;
+          width: 10rem;
+        }
+      }
+    }
+
+  }
+}
+
+
+.ns-chart-form-control {
+  height: 100% !important;
+  background: #EAEAEA !important;
+  border: 1px solid #DCDCDC !important;
+  border-radius: 2.5px !important;
+}

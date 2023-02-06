@@ -1,0 +1,61 @@
+<div class="wrapper">
+  <div class="row">
+    <div class="col-md-12 font-weight-semibold">
+      <input id="advanced" type="checkbox" [ngModel]="isAdvancedSearch" (ngModelChange)="onAdvancedSearch($event)">
+      <label for="advanced" class="ml-2">Búsqueda Avanzada</label>
+    </div>
+    <div class="pt-1 col"></div>
+
+    <div class="col-md-12">
+      <p class="font-weight-semibold font-size-lg">
+        Seleccionar campos
+      </p>
+
+      <ng-container *ngFor="let it of searchRows; let i = index">
+        <div class="row no-gutters" *ngIf="isAdvancedSearch ? it.isAdvanced : 0 === i">
+          <!--  -->
+          <div class="col pr-2">
+            <div class="custom-form-control">
+              <i class="fas" [ngClass]="{'fa-clipboard-list': 'code' === fieldInput.value, 'fa-font': 'code' !== fieldInput.value }"></i>
+              <select [name]="'field-' + i" #fieldInput>
+                <option *ngFor="let f of searchFields" [selected]="it.field == f.key" [value]="f.key">{{f.key}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-2 pr-2">
+            <div class="custom-form-control">
+              <select [name]="'operator-' + i" #operatorInput>
+                <option [value]="op.value" [selected]="it.operator == op.value" *ngFor="let op of operators">{{op.key}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col pr-2">
+            <div class="custom-form-control">
+              <input [name]="'value-' + i" [value]="it.value" #valueInput type="text">
+            </div>
+          </div>
+          <!--  -->
+          <div class="wrapper" *ngIf="isAdvancedSearch">
+            <button (click)="addSearchRow()" class="btn btn-default custom-btn style-1 mr-1">
+              <i class="icon icon-plus2"></i>
+            </button>
+            <button (click)="deleteSearchRow(i)" class="btn btn-default custom-btn style-2">
+              <i class="icon icon-trash"></i>
+            </button>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <div class="col-md-12 pt-2">
+      <div class="float-right mr-2">
+        <button (click)="filterResults()" class="btn btn-default btn-primary custom-btn style-2">
+          <i class="fas fa-filter mr-1"></i>
+          Filtrar
+        </button>
+      </div>
+    </div>
+    <div class="col-md-12 font-weight-semibold mb-2">
+      <label for="advanced" class="ml-2">Resultados de la búsqueda</label>
+    </div>
+  </div>
+</div>

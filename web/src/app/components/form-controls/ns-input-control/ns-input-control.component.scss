@@ -1,0 +1,188 @@
+// @import "src/assets/scss/colors/colors.scss";
+// @import "src/assets/scss/mixins/theme-mixins.scss";
+@import "src/assets/scss/_bootstrap/bootstrap-grid.scss";
+
+// :host-context(body.theme-dark) {
+//   @include input($theme-dark, $theme-dark-accent, $white-text);
+// }
+
+// :host-context(body.theme-grey) {
+//   @include input($theme-grey, $theme-grey-accent, $white-text);
+// }
+
+// :host-context(body.theme-light-grey) {
+//   @include input($theme-light-grey, $theme-light-grey-accent, $black-text);
+// }
+
+@include media-breakpoint-down(sm) {
+  :host {
+    margin-top: .1rem !important;
+  }
+}
+
+:host {
+  // display: flex;
+  // display: -webkit-box;
+
+  ::ng-deep {
+    .tokenfield {
+      height: auto !important;
+    }
+  }
+
+  :host-context(html._theme-dark) {
+    .form-control {
+      color: var(--textColor);
+      background-color: var(--inputBackground);
+      border-color: var(--inputBorderColor);
+    }
+
+    &:disabled,
+    .form-control[readonly] {
+      background-color: var(--contentBackground);
+    }
+  }
+
+  .input-clear-btn {
+    padding-right: 1.3rem !important;
+  }
+
+  .clearbtn {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    margin-top: 2px;
+    margin-left: -20px;
+    color: #ccc;
+    cursor: pointer;
+
+    i:hover {
+      color: rgb(133, 133, 133);
+    }
+  }
+
+
+  input[type=search]::-webkit-search-cancel-button {
+    -webkit-appearance: searchfield-cancel-button;
+  }
+
+  &.form-group-feedback {
+    display: flex;
+
+    &-left {
+      .form-control {
+        &-lg {}
+
+        &-sm {
+          padding-left: 1.7rem !important;
+        }
+      }
+    }
+
+    &-right {
+      .form-control {
+        &-lg {}
+
+        &-sm {}
+      }
+    }
+  }
+
+  .form-control-feedback {
+    &-lg {}
+
+    &-sm {
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+      line-height: 1.5625rem;
+
+      i {
+        font-size: 12px !important;
+        color: #ccc;
+      }
+    }
+  }
+
+  // .form-control-feedback-sm {
+  //   padding-left: 0.5rem;
+  //   padding-right: 0.5rem;
+  //   line-height: 1.5rem;
+  // }
+
+  // .form-group-feedback-left {
+  //   .form-control {
+  //     padding-left: 2.5rem !important;
+
+  //     &-sm {
+  //       padding-left: 1.5rem !important;
+  //     }
+  //   }
+  // }
+
+  &.ng-dirty:not(.ng-pristine) {
+
+    &.ng-invalid.ng-touched input {
+      border-color: #F44336 !important;
+    }
+  }
+
+  &.ng-pristine:not(.ng-dirty) {
+
+    &.ng-invalid.ng-touched input {
+      border-color: #F44336 !important;
+    }
+  }
+
+  &.input-group {
+    border-radius: 2px;
+    color: rgba(#000, .5);
+  }
+
+  &.input-group-sm>.form-control,
+  &.input-group-sm>.input-group-prepend>.input-group-text,
+  &.input-group-sm>.input-group-append>.input-group-text,
+  &.input-group-sm>.input-group-prepend>.btn,
+  &.input-group-sm>.input-group-append>.btn {
+    // height: 1.5625rem;
+    height: 100%;
+    line-height: 0.5625rem;
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
+  }
+
+  &.input-group-lg>.form-control,
+  &.input-group-lg>.input-group-prepend>.input-group-text,
+  &.input-group-lg>.input-group-append>.input-group-text,
+  &.input-group-lg>.input-group-prepend>.btn,
+  &.input-group-lg>.input-group-append>.btn {
+    height: 2.4375rem !important;
+    line-height: 0.5625rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  &.input-group-md>.form-control,
+  &.input-group-md>.input-group-prepend>.input-group-text,
+  &.input-group-md>.input-group-append>.input-group-text,
+  &.input-group-md>.input-group-prepend>.btn,
+  &.input-group-md>.input-group-append>.btn {
+    height: 1.9375rem !important;
+    line-height: 0.5625rem;
+    padding-left: 0.4rem;
+    padding-right: 0.4rem;
+  }
+
+  // input {
+  //   &.form-control.form-control-sm {
+  //     height: 1.5625rem;
+  //   }
+
+  //   &.form-control.form-control-md {
+  //     height: 1.9375rem;
+  //   }
+
+  //   &.form-control.form-control-lg {
+  //     height: 2.4375rem;
+  //   }
+  // }
+}

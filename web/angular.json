@@ -1,0 +1,243 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "agritareo-web": {
+      "root": "",
+      "sourceRoot": "src",
+      "projectType": "application",
+      "prefix": "ns",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "allowedCommonJsDependencies": [
+              "ng-drag-drop",
+              "@static/js/plugins/forms/styling/switchery.min.js",
+              "@static/js/plugins/forms/tags/tokenfield.min.js",
+              "@static/js/plugins/forms/styling/switch.min.js",
+              "@static/js/plugins/notifications/pnotify.min.js",
+              "bootstrap/js/dist/modal",
+              "jquery",
+              "datatables.net",
+              "datatables.net-buttons",
+              "datatables.net-buttons/js/buttons.flash.min.js",
+              "datatables.net-buttons/js/buttons.html5.min.js",
+              "datatables.net-buttons/js/buttons.print.min.js",
+              "datatables.net-select"
+            ],
+            "aot": true,
+            "outputPath": "dist/agritareo-web",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "src/tsconfig.app.json",
+            "assets": [
+              "src/favicon.ico",
+              "src/static",
+              "src/manifest.json",
+              "src/assets/i18n/en.json",
+              "src/assets/i18n/es.json"
+            ],
+            "styles": [
+              "src/static/css/icons/material/styles.css",
+              {
+                "input": "src/static/css/icons/icomoon/styles.css",
+                "bundleName": "icomoon",
+                "inject": true
+              },
+              {
+                "input": "node_modules/primeicons/primeicons.css",
+                "bundleName": "primeicons",
+                "inject": true
+              },
+              {
+                "input": "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+                "bundleName": "fontawesome",
+                "inject": true
+              },
+              {
+                "input": "src/assets/scss/layouts/default/compile/compile.scss",
+                "bundleName": "bootstrap",
+                "inject": true
+              },
+              {
+                "input": "node_modules/primeng/resources/themes/nova/theme.css",
+                "bundleName": "nova-light",
+                "inject": true
+              },
+              {
+                "input": "node_modules/primeng/resources/primeng.min.css",
+                "bundleName": "primeng-style",
+                "inject": true
+              },
+              {
+                "input": "node_modules/nestable2/dist/jquery.nestable.min.css",
+                "bundleName": "jquery.nestable",
+                "inject": true
+              },
+              "node_modules/@pnotify/core/dist/PNotify.css",
+              "src/styles.scss"
+            ],
+            "scripts": [
+              {
+                "input": "node_modules/jquery/dist/jquery.min.js",
+                "bundleName": "jquery",
+                "inject": true
+              },
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+              "node_modules/moment/moment.js",
+              {
+                "input": "src/static/js/plugins/tables/datatables/extensions/pdfmake/pdfmake.min.js",
+                "bundleName": "pdfmake",
+                "inject": true
+              },
+              {
+                "input": "src/static/js/plugins/tables/datatables/extensions/pdfmake/vfs_fonts.min.js",
+                "bundleName": "vfs_fonts",
+                "inject": true
+              },
+              "src/app.script.js"
+            ],
+            "webWorkerTsConfig": "tsconfig.worker.json"
+          },
+          "configurations": {
+            "hmr": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.hmr.ts"
+                }
+              ]
+            },
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "4mb",
+                  "maximumError": "7mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
+              "serviceWorker": true,
+              "ngswConfigPath": "src/ngsw-config.json"
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "agritareo-web:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "agritareo-web:build:production"
+            },
+            "hmr": {
+              "hmr": true,
+              "browserTarget": "agritareo-web:build:hmr"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "agritareo-web:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "src/test.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "src/tsconfig.spec.json",
+            "karmaConfig": "src/karma.conf.js",
+            "styles": [
+              "src/styles.scss"
+            ],
+            "scripts": [],
+            "assets": [
+              "src/favicon.ico",
+              "src/static",
+              "src/manifest.json"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "src/tsconfig.app.json",
+              "src/tsconfig.spec.json",
+              "tsconfig.worker.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "agritareo-web-e2e": {
+      "root": "e2e/",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "e2e/protractor.conf.js",
+            "devServerTarget": "agritareo-web:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "agritareo-web:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "agritareo-web",
+  "cli": {
+    "analytics": false
+  }
+}

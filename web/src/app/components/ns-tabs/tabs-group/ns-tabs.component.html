@@ -1,0 +1,19 @@
+<ng-template [ngIf]="sideTabs" [ngIfElse]="navs">
+  <div class="d-md-flex">
+    <ng-container *ngTemplateOutlet="navs"></ng-container>
+  </div>
+</ng-template>
+
+<ng-template #navs>
+  <ul class="nav nav-tabs" [ngClass]="__controlClass">
+    <li class="nav-item" *ngFor="let tab of tabs">
+      <a [href]="'#' + tab.id" class="nav-link" [ngClass]="{'active': tab.active }" data-toggle="tab">
+        <i *ngIf="tab.icon" class="mr-2" [ngClass]="tab.icon"></i>
+        {{ tab.label }}
+      </a>
+    </li>
+  </ul>
+  <div class="tab-content card-body p-1">
+    <ng-content></ng-content>
+  </div>
+</ng-template>

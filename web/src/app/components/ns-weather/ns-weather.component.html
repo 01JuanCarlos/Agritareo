@@ -1,0 +1,55 @@
+<div class="custom-card">
+  <div class="title">
+    <i class="far fa-sun"></i> Clima
+  </div>
+  <div class="content">
+    <div class="emphasis">
+      {{selectedWeather?.nombre}}
+    </div>
+    <div class="small color">
+      {{myDate}} | {{selectedWeather?.descripcion}}
+    </div>
+    <div class="weather-img-wrapper">
+      <img src="" alt="">
+    </div>
+    <div class="temperature">
+      <i class="fas fa-thermometer-quarter"></i>
+      {{this.cel}}
+    </div>
+    <div class="indicators-wrapper">
+      <div class="indicator blue">
+        <div class="imagen-wrapper">
+          <i class="fas fa-wind"></i>
+        </div>
+        <div class="title-indicator">
+          Velocidad
+        </div>
+        <div class="detail">
+          {{selectedWeather?.velocidad}}
+        </div>
+      </div>
+      <div class="indicator yellow">
+        <div class="imagen-wrapper">
+          <i class="fab fa-cloudversify"></i>
+        </div>
+        <div class="title-indicator">
+          Humedad
+        </div>
+        <div class="detail">
+          {{selectedWeather?.humedad}}
+        </div>
+      </div>
+      <div class="indicator green">
+        <div class="imagen-wrapper">
+          <i class="fas fa-thermometer-quarter"></i>
+        </div>
+        <div class="title-indicator">
+          Dirección del viento
+        </div>
+        <div class="detail">
+          {{selectedWeather?.grados + 'º'}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,34 @@
+<div class="nav-tabs-responsive ns__tabs" tabindex="-1">
+  <ul droppable (onDrop)="dropTab.emit($event.dragData)" class="nav nav-links nav-tabs nav-tabs-bottom flex-nowrap mb-0"
+    [ngClass]="{'show-tabs': showTopOptions }">
+    <li *ngFor="let it of items;  trackBy: trackByFn;let i = index;"
+      draggable
+      [dragEnabled]="!it.isOutlet"
+      [dragData]="it"
+      class="nav-item">
+      <a [style.backgroundColor]="colors[it.group]" (click)="$event.preventDefault();onSelectTab(it)" class="nav-link"
+        [ngClass]="{'active': it.active}" data-toggle="tab">
+        <i class="mr-1" [ngClass]="it.icon"></i>
+        <span class="lbltab capital" [ngClass]="{'preview-mode': it.mode === 'PREVIEW'}">{{it.label || it.title}}</span>
+        <span *ngIf="!it.isOutlet && !it.disabled" (click)="$event.stopPropagation();closeTab.emit(it)" class="tab-close"> <i
+            class="fas fa-times"></i>
+        </span>
+      </a>
+    </li>
+  </ul>
+  <div class="float-btns" [ngClass]="{'active': showTopOptions}">
+    <!--  TODO: Habilitar los botones cuando se pueda tener control del estado de las ventanas. -->
+    <!-- <button *ngIf="showSplitBtn" (click)="clickBtnSplit.emit()" class="btn btn-link text-default"><i class="fa fa-columns"></i></button>
+    <button *ngIf="showPopupBtn" (click)="clickBtnWindow.emit()" class="btn btn-link text-default"> <i class="icon-windows2"></i></button>
+    <button class="btn btn-link text-default" (click)="onToggleMenu($event)"><i class="icon-menu" #btnMenu></i></button> -->
+  </div>
+
+  <div class="dropdown-menu dropdown-menu-left" style="position: absolute;" #menu>
+    <a (click)="onSelectTab(it)" class="dropdown-item capital" [ngClass]="{'disabled': it.active }" *ngFor="let it of items; let i = index">
+      <i class="icon-file-empty2"></i> {{it.label || it.title }}
+    </a>
+    <div class="dropdown-divider"></div>
+    <a href="#" (click)="$event.preventDefault(); closeAll()" class="dropdown-item"> Cerrar todo</a>
+  </div>
+
+</div>

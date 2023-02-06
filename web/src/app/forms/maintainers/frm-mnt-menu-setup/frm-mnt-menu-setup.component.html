@@ -1,0 +1,76 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="card">
+    <div class="card-header header-elements-inline pt-0 pb-1 pl-0">
+      <h5 class="card-title">
+        <ng-container *ngIf="!item; else title">
+          Agregar Item
+        </ng-container>
+        <ng-template #title>
+          Editar Item {{item.title}}
+        </ng-template>
+      </h5>
+    </div>
+    <hr class="mt-0 mb-2">
+    <div class="card-body px-0 mb-0 pt-0 pb-2">
+      <div class="row">
+        <div class="col-md-12">
+          <ns-group-control>
+            <ns-label-control>{{ 'Item' | translate }}</ns-label-control>
+            <ns-input-control placeholder="Nombre del Item" formControlName="nombre" name="nombre">
+              <ns-addon-control icon="icon-file-text" prepend></ns-addon-control>
+            </ns-input-control>
+          </ns-group-control>
+        </div>
+      </div>
+      <div class="row pt-1">
+        <div class="col-md-12">
+          <ns-group-control>
+            <ns-label-control>{{ 'Enlace' | translate }}</ns-label-control>
+            <ns-input-control placeholder="Link del Item" formControlName="link" name="link">
+              <ns-addon-control icon="icon-link" prepend></ns-addon-control>
+            </ns-input-control>
+          </ns-group-control>
+        </div>
+      </div>
+      <div class="row pt-1" *ngIf="!item">
+        <div class="col-md-12">
+          <ns-group-control>
+            <ns-label-control>{{ 'Target' | translate }}</ns-label-control>
+            <ns-select-control [items]="data$ | async" formControlName="target" name="target" (select)="getModuleId($event)">
+            </ns-select-control>
+          </ns-group-control>
+        </div>
+      </div>
+      <div class="row pt-1">
+        <div class="col-md-12">
+          <ns-group-control>
+            <ns-label-control>{{ 'Tooltip' | translate }}</ns-label-control>
+            <ns-input-control placeholder="Sugerencia del Item" formControlName="tooltip" name="tooltip">
+              <ns-addon-control icon="icon-bubble7" prepend></ns-addon-control>
+            </ns-input-control>
+          </ns-group-control>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer px-0 py-2">
+      <div class="float-right">
+        <ng-container *ngIf="!item; else button">
+          <button class="btn btn-primary" type="submit" [disabled]="!form.valid">
+            <i class="fa fa-plus mr-1"></i>
+            {{ 'Añadir' | translate }}
+          </button>
+        </ng-container>
+        <ng-template #button>
+          <button class="btn btn-default mr-1" (click)="cancel()">
+            <i class="fa fa-plus mr-1"></i>
+            {{ 'Cancelar' | translate }}
+          </button>
+          <button class="btn btn-warning" type="submit" [disabled]="!form.valid">
+            <i class="fa fa-plus mr-1"></i>
+            {{ 'Guardar' | translate }}
+          </button>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</form>

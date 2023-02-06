@@ -1,0 +1,20 @@
+<div class="input-group">
+  <span class="input-group-prepend" (click)="input.focus()">
+    <span class="input-group-text px-1">
+      <i style="color: #ccc;font-size: 12px;" class="icon-calendar"></i>
+    </span>
+  </span>
+
+  <input
+    [value]="(value | mask: mask)"
+    [placeholder]="format.toLowerCase()"
+    (input)="onChangeValue($event.target.value)"
+    (click)="onInputFocus($event)"
+    (keydown.arrowright)="onInputFocus($event, false)"
+    (keydown.arrowleft)="onInputFocus($event, true)"
+    [disabled]="disabled"
+    [readonly]="readonly"
+    type="text" class="form-control input-description px-1"
+    placeholder="Descripción"
+    #input>
+</div>

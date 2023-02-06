@@ -1,0 +1,243 @@
+@import "src/assets/scss/_bootstrap/bootstrap-grid.scss";
+
+$padding: 24px;
+
+:host {
+  .page-content {
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+
+    ::ng-deep {
+      .header-content {
+        padding: 0 $padding;
+        height: 48px;
+        border-bottom: 1.1px solid rgba(0, 0, 0, 0.12);
+        display: flex;
+        align-content: center;
+        align-items: center;
+
+        h1 {
+          color: #333333;
+          font-size: 18px;
+          // font-weight: 400;
+          font-weight: 500;
+          margin: 0;
+        }
+
+        .button-wrapper {
+          display: inline-block;
+          margin-left: 3rem;
+        }
+      }
+    }
+
+    .content-wrapper {
+      // overflow: hidden;
+      // overflow: hidden;
+      overflow: auto;
+      height: 100%;
+
+      .content {
+        // overflow: auto;
+        height: 100%;
+      }
+    }
+  }
+
+  .margin-top-min-nav {
+    margin-top: 0px;
+    min-height: 100vh;
+  }
+
+  .margin-top-max-nav {
+    margin-top: 25px;
+  }
+}
+
+.wrapper {
+  display: flex;
+  height: 100vh;
+  padding-top: 48px;
+
+  .left {
+    max-height: 100vh;
+  }
+
+  .right {
+    flex-grow: 1;
+    background: white;
+    position: relative;
+    display: flex;
+    padding: 0;
+    overflow: hidden;
+  }
+}
+
+::ng-deep {
+  .custom-nav-tabs {
+    padding: 0;
+    // background: red;
+
+    .nav-item {
+      a {
+        padding: 5px 15px;
+        display: flex;
+        justify-content: center;
+        // align-items: center;
+        align-content: center;
+
+        .btn-close {
+          background: none;
+          border: none;
+          outline: none;
+          margin-left: 5px;
+          border-radius: 100px;
+          height: 20px;
+          width: 20px;
+          padding: 0;
+          cursor: pointer;
+
+          i {
+            font-size: 0.75rem;
+          }
+
+          &:hover {
+            background: #ddd;
+          }
+        }
+      }
+    }
+  }
+
+  h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 5px 10px;
+    display: flex;
+    align-content: center;
+    border-radius: 4px 4px 0 0;
+    background: #f5f5f5;
+    color: #777;
+
+    .custom-buttons {
+      ns-button {
+        display: inline-flex;
+
+        &:first-child {
+          margin-left: 2rem;
+        }
+
+        button {
+          height: fit-content !important;
+
+          i {
+            margin-top: 2px;
+          }
+
+          span {
+            font-size: 0.8rem !important;
+            text-transform: capitalize !important;
+          }
+        }
+      }
+    }
+  }
+
+  .section {
+    padding: 0 10px;
+  }
+
+  .modal-content {
+    .modal-header {
+      height: 40px;
+      align-items: center;
+      color: black !important;
+
+      span {
+        font-size: 1rem;
+      }
+    }
+
+    .modal-body {
+      padding: 0 !important;
+    }
+  }
+
+  label {
+    font-size: 12px;
+    font-weight: 400;
+  }
+
+  .form-control,
+  select,
+  input {
+    height: 35px !important;
+    background: white !important;
+    border-radius: 1px !important;
+    border: none !important;
+    border: 1px solid #e3e3e3 !important;
+
+    &:focus {
+      border-color: #8ec192 !important;
+    }
+  }
+
+  .form-control,
+  select,
+  input {
+    height: 35px !important;
+    background: white !important;
+  }
+
+  .loading {
+    position: relative;
+
+    &::after {
+      display: block;
+      position: absolute;
+      z-index: 999;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      background: url("../../../static/images/loader.gif") white;
+      background-repeat: no-repeat;
+      background-position: center center;
+    }
+  }
+
+  .loading-2 {
+    position: relative;
+
+    &::after {
+      content: "";
+      background: url(../../../static/images/loading.svg) rgba(255, 255, 255, 0.5);
+      background-position: center center;
+      background-repeat: no-repeat;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      z-index: 1000;
+    }
+  }
+
+  .loading-3 {
+    position: relative;
+
+    &::after {
+      content: "";
+      background: url(../../../static/images/loader2.gif) rgba(255, 255, 255, 0.5);
+      background-position: center center;
+      background-repeat: no-repeat;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      z-index: 1000;
+    }
+  }
+}

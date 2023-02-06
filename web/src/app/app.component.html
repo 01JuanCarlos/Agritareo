@@ -1,0 +1,50 @@
+<router-outlet></router-outlet>
+
+<div
+  *ngIf="blockui.loader | async"
+  class="blockUI blockOverlay"
+  style="z-index: 1000; border: none; margin: 0px; padding: 0px; width: 100%; height: 100%; top: 0px; left: 0px; background-color: rgb(255, 255, 255); opacity: 0.8; cursor: wait; position: absolute;">
+</div>
+
+<div
+  *ngIf="blockui.loader | async"
+  class="blockUI blockMsg blockElement"
+  [ngClass]="loaderClass"
+  style="z-index: 1011; position: absolute; padding: 10px 15px; margin: 0px; width: auto; text-align: center; color: rgb(255, 255, 255); border: 0px;cursor: wait; border-radius: 3px;"
+  [style.top.px]="loaderMessageTop"
+  [style.left.px]="loaderMessageLeft"
+  [style.backgroundColor]=" 0 === loaderMessageType ? 'red': ( 2 === loaderMessageType ? '#f46a36' : '#333')">
+  <!--  background-color: rgb(51,51,51);  -->
+  <span class="font-weight-semibold">
+    <i class="mr-1" [ngClass]="loaderMessageIcon"></i> &nbsp; {{ loaderMessage }}
+  </span>
+</div>
+
+<ns-modal (show)="onShowExpireModal()" (hide)="onHideExpireModal()" size="md" id="expire-user-session" title="Need More Time?" backdrop="static"
+  [keyboard]="false" #modal>
+  You session is about to expire. You will be automatically signed out in
+  <br>
+  <h2 class="my-1">{{hours}}:{{minutes}}:{{seconds}}</h2>
+  To continue your session, select Stay Signed In
+
+  <ng-template nsTemplate="footer">
+    <button type="button" (click)="staySignedIn()" class="btn bg-primary btn-sm">Stay Signed In</button>
+    <button type="button" (click)="signOut()" class="btn bg-danger btn-sm">Sign out</button>
+  </ng-template>
+</ns-modal>
+<!-- Stay Signed In -->
+<!-- Sign out -->
+
+<a
+  [href]="emailSubject"
+  data-original-title="Send email"
+  *ngIf="isDev" class="float-button email-sender">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+    stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail">
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+    <polyline points="22,6 12,13 2,6"></polyline>
+  </svg>
+</a>
+
+<ns-weather-widget>
+</ns-weather-widget>

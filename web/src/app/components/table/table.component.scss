@@ -1,0 +1,439 @@
+$contentPadding: 0.25rem .25rem;
+$compactTableHeadPadding: .15rem .21rem;
+$compactTableBodyPadding: 0rem .23rem;
+
+:host-context(.splitcontainer) {
+  .ns__datatable {
+    border-top: none;
+
+    // overflow: auto;
+  }
+}
+
+
+:host-context(html._theme-dark) {
+  .ns__datatable_search {
+    input {
+      border-color: var(--inputBorderColor);
+      color: var(--textColor);
+    }
+  }
+
+  .ns__datatable_body {
+    ::ng-deep {
+      .card-footer {
+        background-color: rgba(0, 0, 0, 0.16);
+      }
+    }
+  }
+}
+
+:host {
+  display: initial;
+  overflow: hidden;
+
+  .dropdown-context-menu {
+    padding: 0.1rem 0;
+
+    .dropdown-divider {
+      margin: 0.15rem 0;
+    }
+
+    .dropdown-item {
+      padding: 2.5px 6px;
+
+      &>i {
+        margin-right: .5rem;
+      }
+    }
+  }
+
+  .column-filter {
+    position: absolute;
+    border: 1px solid #ddd;
+    width: 220px;
+    padding-top: .22rem;
+    background-color: var(--documentBackground);
+
+    .nav-tabs {
+      padding-left: .3rem;
+      margin-bottom: 0;
+      min-height: 0px !important;
+
+      .nav-item {
+        .nav-link {
+          padding: 0.05rem .5rem;
+        }
+      }
+    }
+
+    .tab-content {
+      background-color: var(--contentBackground);
+
+      .tab-pane {
+        .dropdown-item {
+          padding: 0.15rem .35rem;
+        }
+
+        .dropdown-divider {
+          margin: 0.1rem 0;
+        }
+
+        .column-search {
+          height: 20px;
+          width: 100%;
+          margin-bottom: .5rem;
+        }
+      }
+    }
+  }
+}
+
+.ns__datatable {
+  position: relative;
+  border-radius: 0.15rem;
+  margin-bottom: 0;
+  background-color: var(--contentBackground);
+
+  &.no-header-buttons {
+    border-top: none;
+  }
+
+  &.no-pagination {
+    border-bottom: none;
+  }
+
+  .ns__datatable_header {
+    background-color: var(--contentBackground);
+    padding: $contentPadding;
+
+    .filters {
+      max-height: 60vh;
+      overflow-y: auto;
+      overflow-x: hidden;
+
+      .filter-title {
+        user-select: none;
+      }
+    }
+
+
+    .ns__datatable_search {
+      input {
+        padding: .1rem 0.4rem;
+        height: 1.5rem;
+        border-radius: 10px;
+        background: var(--inputBackground);
+      }
+
+      i {
+        color: var(--textColor);
+      }
+
+      .form-control-feedback {
+        line-height: 1.55rem;
+      }
+    }
+
+    .btn-toolbar {
+      .btn-group {
+        .download-items {
+          padding: 0;
+          min-width: fit-content;
+
+          .dropdown-item {
+            padding: 0.3rem 0.5rem;
+            padding-right: 1rem;
+            font-size: 0.7rem;
+          }
+        }
+
+        .btn {
+          padding: 0 0.3rem;
+
+          i {
+            font-size: 0.75rem !important;
+          }
+
+          &.dropdown-toggle {
+            &.dropdown-filter {
+              &::after {
+                display: none;
+              }
+            }
+
+            i {
+              font-size: 0.625rem;
+            }
+
+            &:after {
+              margin-left: 0.2rem;
+            }
+          }
+        }
+      }
+    }
+
+    .navbar-nav-link {
+      padding: 0.4rem 0.6rem;
+    }
+  }
+
+  .ns__datatable_body {
+    // position: relative;
+    padding: 0;
+    // margin: 0 0.3rem;
+    margin: 0;
+
+    ::ng-deep {
+      .dataTables_wrapper {
+        .page-footer-info {
+          border-top: none;
+          overflow: hidden;
+          // padding-bottom: 0 !important;
+          padding: 0.2rem 0.6rem;
+
+          .dataTables_info {
+            margin-bottom: 0;
+            padding: 0;
+            padding-top: 0.15rem;
+          }
+
+          .dataTables_paginate {
+            margin-bottom: 0.1rem;
+
+            .paginate_button {
+              padding: 0.1rem;
+              min-width: 1.5rem;
+            }
+          }
+        }
+
+        .download-buttons {
+          position: absolute;
+          left: -99999px;
+        }
+
+        // .dataTables_paginate {
+        //   //
+        // }
+      }
+
+      .ns__datatable_table {
+        tr {
+
+          th,
+          td {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            &:first-child {
+              border-left: none !important;
+            }
+
+            &:last-child {
+              border-right: none !important;
+            }
+
+            &.is-badge,
+            &.is-color,
+            &.is-boolean {
+              text-align: center;
+            }
+          }
+
+          td {
+
+            &.is-number,
+            &.is-boolean,
+            &.is-string {
+              text-align: center;
+              line-height: 0px;
+            }
+
+            &.is-number {
+              text-align: right !important;
+            }
+          }
+        }
+
+        &.compact {
+          tr {
+            th {
+              padding: $compactTableHeadPadding;
+            }
+
+            td {
+              padding: $compactTableBodyPadding;
+            }
+          }
+        }
+      }
+
+      tbody {
+        tr:last-child td {
+          border-bottom-width: 1px;
+        }
+      }
+    }
+
+    .ns__datatable_table {
+      table-layout: fixed;
+      border-collapse: collapse;
+      font-size: 0.75rem;
+
+      // border-radius: 5px !important;
+      // overflow: hidden;
+
+      &:first-child thead:first-child tr:first-child th:first-child {
+        border-top-left-radius: 0;
+      }
+
+      thead {
+
+        &.table-header {
+          background-color: var(--tableHeaderBackground);
+          color: var(--headerHeaderTextColor);
+
+          tr:first-child th {
+            // border-color: var(--tableBorderColor);
+            // border-top-width: 1px;
+            border-bottom-width: 0;
+
+            .column-options {
+              padding: 0;
+              line-height: 1;
+
+              i {
+                font-size: 14px;
+                line-height: 0;
+              }
+            }
+
+            ::ng-deep {
+              .columnSelector:hover {
+                background: #66c0ff;
+                border-right: 2px solid #66c0ff;
+              }
+            }
+          }
+        }
+
+
+        .sorting:before,
+        .sorting:after,
+        .sorting_asc:after,
+        .sorting_desc:after,
+        .sorting_asc_disabled:after,
+        .sorting_desc_disabled:after {
+          right: 0.5rem;
+        }
+
+        th {
+          text-transform: uppercase;
+          // font-size: .67rem;
+        }
+      }
+
+      tbody {
+        .alert {
+          right: 0 !important;
+        }
+      }
+
+      &.table-bordered {
+        border: none;
+
+        ::ng-deep {
+
+          th,
+          td {
+            border-color: var(--tableBorderColor);
+          }
+        }
+      }
+
+      // &.table-striped {
+      //   ::ng-deep {
+      //     tbody tr:nth-of-type(odd) {
+      //       background-color: var(--tableOddRow);
+      //     }
+      //   }
+      // }
+    }
+  }
+
+  .ns__datatable_footer {
+    padding: $contentPadding;
+  }
+
+}
+
+[hidden] {
+  display: none;
+}
+
+.card-header {
+  border-bottom: 0;
+}
+
+:host-context(html[dir="rtl"]) {
+  .btn-group {
+    .dropdown-toggle {
+      &::after {
+        margin-left: unset !important;
+        margin-right: 0.2rem !important;
+      }
+    }
+  }
+
+  .dropdown-item {
+    i {
+      margin-right: unset !important;
+      margin-left: 1rem !important;
+    }
+  }
+
+  .form-group-feedback-right {
+    .form-control-feedback {
+      right: unset !important;
+      left: 0;
+    }
+  }
+
+  .btn-toolbar {
+    :nth-child(1) {
+      button:first-child {
+        border-radius: 0 3px 3px 0;
+        border-left: 0;
+      }
+
+      button:last-child {
+        border-radius: 3px 0 0 3px;
+      }
+    }
+  }
+}
+
+.dropdown-menu {
+  min-width: 15rem;
+
+  span {
+    text-transform: uppercase;
+    font-size: 0.7rem;
+  }
+
+  .text-muted.text-uppercase {
+    font-size: 0.5rem;
+  }
+
+  .pr-0 {
+    padding-right: 2px !important;
+  }
+
+  .pl-0 {
+    padding-left: 2px !important;
+  }
+
+}

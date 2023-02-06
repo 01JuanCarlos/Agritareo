@@ -1,0 +1,448 @@
+$active: #6f6f6f;
+$green: #4f7b52;
+$yellow: yellow;
+
+
+:host {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+[hidden] {
+  display: none;
+}
+
+.img-container {
+  .img-wrapper {
+    border-radius: 4px;
+    overflow: hidden;
+    height: 100%;
+    padding-bottom: 10px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}
+
+.control-wrapper {
+  position: absolute;
+  top: 10px;
+  right: 350px;
+  display: flex;
+
+  .control {
+    cursor: pointer;
+    outline: none;
+    border: none;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    // background: $active;
+
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    height: fit-content;
+    width: fit-content;
+    align-items: center;
+    align-content: center;
+    padding: 5px 10px;
+
+    border-right: 1px solid #ddd;
+
+    &:first-child {
+      border-radius: 2.5px 0 0 2.5px;
+    }
+
+    &:last-child {
+      border-right: none;
+      border-radius: 0 2.5px 2.5px 0;
+    }
+
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 2px 3px #000;
+    color: black;
+
+    // &.green {
+    //   // background: $green;
+    // }
+
+    // &.yellow {
+    //   // background: $yellow;
+    // }
+
+    i {
+      // color: white;
+      font-size: 1.2rem;
+    }
+
+    span {
+      // color: white;
+      display: none;
+      width: 100%;
+      padding-top: 6px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+::ng-deep {
+  .custom-bug-icon {
+    img {
+      transform: scale(.1);
+    }
+  }
+
+  p-checkbox {
+    display: flex;
+    align-content: center;
+
+    label {
+      margin-bottom: 0;
+    }
+  }
+
+  .custom-alert {
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .fitosanidad-wrapper {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px dashed green;
+    // border: 2px dashed transparent;
+    font-weight: bold;
+    font-size: 14px;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    display: block;
+    position: fixed;
+    text-align: center;
+    padding: 5px 10px;
+    border-radius: 7.5px;
+    color: #ddd;
+  }
+
+
+  .fitosanidad-wrapper:active {
+    color: red;
+    box-shadow: 0 0 5px -1px rgba(0, 0, 0, 0.6);
+  }
+
+  .modal-content .modal-body {
+    padding: 18px !important;
+}
+
+.modal-content .modal-header span {
+  font-size: 2rem;
+}
+
+//boton de cerrar
+.close {
+  float: right;
+  font-size: 1.25003125rem;
+  font-weight: 400;
+  line-height: 1;
+  color: #333 !important;
+  font-weight: 500;
+  text-shadow: none;
+  opacity: 0.5;
+}
+
+.close {
+  cursor: pointer;
+  transition: color ease-in-out 0.15s, opacity ease-in-out 0.15s;
+}
+
+
+//poligono Info
+  .polygonInfo_title{
+    font-size: 2em;
+    margin-bottom: 0;
+    font-weight: 700;
+    color: #3367d6;
+  }
+
+  .polygonInfo_subTitle_one{
+    font-size: 1.5rem !important;
+    padding-left: 20px;
+    font-weight: 500;
+    color: #3367d6;
+  }
+
+  .polygonInfo_subTitle{
+    font-size: 1.5rem !important;
+    padding-right: 65px;
+    font-weight: 500;
+    color: #3367d6;
+  }
+
+  .polygonIcon_plaga{
+    padding-left: 110px;
+    color: #3367d6;
+
+  }
+  .polygonIcon_fecha{
+    color: #3367d6;
+
+  }
+
+  .polygonIcon{
+    padding-left: 10px !important;
+    color: #3367d6;
+
+  }
+
+  .td-table{
+    cursor: pointer;
+  }
+
+  .td-table:hover{
+    background-color: gainsboro;
+    color: #3367d6;
+  }
+
+  .label-first {
+    color: white;
+    font-size: 16px;
+  }
+
+  .label-second {
+    color: white;
+  }
+
+  .label-sub {
+    color: #116FBF;
+  }
+
+
+}
+
+#buttonMapa button {
+  background-color: #24a0ed;
+}
+
+#buttonMapa::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  border-radius: 7px;
+  transform: translateY(5px);
+}
+
+#buttonMapa:active {
+  transform: translateY(5px);
+}
+
+#buttonMapa:active:before {
+  transform: translateY(0);
+}
+
+
+
+
+// Remove the negative margin from default .row, then the horizontal padding
+// from all immediate children columns (to prevent runaway style inheritance).
+.no-gutters {
+  margin-right: -35px;
+  margin-left: -9px;
+
+  >.col,
+  >[class*="col-"] {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
+
+.custom-card {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+
+  .title {
+    color: #2E2E30;
+    font-size: 0.9rem;
+    font-weight: 500;
+    // border-bottom: 1px solid #F9F9F9;
+    border-bottom: 1px solid #b9b9c7;
+    padding: 7.5px 5px;
+
+    i {
+      font-size: 1.15rem;
+      margin-right: 5px;
+    }
+
+  }
+
+  .content {
+    padding: 7.5px 15px;
+
+    .emphasis {
+      color: black;
+      font-size: 3rem;
+      font-weight: 300 !important;
+      text-decoration: underline 4px;
+    }
+
+    .small {
+      color: #050505;
+      font-size: 1.4rem;
+    }
+
+    // .weather-img-wrapper {}
+
+    .temperature {
+      color: #3D84DC;
+      font-size: 5rem;
+      text-align: right;
+    }
+
+
+
+    .indicators-wrapper {
+      display: flex;
+      max-width: 100%;
+      overflow-x: auto;
+      // justify-content: space-between;
+
+      .indicator {
+        width: fit-content;
+        padding: 10px 15px;
+        border-radius: 10px;
+        display: -webkit-box;
+        display: flex;
+        -webkit-box-pack: center;
+        justify-content: center;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        flex-direction: column;
+        margin-right: 10px;
+
+        &.yellow {
+          background: #FFD041;
+        }
+
+        &.blue {
+          background: #3588FE;
+        }
+
+        &.green {
+          background: #5BEAA8;
+        }
+
+        .imagen-wrapper {
+          i {
+            color: black;
+          }
+        }
+
+        .title-indicator {
+          color: black;
+          text-align: center;
+          font-size: 1rem;
+          font-weight: 400 !important;
+          // padding-top: 25px;
+        }
+
+        .detail {
+          color: black;
+          text-align: center;
+          // padding-left: 40px;
+          font-size: 1.4rem;
+          font-weight: 600 !important;
+        }
+      }
+
+    }
+
+  }
+
+}
+
+//Leyenda
+.container {
+  position: fixed;
+  top: auto;
+  bottom: auto;
+  // right: 100%;
+  // width: 320px;
+  z-index: 0;
+  background: transparent;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+
+
+  &.active {
+    right: auto;
+    top: auto;
+    bottom: 0px;
+    left: 256px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 0px !important;
+    overflow: hidden;
+    height: fit-content;
+    max-height: calc(100% - 20px);
+    justify-content: center;
+    overflow: auto;
+    height: 50px;
+    width: 315PX;
+
+    .legend {
+      position: relative;
+      padding: 5px 5px;
+      font-size: 1rem;
+      font-weight: 300;
+      color: #0F0F0F;
+      border: none;
+      border-bottom: 1px solid;
+    }
+
+    .legend-content {
+      display: flex;
+      flex-direction: row;
+      align-items: baseline;
+      padding: 0px 4px;
+      text-align: justify;
+
+      p {
+        font-size: 1rem;
+        display: flex;
+        margin-left: 5px;
+      }
+
+      input {
+        margin-left: 1px;
+        width: 35px;
+      }
+    }
+  }
+
+}
+.t{
+  position: fixed;
+  bottom: 25px;
+  right: 260px;
+}
+#icon-cultivo{
+  margin-left: 4px;
+}

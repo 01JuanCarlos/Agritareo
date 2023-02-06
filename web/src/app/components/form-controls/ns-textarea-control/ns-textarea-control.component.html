@@ -1,0 +1,9 @@
+<textarea
+  [id]="id"
+  [readonly]="readonly"
+  [cols]="cols"
+  [rows]="rows"
+  (input)="onChangeValue($event.target.value)"
+  class="form-control">{{value}}</textarea>
+<!-- [value]="value" -->
+<!-- No se si [value] va a aqui {{value}}-->

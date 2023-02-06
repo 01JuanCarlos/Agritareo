@@ -1,0 +1,197 @@
+<div class="container-fluid mt-2" *ngIf="isNotFoundDocument">
+  <div class="row">
+    <div class="col-md-12">
+      <h3>Lo sentimos, no se encontró un evaluador con ese código</h3>
+    </div>
+  </div>
+</div>
+
+<ng-container *ngIf="!isNotFoundDocument">
+  <div class="header-content">
+    <a href="#" class="mr-2" (click)="$event.preventDefault(); backClicked()">
+      <i class="icon-arrow-left7" style="font-size: 0.8rem"></i>
+      Regresar
+    </a>
+    <h1>
+      {{ !isNewDocument ? "Concepto " + form.value.nombre : "Nuevo concepto" }}
+    </h1>
+    <div class="d-inline-flex justify-content-center flex-column">
+      <div class="ml-3 button-wrapper d-inline-block">
+        <ns-button *ngIf="isNewDocument" (btClick)="saveDocument()" label="Guardar" icon="icon-floppy-disk">
+        </ns-button>
+        <ns-button *ngIf="!isNewDocument" (btClick)="updateDocument()" label="Actualizar" icon="icon-floppy-disk"
+          type="warning">
+        </ns-button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid mt-2">
+    <div class="row" [formGroup]="form">
+      <div class="col-md-12">
+
+        <h3>Datos de concepto agrícola</h3>
+        <div class="row section">
+          <div class="col-md-12">
+            <div class="row mb-2">
+              <div class="col-md-2">
+                <ns-group-control required>
+                  <ns-label-control>Código</ns-label-control>
+                  <ns-input-control formControlName="codigo"></ns-input-control>
+                </ns-group-control>
+              </div>
+              <div class="col-md-2">
+                <ns-group-control required>
+                  <ns-label-control>Tipo de concepto</ns-label-control>
+                  <ns-finder [componentId]="SuggestTipoConcepto" formControlName="idtipo_concepto"></ns-finder>
+                </ns-group-control>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-2">
+                <ns-group-control required>
+                  <ns-label-control>Nombre</ns-label-control>
+                  <ns-input-control formControlName="nombre"></ns-input-control>
+                </ns-group-control>
+              </div>
+              <div class="col-md-4">
+                <ns-group-control>
+                  <ns-label-control>Nombre científico</ns-label-control>
+                  <ns-input-control formControlName="nombre_cientifico"></ns-input-control>
+                </ns-group-control>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <h3 class="mt-4">
+          Cultivos asociados al concepto {{form.value.nombre}}
+
+          <div class="d-inline-flex custom-buttons">
+            <ns-button
+              (btClick)="addFormArrayItem('subconceptos_agricola', createSubconceptoAgricola()); selectedCultivoTab = form.value.subconceptos_agricola.length - 1;"
+              label="Nuevo concepto" icon="mi-add"></ns-button>
+          </div>
+        </h3>
+        <div class="row">
+          <div class="col-md-12" *ngIf="!!form.value.subconceptos_agricola.length">
+            <ul class="nav nav-tabs custom-nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item" role="presentation"
+                *ngFor="let item of subConceptosAgricola.controls; let i = index">
+                <a class="nav-link" (click)="selectedCultivoTab = i"
+                  [ngClass]="{'active': i === selectedIndex('subconceptos_agricola',selectedCultivoTab)}"
+                  [id]="'tab-' + i" data-toggle="tab" [href]="'#'+i + '-tab'" role="tab"
+                  [attr.aria-controls]="i + '-tab'" aria-selected="true">
+                  {{item.value.cultivo || 'Tab ' + i}}
+                  <button class="btn-close" (click)="deleteTab('subconceptos_agricola', i)">
+                    <i class="mi-close"></i>
+                  </button>
+                </a>
+              </li>
+            </ul>
+            <div formArrayName="subconceptos_agricola" class="tab-content"
+              *ngFor="let subconceptoAgricola of subConceptosAgricola.controls; let i = index">
+              <div class="tab-pane fade"
+                [ngClass]="{'show active':  i === selectedIndex('subconceptos_agricola',selectedCultivoTab)}"
+                [id]="i+'-tab'" role="tabpanel" [formGroupName]="i">
+                <div class="row section">
+                  <div class="col-md-12">
+                    <div class="row">
+                      <div class="col-md-2">
+                        <ns-group-control required>
+                          <ns-label-control>Cultivo</ns-label-control>
+                          <ns-finder [componentId]="SuggestCultivo" formControlName="idcultivo"
+                            (selectedLabel)="onSelectedCultivo($event)"></ns-finder>
+                        </ns-group-control>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <h3 class="mt-4">
+                      Evaluación del concepto por cultivo {{ subconceptoAgricola.value.cultivo }}
+
+                      <div class="d-inline-flex custom-buttons">
+                        <ns-button
+                          (btClick)="selectedConceptoCultivo = null; conceptoCultivoForm.reset(); conceptoCultivoModal.open()"
+                          label="Añadir concepto de evaluación" [disabled]="!subconceptoAgricola.value.idcultivo"
+                          icon="mi-add"></ns-button>
+                        <ns-button [disabled]="!selectedConceptoCultivo" (btClick)="conceptoCultivoModal.open()"
+                          icon="mi-mode-edit" mini>
+                        </ns-button>
+                        <ns-button [disabled]="!selectedConceptoCultivo" icon="mi-delete" mini (btClick)="deleteTab(['subconceptos_agricola', i, 'evaluaciones_subconcepto'], tableSubconcepto.selectedIndex[0])">
+                        </ns-button>
+                        <ns-button [disabled]="!selectedConceptoCultivo" icon="mi-star" mini></ns-button>
+                      </div>
+                    </h3>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <ns-table-simple #tableSubconcepto [data]="subconceptoAgricola.value.evaluaciones_subconcepto"
+                          [header]="headerConcepto"
+                          (tsSelect)="selectedConceptoCultivo = $event; conceptoCultivoForm.patchValue($event || {})">
+                        </ns-table-simple>
+
+
+                        <ns-modal size="sm" [title]="(!selectedConceptoCultivo ? 'Nuevo' : 'Editar') + ' concepto'"
+                          #conceptoCultivoModal>
+                          <div class="mx-0 row w-100 px-2 no-gutters mb-2" [formGroup]="conceptoCultivoForm">
+                            <div class="col-md-12 my-2">
+                              <ns-group-control required>
+                                <ns-label-control>Subconcepto a evaluar</ns-label-control>
+                                <ns-finder [componentId]="SuggestSubConceptosAgricolas" formControlName="idsubconcepto_agricola"
+                                  (selectedLabel)="conceptoCultivoForm.patchValue({subconcepto_evaluar: $event})">
+                                </ns-finder>
+                              </ns-group-control>
+                            </div>
+                            <div class="col-md-12 mb-2">
+                              <ns-group-control required>
+                                <ns-label-control>Órgano afectado</ns-label-control>
+                                <ns-input-control formControlName="organo_afectado"></ns-input-control>
+                              </ns-group-control>
+                            </div>
+                            <div class="col-md-12 mb-1">
+                              <ns-group-control required>
+                                <ns-label-control>Metodo de evaluación</ns-label-control>
+                                <ns-finder [componentId]="SuggestMetodoEvaluacion" formControlName="idmetodo_evaluacion"
+                                  (selectedLabel)="conceptoCultivoForm.patchValue({metodo_evaluacion: $event})" (selected)="conceptoCultivoForm.patchValue({unimedida: $event.description})">
+                                </ns-finder>
+                              </ns-group-control>
+                            </div>
+                          </div>
+                          <ng-template nsTemplate="footer">
+                            <button [disabled]="conceptoCultivoForm.invalid" *ngIf="!selectedConceptoCultivo"
+                              type="button"
+                              (click)="addFormArrayItem(['subconceptos_agricola', this.selectedCultivoTab, 'evaluaciones_subconcepto'], conceptoCultivoForm ); conceptoCultivoModal.close()"
+                              class="btn bg-primary btn-sm">
+                              Añadir
+                            </button>
+                            <button [disabled]="conceptoCultivoForm.invalid" *ngIf="selectedConceptoCultivo"
+                              type="button"
+                              (click)="addFormArrayItem(['subconceptos_agricola', this.selectedCultivoTab, 'evaluaciones_subconcepto'], conceptoCultivoForm,tableSubconcepto.selectedIndex[0] ); conceptoCultivoModal.close()"
+                              class="btn bg-primary btn-sm">
+                              Guardar
+                            </button>
+                          </ng-template>
+                        </ns-modal>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row section">
+          <div class="col-md-12" *ngIf="!form.value.subconceptos_agricola.length">
+            <div class="emphasis">No se han registrado cultivos a este concepto</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</ng-container>

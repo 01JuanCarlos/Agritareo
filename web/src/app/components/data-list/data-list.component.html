@@ -1,0 +1,88 @@
+<!-- <div class="card card-table table-responsive shadow-0 mb-0"> -->
+
+<!-- <cdk-virtual-scroll-viewport [itemSize]="20"  > -->
+
+
+<!-- <input type="text"> <button>search</button> -->
+<!-- <button (click)="addData()">add</button> -->
+
+<div *ngIf="(disconnect || offline) && data.length > 0" class="alert alert-danger alert-styled-left alert-dismissible divfloat mmr " role="alert">
+  Error de Conexion.
+</div>
+<virtual-scroller *ngIf="cargado || offline || disconnect" [ngClass]="{'vs': !void, 'vsClean': void  }" [items]="data"
+  (update)="scrollItems = $event" (change)="onListChange($event)">
+
+  <table [id]="id" class="table compact table-bordered table-hover mb-1 border-0 ">
+    <thead #header>
+      <tr>
+        <ng-container *ngFor="let it of _headerTable; let i = index">
+          <th *ngIf="it.visible" [ngClass]="{'thlg':it.lg, 'thnormal': !it.lg, 'text-center': it.isNumeric }">
+            <a *ngIf="data.length > 0; else dataZero" href (click)="sortTable(it.field, it.isNumeric, i)" style="color: black">
+              {{ it.description }}
+              <i  [ngClass]="it.order === 2 ? 'fas fa-sort-up' : it.order === 1 ? 'fas fa-sort-down': '' "></i>
+            </a>
+            <ng-template #dataZero>
+              <a  style="color: black">
+                {{it.description}}
+              </a>
+            </ng-template>
+
+          </th>
+        </ng-container>
+      </tr>
+    </thead>
+    <tbody #container>
+      <!-- | sortTablex:path:order -->
+      <tr *ngFor="let tr of scrollItems">
+        <!-- <tr *cdkVirtualFor="let tr of data; let ix = index" > -->
+        <!-- <td>{{tr.index}} </td> -->
+        <ng-container *ngFor="let td of _headerTable">
+          <td *ngIf="td.visible" [ngClass]="{'is-checkbox': td.isBoolean, 'text-right': td.isNumeric }">
+            <ng-container *ngIf="td.isBoolean; else elseTemplate">
+              <input type="checkbox">
+            </ng-container>
+            <ng-template #elseTemplate>
+              {{ tr[td.field] || ( td.isNumeric ? 0 : '' ) }}
+            </ng-template>
+          </td>
+        </ng-container>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <div *ngIf="void && !disconnect" class="alert alert-warning alert-styled-left alert-dismissible divfloat "
+    role="alert">
+    No se encuentran resultados.
+  </div>
+  <div *ngIf="(disconnect || offline) && data.length === 0" class="alert alert-danger alert-styled-left alert-dismissible divfloat " role="alert">
+    Error de Conexion.
+  </div>
+</virtual-scroller>
+<!-- cargando {{cargando}}
+<br>
+disconnect {{disconnect}}
+<br>
+cargado  {{cargado}} -->
+<div *ngIf="!disconnect">
+  <div class="mt-2 mb-2 mmt" *ngIf="!cargado">
+    <div class="mrg"> Cargando Data de la tabla "{{title}}" </div>
+  </div>
+  <!-- <mat-progress-bar *ngIf="cargando || !disconnect && cargando" mode="query" color="accent" class="mt-1"></mat-progress-bar> -->
+</div>
+<div *ngIf="cargado" class="registrosInfo">
+  Mostrando {{data.length}} registros
+</div>
+
+<!-- <div *ngIf="disconnect">
+        <p>Service Down!</p>
+      </div> -->
+<!-- <p>
+        {{scroll}}
+      </p> -->
+
+<!-- <p *ngIf="sr.fail">
+        Service Down Prra
+
+      </p>
+      <p>{{sr.fail}}</p> -->

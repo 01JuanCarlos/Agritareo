@@ -1,0 +1,163 @@
+<div class="container-fluid mt-2" *ngIf="isNotFoundDocument">
+  <div class="row">
+    <div class="col-md-12">
+      <h3>Lo sentimos, no se encontró un cultivo con ese código</h3>
+    </div>
+  </div>
+</div>
+
+<ng-container *ngIf="!isNotFoundDocument">
+  <div class="header-content">
+    <a href="#" class="mr-2" (click)="$event.preventDefault(); backClicked()">
+      <i class="icon-arrow-left7" style="font-size: 0.8rem"></i>
+      Regresar
+    </a>
+    <h1>
+      {{ !isNewDocument ? "Controlador de riego " + form.value.nombre : "Nuevo controlador de riego" }}
+    </h1>
+    <div class="d-inline-flex justify-content-center flex-column">
+      <div class="ml-3 button-wrapper d-inline-block">
+        <ns-button *ngIf="isNewDocument" (btClick)="saveDocument()" label="Guardar" icon="icon-floppy-disk">
+        </ns-button>
+        <ns-button *ngIf="!isNewDocument" (btClick)="updateDocument()" label="Actualizar" icon="icon-floppy-disk"
+          type="warning">
+        </ns-button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid mt-2">
+    <div class="row" [formGroup]="form">
+      <div class="col-md-12">
+        <h3>Datos de la campaña agricola</h3>
+
+        <div class="row section">
+          <div class="col-md-2">
+            <ns-group-control>
+              <ns-label-control>Código</ns-label-control>
+              <ns-input-control formControlName="codigo"></ns-input-control>
+            </ns-group-control>
+          </div>
+          <div class="col-md-2">
+            <ns-group-control>
+              <ns-label-control>Descripcion</ns-label-control>
+              <ns-input-control formControlName="descripcion"></ns-input-control>
+            </ns-group-control>
+          </div>
+          <div class="col-md-2">
+            <ns-group-control>
+              <ns-label-control>Año</ns-label-control>
+              <ns-input-control type=number formControlName="anio"></ns-input-control>
+            </ns-group-control>
+          </div>
+          <div class="col-md-2">
+            <ns-group-control >
+              <ns-label-control>Cultivo</ns-label-control>
+                         <div class="divDeComponente"> 
+                              <div>
+                                
+                                <button
+                                (click)="abrirmodal()"
+                                data-toggle="modal" data-target="#ModalCultivo"
+                                autocomplete="off"
+                                [disabled]="disabled || readonly"
+                                class="boton"
+                                type="button"
+                                 >
+                                    <i class="iDeboton" [ngClass]="{'icon-search4': !loading}">
+                                    </i>
+                                </button>
+                              </div>
+                            <div> 
+                                <ns-finder [componentId]="finderCultivo" [codigo]="codigo" [descripcion]="descripcion" 
+                                [idseleccionado]="id" formControlName="idcultivo"></ns-finder>
+                            </div>
+                         </div>
+            </ns-group-control>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+
+
+<!--Modal-->
+
+<div class="modal fade" id="ModalCultivo" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document" style=" max-width: 500px; max-height: 300px;">
+    <div class="modal-content"  style="height: 500px;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Cultivo</h5>
+      </div>
+    <br>
+      <ns-table-simple
+        
+        class="table-responsive"
+        [controller]="viewURL"
+        [header]="tableHeader"
+        (tsDblClick)="goEditMode($event)"
+        #table
+       >
+      </ns-table-simple>
+    <br>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .example-section {
+    margin: 12px 0;
+  }
+  
+  .example-margin {
+    margin: 0 12px;
+  }
+  ul {
+    list-style-type: none;
+    margin-top: 4px;
+  }
+  ::ng-deep .mat-checkbox-frame {
+  display: none;
+  }
+  .example-list-section{
+
+  }
+  ::ng-deep .mat-checkbox-label{
+    margin-top: 15px;
+    text-align: justify;
+  }
+  .vicible{
+    display: block;
+  }
+</style>
+
+
+<section class="example-section">
+  <span class="example-list-section">
+    <mat-checkbox class="example-margin"
+                  [checked]="allComplete"
+                  [color]="task.color"
+                  [indeterminate]="someComplete()"
+                  (change)="setAll($event.checked)">
+      {{task.name}}
+    </mat-checkbox>
+  </span>
+  <span class="example-list-section">
+    <ul>
+      <li *ngFor="let subtask of task.subtasks">
+        <mat-checkbox [(ngModel)]="subtask.completed"
+                      [color]="subtask.color"
+                      (ngModelChange)="updateAllComplete()">
+          {{subtask.name}}
+        </mat-checkbox>
+      </li>
+    </ul>
+  </span>
+</section>
+

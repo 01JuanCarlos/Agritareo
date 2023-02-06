@@ -1,0 +1,27 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="false" class="w-100" [ngClass]="{'form-loading': this.isLoading}">
+  <div class="col-md-12 px-1">
+    <div class="row">
+      <div class="col-md-12">
+          <ns-group-control required>
+            <!-- Este es un select -->
+            <ns-label-control>{{ 'Parámetro' | translate }}</ns-label-control>
+            <ns-finder [componentId]="componentId" formControlName="idparametro" (selected)="onSelectFinder($event)" [readonly]="!!form.value.id"></ns-finder>
+          </ns-group-control>
+        </div>
+        <div class="col-md-12">
+          <ns-group-control>
+            <ns-label-control>{{ 'Descripcion' | translate }}</ns-label-control>
+            <ns-input-control formControlName="descripcion" name="descripcion" [readonly]="!!form.value.idparametro">
+            </ns-input-control>
+          </ns-group-control>
+        </div>
+        <div class="col-md-12">
+          <ns-group-control required>
+            <ns-label-control>{{ 'Valor' | translate }}</ns-label-control>
+            <ns-input-control formControlName="valor" name="valor">
+            </ns-input-control>
+          </ns-group-control>
+        </div>
+    </div>
+  </div>
+</form>
